@@ -1,7 +1,4 @@
-interface Regex {
-  password: RegExp;
-  phone: RegExp;
-}
+import { Regex } from '@/types/type';
 
 const REGEX: Regex = Object.freeze({
   password: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/,
