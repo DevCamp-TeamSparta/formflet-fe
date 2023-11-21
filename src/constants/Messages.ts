@@ -7,7 +7,7 @@ const MESSAGE: Message = Object.freeze({
   inputPasswordCheck: '비밀번호를 다시 입력해주세요',
   unEqualPassword: '비밀번호가 일치하지 않습니다.',
   inputName: '이름을 입력하세요',
-  inputPhone: '-을 포함하여 전화번호를 입력하세요.',
+  inputMobile: '-을 포함하여 전화번호를 입력하세요.',
 });
 
 export default MESSAGE;

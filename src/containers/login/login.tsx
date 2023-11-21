@@ -3,8 +3,8 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import Button from '@/components/common/Button';
-import Input from '@/components/common/Input';
+import Button from '@/components/basic/Button';
+import InputGroup from '@/components/common/InputGroup';
 import { loginFormSchema, LoginFormSchema } from '@/types/type';
 import MESSAGE from '@/constants/Messages';
 import userApi from '@/services/UserApi';
@@ -28,11 +28,8 @@ export default function Login() {
   const onSubmit: SubmitHandler<LoginFormSchema> = async (data: LoginFormSchema) => {
     // API 구현
     try {
-      const res = await userApi.post('/users/signin', {
-        email: data.email,
-        password: data.password,
-      });
-      console.log(res);
+      const res = await userApi.post('/users/login', data, { withCredentials: true });
+      console.log('respose : ', res);
 
       // 라우팅 테스트 성공
       router.push('/');
@@ -41,21 +38,37 @@ export default function Login() {
     }
   };
 
+  const onClickSignUp = () => {
+    router.push('/signup');
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Input id="email" required placeholder={MESSAGE.inputEmail} {...register('email')} />
-      <div>{errors.email?.message}</div>
-      <Input
+      <InputGroup
+        className="form-control"
+        id="email"
+        required
+        placeholder={MESSAGE.inputEmail}
+        errorMessage={errors.email?.message}
+        {...register('email')}
+      />
+
+      <InputGroup
         id="password"
         type="password"
         required
         placeholder={MESSAGE.inputPassword}
+        errorMessage={errors.password?.message}
         {...register('password')}
       />
-      <div>{errors.password?.message}</div>
-      <Button id="submit-btn" type="submit">
-        로그인하기
-      </Button>
+      <div>
+        <Button id="btn-login" type="submit">
+          로그인
+        </Button>
+        <Button id="btn-signup" type="button" onClick={onClickSignUp}>
+          회원가입
+        </Button>
+      </div>
     </form>
   );
 }
