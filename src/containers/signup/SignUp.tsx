@@ -3,6 +3,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import Button from '@/components/basic/Button';
 import InputGroup from '@/components/common/InputGroup';
 import MESSAGE from '@/constants/Messages';
@@ -13,27 +14,23 @@ export default function SignUp() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<SignUpFormSchema>({
     resolver: zodResolver(signUpFormSchema),
   });
 
   const router = useRouter();
+  const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(true);
 
-  const onSubmit: SubmitHandler<SignUpFormSchema> = async (data: SignUpFormSchema) => {
+  const signUpFormSubmit: SubmitHandler<SignUpFormSchema> = async (data: SignUpFormSchema) => {
     try {
-      console.log('data : ', data);
-      console.log('password length : ', data.password.length);
-      const res = await userApi.post(
-        '/users/signup',
-        {
-          email: data.email,
-          password: data.password,
-          name: data.name,
-          mobile: data.mobile,
-        },
-        { withCredentials: true },
-      );
+      const res = await userApi.post('/users/signup', {
+        email: data.email,
+        password: data.password,
+        name: data.name,
+        mobile: data.mobile,
+      });
       console.log('res', res);
       router.push('/');
     } catch (e) {
@@ -41,8 +38,24 @@ export default function SignUp() {
     }
   };
 
+  const isVaildEmail = async () => {
+    const email: string = getValues('email');
+
+    try {
+      const res = await userApi.get('/users/checkemail', {
+        params: {
+          email,
+        },
+      });
+      console.log('message', res.data.message);
+      if (res) setSignUpButtonDisabled(false);
+    } catch (e) {
+      console.log('[ERROR] : ', e);
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(signUpFormSubmit)}>
       <InputGroup
         id="email"
         required
@@ -51,7 +64,7 @@ export default function SignUp() {
         {...register('email')}
       />
 
-      <Button id="btn-emailcheck" type="button">
+      <Button id="btn-emailCheck" type="button" onClick={isVaildEmail}>
         이메일 인증
       </Button>
       <br />
@@ -89,8 +102,8 @@ export default function SignUp() {
         {...register('mobile')}
       />
 
-      <Button id="btn-signup" type="submit">
-        회원가입
+      <Button id="btn-signup" type="submit" disabled={signUpButtonDisabled}>
+        회원가입하기
       </Button>
     </form>
   );

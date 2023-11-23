@@ -25,13 +25,13 @@ export default function Login() {
    *
    * async await axios로 서버와 통신하여 이메일, 비밀번호 유효성 처리 로직
    */
-  const onSubmit: SubmitHandler<LoginFormSchema> = async (data: LoginFormSchema) => {
+  const loginFormSubmit: SubmitHandler<LoginFormSchema> = async (data: LoginFormSchema) => {
     // API 구현
     try {
-      const res = await userApi.post('/users/login', data, { withCredentials: true });
-      console.log('respose : ', res);
+      const res = await userApi.post('/users/login', data);
+      console.log('응답 : ', res);
 
-      // 라우팅 테스트 성공
+      // res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅
       router.push('/');
     } catch (e) {
       console.log('[ERROR]', e);
@@ -43,7 +43,7 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(loginFormSubmit)}>
       <InputGroup
         className="form-control"
         id="email"

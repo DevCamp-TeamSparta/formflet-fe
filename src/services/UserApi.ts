@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 const userApi = axios.create({
-  baseURL: '',
+  baseURL: 'http://3.36.26.172:8000',
   headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
 });
 
 userApi.interceptors.request.use(
@@ -15,5 +16,4 @@ userApi.interceptors.request.use(
     return Promise.reject(error);
   },
 );
-
 export default userApi;
