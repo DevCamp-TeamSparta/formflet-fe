@@ -47,7 +47,9 @@ export default function SignUp() {
           email,
         },
       });
-      console.log('message', res.data.message);
+      const message = res.data ? res.data.message : null;
+
+      console.log('message', message);
       if (res) setSignUpButtonDisabled(false);
     } catch (e) {
       console.log('[ERROR] : ', e);
