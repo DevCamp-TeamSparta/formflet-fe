@@ -3,11 +3,13 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import { AxiosResponse } from 'axios';
 import Button from '@/components/basic/Button';
 import InputGroup from '@/components/common/InputGroup';
 import { loginFormSchema, LoginFormSchema } from '@/types/type';
 import MESSAGE from '@/constants/Messages';
 import userApi from '@/services/UserApi';
+import getToken from '@/utils/auth/tokenUtils';
 
 export default function Login() {
   const {
@@ -25,14 +27,19 @@ export default function Login() {
    *
    * async await axios로 서버와 통신하여 이메일, 비밀번호 유효성 처리 로직
    */
-  const loginFormSubmit: SubmitHandler<LoginFormSchema> = async (data: LoginFormSchema) => {
+  const loginFormSubmit: SubmitHandler<LoginFormSchema> = async (
+    data: LoginFormSchema,
+  ): Promise<void> => {
     // API 구현
     try {
-      const res = await userApi.post('/users/login', data);
-      console.log('응답 : ', res);
+      const res: AxiosResponse = await userApi.post('/users/login', data);
 
-      // res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅
+      const accessTokenString = await getToken(res, 'authorization');
+      const refreshTokenString = await getToken(res, 'refresh-token');
+
+      console.log('Token : ', accessTokenString, refreshTokenString);
       router.push('/');
+      // res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅
     } catch (e) {
       console.log('[ERROR]', e);
     }
