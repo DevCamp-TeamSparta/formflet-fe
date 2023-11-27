@@ -10,7 +10,7 @@ import MESSAGE from '@/constants/Messages';
 import { SignUpFormSchema, signUpFormSchema } from '@/types/type';
 import userApi from '@/services/UserApi';
 
-export default function SignUp() {
+export default function Join() {
   const {
     register,
     handleSubmit,
@@ -25,7 +25,7 @@ export default function SignUp() {
 
   const signUpFormSubmit: SubmitHandler<SignUpFormSchema> = async (data: SignUpFormSchema) => {
     try {
-      const res = await userApi.post('/users/signup', {
+      const res = await userApi.post('/users/join', {
         email: data.email,
         password: data.password,
         name: data.name,
@@ -42,7 +42,7 @@ export default function SignUp() {
     const email: string = getValues('email');
 
     try {
-      const res = await userApi.get('/users/checkemail', {
+      const res = await userApi.get('/users/check-email', {
         params: {
           email,
         },
