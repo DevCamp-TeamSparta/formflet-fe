@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputGroupProps } from '@/types/type';
+import { InputGroupProps } from '@/types/typeProps';
 import Input from '../basic/Input';
 
 const InputGroup = React.forwardRef<HTMLInputElement, InputGroupProps>(

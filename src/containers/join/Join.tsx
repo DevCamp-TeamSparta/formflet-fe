@@ -2,109 +2,71 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
+
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Button from '@/components/basic/Button';
 import InputGroup from '@/components/common/InputGroup';
-import MESSAGE from '@/constants/Messages';
-import { SignUpFormSchema, signUpFormSchema } from '@/types/type';
-import userApi from '@/services/UserApi';
+import { JoinFormSchema, joinFormSchema } from '@/types/type';
+import PATH from '@/constants/path/Path';
+import userJoin from '@/services/api/users/userJoin';
+import InputGroupArrays from '@/constants/inputProps/InputGroupArrays';
+import userCheckEmail from '@/services/api/users/userCheckEmail';
 
 export default function Join() {
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm<SignUpFormSchema>({
-    resolver: zodResolver(signUpFormSchema),
+  const { register, handleSubmit, getValues } = useForm<JoinFormSchema>({
+    resolver: zodResolver(joinFormSchema),
   });
 
-  const router = useRouter();
-  const [signUpButtonDisabled, setSignUpButtonDisabled] = useState(true);
+  const route = useRouter();
+  const [joinButtonDisabled, setJoinButtonDisabled] = useState(true);
 
-  const signUpFormSubmit: SubmitHandler<SignUpFormSchema> = async (data: SignUpFormSchema) => {
+  const joinFormSubmit: SubmitHandler<JoinFormSchema> = async (data: JoinFormSchema) => {
     try {
-      const res = await userApi.post('/users/join', {
-        email: data.email,
-        password: data.password,
-        name: data.name,
-        mobile: data.mobile,
-      });
-      console.log('res', res);
-      router.push('/');
+      const response = await userJoin(data);
+      console.log('res', response);
+      route.push(PATH.ROUTE.ROOT);
     } catch (e) {
-      console.log('[ERROR]', e);
+      console.error('[ERROR]', e);
     }
   };
 
+  const { JOIN_GROUP_PROPS } = InputGroupArrays();
+
   const isVaildEmail = async () => {
-    const email: string = getValues('email');
+    const email = getValues('email');
 
     try {
-      const res = await userApi.get('/users/check-email', {
-        params: {
-          email,
-        },
-      });
-      const message = res.data ? res.data.message : null;
+      const response = await userCheckEmail(email);
+      const { message } = response.data;
 
       console.log('message', message);
-      if (res) setSignUpButtonDisabled(false);
+      if (response) setJoinButtonDisabled(false);
     } catch (e) {
-      console.log('[ERROR] : ', e);
+      console.error('[ERROR] : ', e);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(signUpFormSubmit)}>
-      <InputGroup
-        id="email"
-        required
-        placeholder={MESSAGE.inputEmail}
-        errorMessage={errors.email?.message}
-        {...register('email')}
-      />
+    <form onSubmit={handleSubmit(joinFormSubmit)}>
+      {JOIN_GROUP_PROPS.map((field) => (
+        <div key={field.id}>
+          <InputGroup
+            id={field.id}
+            type={field.type}
+            placeholder={field.placeholder}
+            errorMessage={field.errorMessage}
+            {...register(field.id)}
+          />
+          {field.id === 'email' && (
+            <Button id="btn-checkEmail" type="button" onClick={isVaildEmail}>
+              이메일 인증
+            </Button>
+          )}
+        </div>
+      ))}
 
-      <Button id="btn-emailCheck" type="button" onClick={isVaildEmail}>
-        이메일 인증
-      </Button>
-      <br />
-      <InputGroup
-        id="password"
-        type="password"
-        required
-        placeholder={MESSAGE.inputPassword}
-        errorMessage={errors.password?.message}
-        {...register('password')}
-      />
-
-      <InputGroup
-        id="passwordCheck"
-        type="password"
-        required
-        placeholder={MESSAGE.inputPasswordCheck}
-        errorMessage={errors.passwordCheck?.message}
-        {...register('passwordCheck')}
-      />
-
-      <InputGroup
-        id="name"
-        required
-        placeholder={MESSAGE.inputName}
-        errorMessage={errors.name?.message}
-        {...register('name')}
-      />
-
-      <InputGroup
-        id="mobile"
-        required
-        placeholder={MESSAGE.inputMobile}
-        errorMessage={errors.mobile?.message}
-        {...register('mobile')}
-      />
-
-      <Button id="btn-signup" type="submit" disabled={signUpButtonDisabled}>
+      <Button id="btn-join" type="submit" disabled={joinButtonDisabled}>
         회원가입하기
       </Button>
     </form>
