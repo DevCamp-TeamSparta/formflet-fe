@@ -16,8 +16,7 @@
     "react-cookie": "^6.1.1",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
-    "zod": "^3.22.4",
-    "zustand": "^4.4.6"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.2",

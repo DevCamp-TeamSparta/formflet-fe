@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-const userApi = axios.create({
-  baseURL: process.env.BASE_URL,
+const Instance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_APY_KEY,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 });
 
-userApi.interceptors.request.use(
-  function (config) {
+Instance.interceptors.request.use(
+  (config) => {
     console.log('request', config);
     return config;
   },
-  function (error) {
-    console.log('request error', error);
+  (error) => {
+    console.error('request error', error);
     return Promise.reject(error);
   },
 );
 
-export default userApi;
+export default Instance;
