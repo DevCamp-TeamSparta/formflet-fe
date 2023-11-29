@@ -1,0 +1,17 @@
+.pseudoBefore::before {
+    content: var(--pseudoBefore--content);
+    font-family: Arial;
+}
+
+.layout {
+    --content-width: minmax(auto,708px);
+    grid-template-columns: [full-start] 1fr [content-start] var(--content-width) [content-end] 1fr [full-end];
+    display: grid;
+    width: 100%;
+}
+.layout-full {
+    grid-column: full;
+}
+.layout-content {
+    grid-column: content;
+}
