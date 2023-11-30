@@ -1,10 +1,20 @@
 import { AxiosResponse } from 'axios';
+import Cookies from 'universal-cookie';
 import { Token } from '@/types/type';
 
-async function getToken(res: AxiosResponse, name: string): Promise<Token> {
-  const tokenString: Token = await res.headers[`${name}`];
-  const token: Token = tokenString?.split(' ')[1];
-  return token;
-}
+export default function tokenUtilsx() {
+  async function getToken(res: AxiosResponse, name: string): Promise<Token> {
+    const tokenString: Token = await res.headers[`${name}`];
+    const token: Token = tokenString?.replace('Bearer ', '');
 
-export default getToken;
+    return token;
+  }
+
+  function setTokenCookie(name: string, token: Token): void {
+    const cookies = new Cookies();
+
+    cookies.set(name, token, { path: '/' });
+  }
+
+  return { getToken, setTokenCookie };
+}

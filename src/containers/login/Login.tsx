@@ -8,10 +8,10 @@ import Link from 'next/link';
 import Button from '@/components/basic/Button';
 import InputGroup from '@/components/common/InputGroup';
 import { loginFormSchema, LoginFormSchema } from '@/types/type';
-import getToken from '@/utils/auth/tokenUtils';
 import authLogin from '@/services/api/auth/authLogin';
 import PATH from '@/constants/path/Path';
 import InputGroupArrays from '@/constants/inputProps/InputGroupArrays';
+import tokenUtils from '@/utils/auth/tokenUtils';
 
 export default function Login() {
   const { register, handleSubmit } = useForm<LoginFormSchema>({
@@ -20,6 +20,7 @@ export default function Login() {
 
   const router = useRouter();
   const { LOGIN_GROUP_PROPS } = InputGroupArrays();
+  const { getToken, setTokenCookie } = tokenUtils();
 
   const loginFormSubmit: SubmitHandler<LoginFormSchema> = async (
     data: LoginFormSchema,
@@ -28,10 +29,15 @@ export default function Login() {
     try {
       const res: AxiosResponse = await authLogin(data);
 
-      const accessTokenString = await getToken(res, 'authorization');
-      const refreshTokenString = await getToken(res, 'refresh-token');
+      const accessToken = await getToken(res, 'access-token');
+      const refreshToken = await getToken(res, 'refresh-token');
 
-      console.log('Token : ', accessTokenString, refreshTokenString);
+      setTokenCookie('access-token', accessToken);
+      setTokenCookie('refresh-token', refreshToken);
+
+      console.log('Login Response : ', res);
+
+      console.log('Token : ', accessToken, refreshToken);
       router.push(PATH.ROUTE.ROOT);
       // res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅
     } catch (e) {
@@ -40,7 +46,7 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit(loginFormSubmit)}>
+    <form className="" onSubmit={handleSubmit(loginFormSubmit)}>
       {LOGIN_GROUP_PROPS.map((field) => (
         <InputGroup
           key={field.id}
@@ -51,12 +57,13 @@ export default function Login() {
           {...register(field.id)}
         />
       ))}
-
       <div>
-        <Button id="btn-login" type="submit">
+        <Button className="" id="btn-login" type="submit">
           로그인
         </Button>
-        <Link href={PATH.ROUTE.JOIN}>회원가입</Link>
+        <Link className="" href={PATH.ROUTE.JOIN}>
+          회원가입
+        </Link>
       </div>
     </form>
   );
