@@ -25,7 +25,7 @@ export default function Login() {
   const loginFormSubmit: SubmitHandler<LoginFormSchema> = async (
     data: LoginFormSchema,
   ): Promise<void> => {
-    // API 구현
+    // API 구현;
     try {
       const res: AxiosResponse = await authLogin(data);
 
@@ -34,11 +34,7 @@ export default function Login() {
 
       setTokenCookie('access-token', accessToken);
       setTokenCookie('refresh-token', refreshToken);
-
-      console.log('Login Response : ', res);
-
-      console.log('Token : ', accessToken, refreshToken);
-      router.push(PATH.ROUTE.ROOT);
+      router.push(PATH.ROUTE.MYPAGE);
       // res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅
     } catch (e) {
       console.error('[ERROR]', e);
