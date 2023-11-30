@@ -5,9 +5,14 @@
 
 .layout {
     --content-width: minmax(auto,708px);
-    grid-template-columns: [full-start] 1fr [content-start] var(--content-width) [content-end] 1fr [full-end];
+    --margin-width: minmax(96px,1fr);
+    grid-template-columns: [full-start] var(--margin-width) [content-start] var(--content-width) [content-end] var(--margin-width) [full-end];
     display: grid;
     width: 100%;
+}
+.layout-wide{
+    --content-width: 1fr;
+    --margin-width: 96px;
 }
 .layout-full {
     grid-column: full;
