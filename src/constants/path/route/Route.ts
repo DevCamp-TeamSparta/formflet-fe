@@ -2,6 +2,8 @@ const ROOT = '/';
 
 const JOIN = '/join';
 
-const ROUTE = Object.freeze({ ROOT, JOIN });
+const LOGIN = '/login';
+
+const ROUTE = Object.freeze({ ROOT, JOIN, LOGIN });
 
 export default ROUTE;
