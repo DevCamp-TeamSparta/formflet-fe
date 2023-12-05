@@ -1,60 +1,52 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import MESSAGE from '../Messages';
-import { JoinFormSchema, JoinGroup, LoginGroup, joinFormSchema } from '@/types/type';
+import { JoinGroup, LoginGroup } from '@/types/type';
 
 export default function InputGroupArrays() {
-  const {
-    formState: { errors },
-  } = useForm<JoinFormSchema>({
-    resolver: zodResolver(joinFormSchema),
-  });
-
   const JOIN_GROUP_PROPS: JoinGroup[] = [
     {
+      label: '이메일 아이디',
       id: 'email',
       type: 'text',
       placeholder: MESSAGE.inputEmail,
-      errorMessage: errors.email?.message,
     },
     {
+      label: '비밀번호',
       id: 'password',
       type: 'password',
       placeholder: MESSAGE.inputPassword,
-      errorMessage: errors.password?.message,
     },
     {
+      label: '비밀번호 확인',
       id: 'checkPassword',
       type: 'password',
       placeholder: MESSAGE.inputcheckPassword,
-      errorMessage: errors.checkPassword?.message,
     },
     {
+      label: '이름',
       id: 'name',
       type: 'text',
       placeholder: MESSAGE.inputName,
-      errorMessage: errors.name?.message,
     },
     {
+      label: '휴대폰',
       id: 'mobile',
       type: 'text',
       placeholder: MESSAGE.inputMobile,
-      errorMessage: errors.mobile?.message,
     },
   ];
 
   const LOGIN_GROUP_PROPS: LoginGroup[] = [
     {
+      label: '이메일 아이디',
       id: 'email',
       type: 'text',
       placeholder: MESSAGE.inputEmail,
-      errorMessage: errors.email?.message,
     },
     {
+      label: '비밀번호',
       id: 'password',
       type: 'password',
       placeholder: MESSAGE.inputPassword,
-      errorMessage: errors.password?.message,
     },
   ];
 
