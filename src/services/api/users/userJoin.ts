@@ -9,6 +9,7 @@ export default async function userJoin(data: JoinFormSchema): Promise<AxiosRespo
     password: data.password,
     name: data.name,
     mobile: data.mobile,
+    job: data.job,
   });
 
   return response;

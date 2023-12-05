@@ -1,3 +1,81 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@layer components {
+  .t1 {
+    @apply text-[39px] font-normal leading-[100%];
+  }
+
+  .t1-bold {
+    @apply text-[39px] font-bold leading-[100%];
+  }
+
+  .h1 {
+    @apply text-[31px] font-normal leading-[100%];
+  }
+
+  .h1-bold {
+    @apply text-[31px] font-bold leading-[100%];
+  }
+
+  .h2 {
+    @apply text-[25px] font-normal leading-[100%];
+  }
+
+  .h2-bold {
+    @apply text-[25px] font-bold leading-[100%];
+  }
+
+  .h3 {
+    @apply text-[20px] font-normal leading-[100%];
+  }
+
+  .h3-bold {
+    @apply text-[20px] font-bold leading-[100%];
+  }
+
+  .b1 {
+    @apply text-[16px] font-normal leading-[28px];
+  }
+
+  .b1-bold {
+    @apply text-[16px] font-bold leading-[28px];
+  }
+
+  .b2 {
+    @apply text-[13px] font-normal leading-[28px];
+  }
+
+  .b2-bold {
+    @apply text-[13px] font-bold leading-[28px];
+  }
+
+  .b3 {
+    @apply text-[10px] font-normal leading-[28px];
+  }
+
+  .b3-bold {
+    @apply text-[10px] font-bold leading-[28px];
+  }
+}
+input {
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+button {
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+select {
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+input:focus {
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+select:focus {
+  outline: none;
+}

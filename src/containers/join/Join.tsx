@@ -2,24 +2,30 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/basic/Button';
-import InputGroup from '@/components/common/InputGroup';
 import { JoinFormSchema, joinFormSchema } from '@/types/type';
 import PATH from '@/constants/path/Path';
 import userJoin from '@/services/api/users/userJoin';
 import InputGroupArrays from '@/constants/inputProps/InputGroupArrays';
-import userCheckEmail from '@/services/api/users/userCheckEmail';
+import DropDownGroup from '@/components/common/dropDownGroup';
+import JOB_LIST from '@/constants/jobs/JobList';
+import JoinAgree from './JoinAgree';
+import JoinInputGroup from '@/components/template/JoinInputGroup';
 
 export default function Join() {
-  const { register, handleSubmit, getValues } = useForm<JoinFormSchema>({
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm<JoinFormSchema>({
     resolver: zodResolver(joinFormSchema),
   });
 
   const route = useRouter();
-  const [joinButtonDisabled, setJoinButtonDisabled] = useState(true);
+  const [joinButtonDisabled, setJoinButtonDisabled] = useState<boolean>(false);
 
   const joinFormSubmit: SubmitHandler<JoinFormSchema> = async (data: JoinFormSchema) => {
     try {
@@ -32,43 +38,42 @@ export default function Join() {
   };
 
   const { JOIN_GROUP_PROPS } = InputGroupArrays();
-
-  const isVaildEmail = async () => {
-    const email = getValues('email');
-
-    try {
-      const response = await userCheckEmail(email);
-      const { message } = response.data;
-
-      console.log('message', message);
-      if (response) setJoinButtonDisabled(false);
-    } catch (e) {
-      console.error('[ERROR] : ', e);
-    }
-  };
-
   return (
-    <form onSubmit={handleSubmit(joinFormSubmit)}>
-      {JOIN_GROUP_PROPS.map((field) => (
-        <div key={field.id}>
-          <InputGroup
-            id={field.id}
-            type={field.type}
-            placeholder={field.placeholder}
-            errorMessage={field.errorMessage}
-            {...register(field.id)}
-          />
-          {field.id === 'email' && (
-            <Button id="btn-checkEmail" type="button" onClick={isVaildEmail}>
-              이메일 인증
+    <main className="flex w-[1440px] h-[1024px] flex-col items-center">
+      <div className="flex w-[504px] flex-col justify-end items-center">
+        <form
+          className="flex w-[504px] flex-col items-center gap-10 px-0 py-[60px]"
+          onSubmit={handleSubmit(joinFormSubmit)}
+        >
+          <p className="t1-bold text-purple-normal-normal">폼플렛</p>
+          <p className="h2-bold text-gray-dark-darkactive">회원가입</p>
+          <div className="flex flex-col gap-5 self-stretch">
+            {JOIN_GROUP_PROPS.map((field) => (
+              <JoinInputGroup
+                key={field.id}
+                id={field.id}
+                label={field.label}
+                type={field.type}
+                errorMessage={errors[field.id]?.message}
+                errors={errors}
+                getValues={getValues}
+                placeholder={field.placeholder}
+                {...register(field.id)}
+              />
+            ))}
+            <DropDownGroup id="job" items={JOB_LIST} label="직무" {...register('job')} />
+            <JoinAgree setJoinButtonDisabled={setJoinButtonDisabled} />
+            <Button
+              className="flex bg-purple-normal-normal w-[502px] h-14 justify-center items-center rounded-lg disabled:bg-gray-normal-normal disabled:text-gray-normal-normal"
+              id="btn-join"
+              type="submit"
+              disabled={joinButtonDisabled}
+            >
+              <p className="b1-bold text-[color:var(--white,#FFF)]">회원가입</p>
             </Button>
-          )}
-        </div>
-      ))}
-
-      <Button id="btn-join" type="submit" disabled={joinButtonDisabled}>
-        회원가입하기
-      </Button>
-    </form>
+          </div>
+        </form>
+      </div>
+    </main>
   );
 }

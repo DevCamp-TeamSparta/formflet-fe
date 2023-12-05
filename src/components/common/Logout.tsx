@@ -9,7 +9,7 @@ export default function Logout() {
   const route = useRouter();
   const cookies = new Cookies();
   const handleLogout = () => {
-    cookies.remove('access-token');
+    cookies.remove('authorization');
     cookies.remove('refresh-token');
 
     route.push(PATH.ROUTE.ROOT);

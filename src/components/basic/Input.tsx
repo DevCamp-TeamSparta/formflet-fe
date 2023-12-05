@@ -2,42 +2,41 @@ import React from 'react';
 import { InputProps } from '@/types/typeProps';
 import autoHyphen from '@/utils/join/autoHyphen';
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ id, onChange, errorMessage, ...rest }, ref) => {
-    const [value, setValue] = React.useState('');
+const Input = React.forwardRef<HTMLInputElement, InputProps>(({ id, onChange, ...rest }, ref) => {
+  const [value, setValue] = React.useState('');
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.id !== 'mobile') {
-        setValue(e.target.value);
-      } else {
-        const autoHyphenMobile = autoHyphen(e.target);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.id !== 'mobile') {
+      setValue(e.target.value);
+    } else {
+      const autoHyphenMobile = autoHyphen(e.target);
 
-        setValue(autoHyphenMobile);
-      }
-    };
+      setValue(autoHyphenMobile);
+    }
+  };
 
-    return (
-      <div>
-        <input
-          type="text"
-          id={id}
-          value={value}
-          onChange={(e) => {
-            onChange!(e);
-            handleChange(e);
-          }}
-          ref={ref}
-          {...rest}
-        />
+  return (
+    <div>
+      <input
+        className="flex w-[502px] h-14 items-center gap-2.5 px-8 py-4 border border-[color:var(--grey-normal-normal,#9FA0A0)] rounded-lg"
+        type="text"
+        id={id}
+        value={value}
+        onChange={(e) => {
+          onChange!(e);
+          handleChange(e);
+        }}
+        ref={ref}
+        {...rest}
+      />
 
-        {value && (
+      {/* {value && (
           <button type="button" onClick={() => setValue('')}>
             x
           </button>
-        )}
-      </div>
-    );
-  },
-);
+        )} */}
+    </div>
+  );
+});
 
 export default Input;
