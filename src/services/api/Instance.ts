@@ -1,5 +1,5 @@
-import axios from 'axios';
-// import Cookies from 'universal-cookie';
+import axios, { InternalAxiosRequestConfig } from 'axios';
+import Cookies from 'universal-cookie';
 
 const Instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_APY_KEY,
@@ -8,10 +8,14 @@ const Instance = axios.create({
 });
 
 Instance.interceptors.request.use(
-  (config) => {
-    // const cookie = new Cookies();
-    // const accessToken = cookie.get('authorizaiton');
-    // 헤더에 토큰 추가 로직 구현
+  (config: InternalAxiosRequestConfig) => {
+    const cookie = new Cookies();
+    const accessToken = cookie.get('authorization');
+
+    if (accessToken) {
+      Object.assign(config.headers, { Authorization: `Bearer ${accessToken}` });
+    }
+
     console.log('request', config);
     return config;
   },
@@ -31,9 +35,10 @@ Instance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+export default Instance;
+
 // instance.interceptos.response에 토큰의 유효기간이 만료에 대한 에러일 경우 refresh 토큰을 다시 기존의 request의 access-token (or Authorization) 헤더에 담아서 요청,
 // 추가로 만료된 토큰을 발급하는 과정에서 여러 요청이 발생할 수 있기 때문에 재발급이전에 진행했던 요청을 리스트에 담아뒀다가 발급 이후 다시 발송하는 로직 추가.
-export default Instance;
 
 /**
  * import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';

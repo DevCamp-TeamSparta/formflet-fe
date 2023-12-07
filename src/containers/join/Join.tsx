@@ -46,7 +46,7 @@ export default function Join() {
           onSubmit={handleSubmit(joinFormSubmit)}
         >
           <p className="t1-bold text-purple-normal-normal">폼플렛</p>
-          <p className="h2-bold text-gray-dark-darkactive">회원가입</p>
+          <p className="h2-bold text-gray-dark-active">회원가입</p>
           <div className="flex flex-col gap-5 self-stretch">
             {JOIN_GROUP_PROPS.map((field) => (
               <JoinInputGroup
@@ -64,12 +64,12 @@ export default function Join() {
             <DropDownGroup id="job" items={JOB_LIST} label="직무" {...register('job')} />
             <JoinAgree setJoinButtonDisabled={setJoinButtonDisabled} />
             <Button
-              className="flex bg-purple-normal-normal w-[502px] h-14 justify-center items-center rounded-lg disabled:bg-gray-normal-normal disabled:text-gray-normal-normal"
+              className="flex bg-purple-normal-normal box-shadow-normal w-[502px] h-14 justify-center items-center rounded-lg disabled:bg-gray-normal-normal disabled:text-gray-normal-normal "
               id="btn-join"
               type="submit"
               disabled={joinButtonDisabled}
             >
-              <p className="b1-bold text-[color:var(--white,#FFF)]">회원가입</p>
+              <p className="b1-bold text-white">회원가입</p>
             </Button>
           </div>
         </form>

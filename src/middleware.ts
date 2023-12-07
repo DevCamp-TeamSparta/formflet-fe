@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import PATH from './constants/path/Path';
 
 export const config = {
   matcher: [
@@ -13,20 +14,33 @@ export const config = {
   ],
 };
 
-export default function middleware() {
-  // const url = request.nextUrl.pathname;
+export default function middleware(request: NextRequest) {
+  const pathName = request.nextUrl.pathname;
 
-  // const accessToken = request.cookies.get('access-token')?.value;
-  // const refreshToken = request.cookies.get('refresh-token')?.value;
+  const accessToken = request.cookies.get('authorization')?.value;
 
-  // const loginUrl = new URL('/login', request.url);
+  const rootUrl = new URL(PATH.ROUTE.ROOT, request.url);
+  const loginUrl = new URL(PATH.ROUTE.LOGIN, request.url);
+  const myPageUrl = new URL(PATH.ROUTE.MYPAGE, request.url);
 
-  // console.log(request.cookies.get('access-token')?.value);
+  if (pathName.startsWith(PATH.ROUTE.MYPAGE) && !accessToken) {
+    return NextResponse.redirect(loginUrl);
+  }
 
-  // const newHeaders = new Headers(request.headers);
-  // newHeaders.set('access-token', accessToken);
-  // newHeaders.set('refresh-token', refreshToken);
-  // console.log('Header : ', newHeaders);
+  if (
+    (pathName.startsWith(PATH.ROUTE.LOGIN) || pathName.startsWith(PATH.ROUTE.JOIN)) &&
+    accessToken
+  ) {
+    return NextResponse.redirect(rootUrl);
+  }
+
+  if (pathName === PATH.ROUTE.ROOT && accessToken) {
+    return NextResponse.redirect(myPageUrl);
+  }
+
+  if (pathName.includes('/release')) {
+    // console.log(pathName);
+  }
 
   return NextResponse.next();
 }

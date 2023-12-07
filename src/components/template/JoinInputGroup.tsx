@@ -17,12 +17,12 @@ const JoinInputGroup = React.forwardRef<HTMLInputElement, InputGroupProps>(
       try {
         const email = getValues('email');
         const response = await userCheckEmail(email);
-        setEmailState({ message: MESSAGE.vaildEmail, state: true });
+        setEmailState({ message: MESSAGE.JOIN_LOGIN.vaildEmail, state: true });
 
         const { message } = response.data;
         console.log(message);
       } catch (e) {
-        setEmailState({ message: MESSAGE.inVaildEmail, state: false });
+        setEmailState({ message: MESSAGE.JOIN_LOGIN.inVaildEmail, state: false });
         console.error('[ERROR] : ', e);
       }
     };
@@ -35,18 +35,18 @@ const JoinInputGroup = React.forwardRef<HTMLInputElement, InputGroupProps>(
             </label>
             <div className="flex gap-3">
               <Input
-                className="flex w-[331.315px] h-14 items-center gap-2.5 px-8 py-4 shrink-0 border border-gray-normal-normal rounded-lg"
+                className="flex w-[331.315px] h-14 items-center gap-2.5 px-8 py-4 shrink-0 border border-gray-normal-normal box-shadow-normal rounded-lg"
                 id={id}
                 ref={ref}
                 {...rest}
               />
               <Button
-                className="flex w-[156.622px] h-14 items-center px-8 py-4 shrink-0 bg-purple-normal-normal rounded-lg gap-1.5"
+                className="flex w-[156.622px] h-14 items-center px-8 py-4 shrink-0 bg-purple-normal-normal box-shadow-normal rounded-lg gap-1.5"
                 id="btn-checkEmail"
                 type="button"
                 onClick={isVaildEmail}
               >
-                <p className="b1-bold text-[color:var(--white,#FFF)]">중복 확인</p>
+                <p className="b1-bold text-white">중복 확인</p>
                 <ArrowRightCircle />
               </Button>
             </div>

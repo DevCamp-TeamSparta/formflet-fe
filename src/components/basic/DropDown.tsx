@@ -6,7 +6,7 @@ const DropDown = React.forwardRef<HTMLSelectElement, DropDownProps>(
   ({ id, items, ...rest }, ref) => {
     return (
       <select
-        className="flex w-[504px] h-14 justify-between items-center shrink-0 text-gray-normal-normal border border-[color:var(--grey-normal-normal,#9FA0A0)] px-8 py-4 rounded-lg"
+        className="flex w-[504px] h-14 justify-between items-center shrink-0 text-gray-normal-normal border border-gray-normal-normal box-shadow-normal px-8 py-4 rounded-lg"
         key={id}
         id={id}
         ref={ref}

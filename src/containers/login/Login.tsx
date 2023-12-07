@@ -39,7 +39,7 @@ export default function Login() {
       setTokenCookie('authorization', accessToken);
       setTokenCookie('refresh-token', refreshToken);
 
-      router.push(PATH.ROUTE.MYWEBPAGE);
+      router.push(PATH.ROUTE.MYPAGE);
       // res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅
     } catch (e) {
       console.error('[ERROR]', e);
@@ -68,15 +68,15 @@ export default function Login() {
         ))}
         {/* <Link href={PATH.ROUTE.EDIT_PASSWORD}>비밀번호 재설정</Link> */}
         <Button
-          className="flex bg-purple-normal-normal w-[502px] h-14 justify-center items-center rounded-lg"
+          className="flex bg-purple-normal-normal box-shadow-normal w-[502px] h-14 justify-center items-center rounded-lg"
           id="btn-login"
           type="submit"
         >
-          <p className="b1-bold text-[color:var(--white,#FFF)]">로그인</p>
+          <p className="b1-bold text-white">로그인</p>
         </Button>
         <hr className="flex h-0 justify-center items-center self-stretch" />
         <Link
-          className="flex w-[502px] h-14 justify-center items-center border border-purple-normal-normal rounded-lg"
+          className="flex w-[502px] h-14 justify-center items-center border border-purple-normal-normal box-shadow-normal rounded-lg"
           href={PATH.ROUTE.JOIN}
         >
           <p className="b1-bold text-purple-normal-normal">회원가입</p>
