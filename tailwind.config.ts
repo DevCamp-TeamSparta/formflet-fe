@@ -6,9 +6,10 @@ const config: Config = {
   theme: {
     extend: {},
     colors: {
+      white: '#fff',
       purple: {
         light: {
-          normal: '#f2e6ff',
+          normal: '#e9ebf8',
           hover: '#ecd9ff',
           active: '#d8b0ff',
         },
@@ -19,26 +20,26 @@ const config: Config = {
         },
         dark: {
           normal: '#6000bf',
-          darkhover: '#4d0099',
-          darkactive: '#3a0073',
+          hover: '#4d0099',
+          active: '#3a0073',
         },
         darker: '#2d0059',
       },
       gray: {
         light: {
           normal: '#f5f6f6',
-          lighthover: '#f1f1f1',
-          lightactive: '#e1e2e2',
+          hover: '#f1f1f1',
+          active: '#e1e2e2',
         },
         normal: {
           normal: '#9fa0a0',
-          normalhover: '#8f9090',
-          normalactive: '#7f8080',
+          hover: '#8f9090',
+          active: '#7f8080',
         },
         dark: {
           normal: '#777878',
-          darkhover: '#5f6060',
-          darkactive: '#484848',
+          hover: '#5f6060',
+          active: '#484848',
         },
         darker: '#383838',
       },

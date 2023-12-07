@@ -10,18 +10,7 @@ export type Token = string | undefined;
 export interface Regex {
   password: RegExp;
   mobile: RegExp;
-}
-
-export interface Message {
-  inputEmail: string;
-  vaildEmail: string;
-  inVaildEmail: string;
-  inVaildLogin: string;
-  inputPassword: string;
-  inputcheckPassword: string;
-  unEqualPassword: string;
-  inputName: string;
-  inputMobile: string;
+  notionUrl: RegExp;
 }
 
 export interface StateSetBoolean {
@@ -48,27 +37,47 @@ export type JobList = {
 };
 
 export const loginFormSchema = z.object({
-  email: z.string().min(1, { message: MESSAGE.inVaildLogin }).email(MESSAGE.inVaildEmail),
-  password: z.string().min(8, { message: MESSAGE.inVaildLogin }).regex(REGEX.password, {
-    message: MESSAGE.inputPassword,
+  email: z
+    .string()
+    .min(1, { message: MESSAGE.JOIN_LOGIN.inVaildLogin })
+    .email(MESSAGE.JOIN_LOGIN.inVaildEmail),
+  password: z.string().min(8, { message: MESSAGE.JOIN_LOGIN.inVaildLogin }).regex(REGEX.password, {
+    message: MESSAGE.JOIN_LOGIN.inputPassword,
   }),
 });
 
 export const joinFormSchema = z
   .object({
-    email: z.string().min(1, { message: MESSAGE.inVaildEmail }).email(MESSAGE.inVaildEmail),
-    password: z.string().min(8, { message: MESSAGE.inputPassword }).max(15).regex(REGEX.password, {
-      message: MESSAGE.inputPassword,
-    }),
-    checkPassword: z.string().min(8, { message: MESSAGE.unEqualPassword }),
-    name: z.string().min(1, { message: MESSAGE.inputName }),
-    mobile: z.string().min(1, { message: MESSAGE.inputMobile }).regex(REGEX.mobile),
+    email: z
+      .string()
+      .min(1, { message: MESSAGE.JOIN_LOGIN.inVaildEmail })
+      .email(MESSAGE.JOIN_LOGIN.inVaildEmail),
+    password: z
+      .string()
+      .min(8, { message: MESSAGE.JOIN_LOGIN.inputPassword })
+      .max(15)
+      .regex(REGEX.password, {
+        message: MESSAGE.JOIN_LOGIN.inputPassword,
+      }),
+    checkPassword: z.string().min(8, { message: MESSAGE.JOIN_LOGIN.unEqualPassword }),
+    name: z.string().min(1, { message: MESSAGE.JOIN_LOGIN.inputName }),
+    mobile: z.string().min(1, { message: MESSAGE.JOIN_LOGIN.inputMobile }).regex(REGEX.mobile),
     job: z.string(),
   })
   .refine((data) => data.password === data.checkPassword, {
     path: ['checkPassword'],
-    message: MESSAGE.unEqualPassword,
+    message: MESSAGE.JOIN_LOGIN.unEqualPassword,
   });
+
+export const pageUrlFormSchema = z.object({
+  title: z.string().min(1),
+  customDomain: z.string().min(1, { message: MESSAGE.NOTION_DOMAIN.inVaildDomain }),
+  pageUrl: z
+    .string()
+    .min(1, { message: MESSAGE.NOTION_DOMAIN.inVaildNotion })
+    .regex(REGEX.notionUrl),
+});
 
 export type LoginFormSchema = z.infer<typeof loginFormSchema>;
 export type JoinFormSchema = z.infer<typeof joinFormSchema>;
+export type PageUrlFormSchema = z.infer<typeof pageUrlFormSchema>;

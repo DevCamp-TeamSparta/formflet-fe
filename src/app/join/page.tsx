@@ -1,5 +1,5 @@
 import Join from '@/containers/join/Join';
 
-export default function Home() {
+export default function JoinPage() {
   return <Join />;
 }
