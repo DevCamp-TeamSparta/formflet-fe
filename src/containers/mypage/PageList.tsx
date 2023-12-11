@@ -4,27 +4,30 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import pages from '@/services/api/pages/pages';
 
-const fetchPages = async () => {
-  try {
-    const response = await pages();
-    const data = response.data.data;
-    return data;
-  } catch (e) {
-    console.error('Error fetching pages:', e);
-    return [];
-  }
-};
-
 export default function PageList() {
-  const [pageList, setPageList] = useState<string[]>([]);
+  const [pageList, setPageList] = useState([]);
+
+  const fetchPages = async () => {
+    try {
+      const response = await pages();
+      const { data } = response.data;
+
+      return data;
+    } catch (e) {
+      console.error('Error fetching pages:', e);
+
+      return [];
+    }
+  };
+
+  const fetchData = async () => {
+    const data = await fetchPages();
+    console.log('test');
+    setPageList(data);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchPages();
-      setPageList(data);
-    };
-
-    fetchData(); // 함수 호출
+    fetchData();
   }, []);
 
   return (

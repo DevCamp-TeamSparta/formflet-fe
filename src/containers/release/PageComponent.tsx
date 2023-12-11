@@ -1,13 +1,13 @@
 'use client';
 
 import { useRef } from 'react';
+import styles from '../../styles/notion.css';
 import {
   useSetAnchorSrc,
   useSetFrameWidth,
   useSetImageSrc,
   useSetToggle,
 } from '@/hooks/pages/pageHooks';
-import styles from '../../styles/notion.css';
 
 export default function PageComponent({
   notionBodyHTML,
