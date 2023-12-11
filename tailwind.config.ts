@@ -9,7 +9,7 @@ const config: Config = {
       white: '#fff',
       purple: {
         light: {
-          normal: '#e9ebf8',
+          normal: '#f7f0ff',
           hover: '#ecd9ff',
           active: '#d8b0ff',
         },

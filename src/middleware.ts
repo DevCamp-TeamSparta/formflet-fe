@@ -15,32 +15,32 @@ export const config = {
 };
 
 export default function middleware(request: NextRequest) {
-  const pathName = request.nextUrl.pathname;
-
-  const accessToken = request.cookies.get('authorization')?.value;
-
-  const rootUrl = new URL(PATH.ROUTE.ROOT, request.url);
-  const loginUrl = new URL(PATH.ROUTE.LOGIN, request.url);
-  const myPageUrl = new URL(PATH.ROUTE.MYPAGE, request.url);
-
-  if (pathName.startsWith(PATH.ROUTE.MYPAGE) && !accessToken) {
-    return NextResponse.redirect(loginUrl);
-  }
-
-  if (
-    (pathName.startsWith(PATH.ROUTE.LOGIN) || pathName.startsWith(PATH.ROUTE.JOIN)) &&
-    accessToken
-  ) {
-    return NextResponse.redirect(rootUrl);
-  }
-
-  if (pathName === PATH.ROUTE.ROOT && accessToken) {
-    return NextResponse.redirect(myPageUrl);
-  }
-
-  if (pathName.includes('/release')) {
-    // console.log(pathName);
-  }
+  // const pathName = request.nextUrl.pathname;
+  //
+  // const accessToken = request.cookies.get('authorization')?.value;
+  //
+  // const rootUrl = new URL(PATH.ROUTE.ROOT, request.url);
+  // const loginUrl = new URL(PATH.ROUTE.LOGIN, request.url);
+  // const myPageUrl = new URL(PATH.ROUTE.MYPAGE, request.url);
+  //
+  // if (pathName.startsWith(PATH.ROUTE.MYPAGE) && !accessToken) {
+  //   return NextResponse.redirect(loginUrl);
+  // }
+  //
+  // if (
+  //   (pathName.startsWith(PATH.ROUTE.LOGIN) || pathName.startsWith(PATH.ROUTE.JOIN)) &&
+  //   accessToken
+  // ) {
+  //   return NextResponse.redirect(rootUrl);
+  // }
+  //
+  // if (pathName === PATH.ROUTE.ROOT && accessToken) {
+  //   return NextResponse.redirect(myPageUrl);
+  // }
+  //
+  // if (pathName.includes('/release')) {
+  //   // console.log(pathName);
+  // }
 
   return NextResponse.next();
 }
