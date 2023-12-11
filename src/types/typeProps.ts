@@ -17,7 +17,7 @@ export type InputGroupProps = {
   required?: boolean;
   errorMessage?: string;
   errors?: FieldErrors;
-  getValues?: UseFormGetValues<JoinFormSchema>;
+  getValues: UseFormGetValues<JoinFormSchema>;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export type DropDownProps = {

@@ -9,8 +9,8 @@ const fetchPages = async () => {
     const response = await pages();
     const data = response.data.data;
     return data;
-  } catch (error) {
-    console.error('Error fetching pages:', error);
+  } catch (e) {
+    console.error('Error fetching pages:', e);
     return [];
   }
 };
@@ -28,13 +28,17 @@ export default function PageList() {
   }, []);
 
   return (
-    <div className="flex-col">
+    <div>
       {pageList &&
         pageList.map((item) => (
-          <Link key={item.id} href={`/release/${item.id}`}>
-            <div>
-              <p>{item.title}</p>
-              <p>{item.customDomain}</p>
+          <Link
+            className="flex w-[848px] h-[108px] justify-center items-center bg-gray-light-normal border border-gray-light-active box-shadow-normal px-8 py-[26px] mb-4  rounded-lg border-solid "
+            key={item.id}
+            href={`/release/${item.id}`}
+          >
+            <div className="flex w-[336.667px] flex-col  items-center gap-0.5 shrink-0">
+              <p className="b1-bold text-gray-dark-active">{item.title}</p>
+              <p className="b2 text-gray-dark-active">{`${item.customDomain}.formflet.co/`}</p>
             </div>
           </Link>
         ))}
