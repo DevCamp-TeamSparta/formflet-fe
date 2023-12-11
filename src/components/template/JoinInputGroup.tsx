@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { InputGroupProps } from '@/types/typeProps';
+import { JoinGroupProps } from '@/types/typeProps';
 import Input from '../basic/Input';
 import Button from '../basic/Button';
 import userCheckEmail from '@/services/api/users/userCheckEmail';
 import ArrowRightCircle from '../../../public/svg/ArrowRightCircle';
 import MESSAGE from '@/constants/Messages';
 
-const JoinInputGroup = React.forwardRef<HTMLInputElement, InputGroupProps>(
+const JoinInputGroup = React.forwardRef<HTMLInputElement, JoinGroupProps>(
   ({ id, label, errorMessage, errors, getValues, ...rest }, ref) => {
     const [emailState, setEmailState] = useState({
       message: '',

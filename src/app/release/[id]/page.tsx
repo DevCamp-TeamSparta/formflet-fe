@@ -1,13 +1,5 @@
-'use client';
-
-import { usePathname } from 'next/navigation';
+import ReleasePage from '@/containers/release/ReleasePage';
 
 export default function Release() {
-  const pathName = usePathname();
-  return (
-    <div>
-      <h1>The Release Page</h1>
-      <h2>{pathName}</h2>
-    </div>
-  );
+  return <ReleasePage />;
 }
