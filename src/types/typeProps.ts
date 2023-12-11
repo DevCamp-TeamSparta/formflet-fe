@@ -17,6 +17,14 @@ export type InputGroupProps = {
   required?: boolean;
   errorMessage?: string;
   errors?: FieldErrors;
+} & React.InputHTMLAttributes<HTMLInputElement>;
+
+export type JoinGroupProps = {
+  id: string;
+  label?: string;
+  required?: boolean;
+  errorMessage?: string;
+  errors?: FieldErrors;
   getValues: UseFormGetValues<JoinFormSchema>;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
