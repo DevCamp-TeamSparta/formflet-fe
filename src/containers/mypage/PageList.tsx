@@ -31,7 +31,7 @@ export default function PageList() {
     <div className="flex-col">
       {pageList &&
         pageList.map((item) => (
-          <Link key={item.id} href={`/release/${item.id}`}>
+          <Link key={item.id} href={`/mypage/edit`}>
             <div>
               <p>{item.title}</p>
               <p>{item.customDomain}</p>
