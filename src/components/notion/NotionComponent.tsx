@@ -4,11 +4,13 @@ import { useRef } from 'react';
 import styles from '../../styles/notion.css';
 import 'prismjs/themes/prism-tomorrow.css';
 import {
+  useRemoveTopbar,
   useSetAnchorSrc,
   useSetFrameWidth,
   useSetImageSrc,
   useSetToggle,
 } from '@/hooks/notionHooks';
+import { useFontStore } from '@/containers/mypage/store';
 
 export default function NotionComponent({
   notionBodyHTML,
@@ -19,12 +21,14 @@ export default function NotionComponent({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   useSetToggle(ref);
+  useRemoveTopbar(ref);
   useSetFrameWidth(ref);
   useSetImageSrc(ref, domainName);
   useSetAnchorSrc(ref, domainName);
 
+  const font = useFontStore((state) => state.font);
   return (
-    <div>
+    <div style={{ '--notion-font-family': font }}>
       <div
         ref={ref}
         className={`notion-content ${styles.pseudoBefore} ${styles.layout} ${styles.layoutFull}  ${styles.layoutContent}`}

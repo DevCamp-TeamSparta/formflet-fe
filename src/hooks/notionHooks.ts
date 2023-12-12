@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
+import { useFontStore } from '@/containers/mypage/store';
 
 export function useSetToggle(ref: React.RefObject<HTMLElement>) {
   let clicked = false;
+  const font = useFontStore((state) => state.font);
   useEffect(() => {
     if (!ref.current) return;
 
@@ -38,10 +40,11 @@ export function useSetToggle(ref: React.RefObject<HTMLElement>) {
         toggle.removeEventListener('click', addClickEvent);
       });
     };
-  }, [ref.current]);
+  }, [ref.current, font]);
 }
 
 export function useSetFrameWidth(ref: React.RefObject<HTMLElement>) {
+  const font = useFontStore((state) => state.font);
   useEffect(() => {
     if (!ref.current) return;
     const element = ref.current.querySelector('.notion-frame');
@@ -54,10 +57,11 @@ export function useSetFrameWidth(ref: React.RefObject<HTMLElement>) {
     if (cursor instanceof HTMLElement) {
       cursor.style.width = '100%';
     }
-  }, [ref.current]);
+  }, [ref.current, font]);
 }
 
 export function useSetImageSrc(ref: React.RefObject<HTMLElement>, domainName: string) {
+  const font = useFontStore((state) => state.font);
   useEffect(() => {
     if (ref.current) {
       const images = ref.current.querySelectorAll('img');
@@ -69,7 +73,7 @@ export function useSetImageSrc(ref: React.RefObject<HTMLElement>, domainName: st
         }
       });
     }
-  }, [ref, domainName]);
+  }, [ref, domainName, font]);
 }
 
 export function useSetAnchorSrc(ref: React.RefObject<HTMLElement>, domainName: string) {
@@ -85,4 +89,18 @@ export function useSetAnchorSrc(ref: React.RefObject<HTMLElement>, domainName: s
       });
     }
   }, [ref, domainName]);
+}
+
+export function useRemoveTopbar(ref: React.RefObject<HTMLElement>) {
+  const font = useFontStore((state) => state.font);
+  useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
+    const topbar = ref.current.querySelector('header');
+    if (!topbar) return;
+    while (topbar.hasChildNodes()) {
+      topbar.removeChild(topbar.firstChild);
+    }
+  }, [ref, font]);
 }

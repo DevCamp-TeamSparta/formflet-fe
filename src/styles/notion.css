@@ -3,6 +3,9 @@
     font-family: Arial;
 }
 
+.notion-content * {
+    font-family: var(--notion-font-family);
+}
 .layout {
     --content-width: minmax(auto,708px);
     --margin-width: minmax(96px,1fr);

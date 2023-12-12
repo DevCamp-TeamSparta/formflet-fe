@@ -15,23 +15,21 @@ Instance.interceptors.request.use(
     if (accessToken) {
       Object.assign(config.headers, { Authorization: `Bearer ${accessToken}` });
     }
-
-    console.log('request', config);
     return config;
   },
   (error) => {
-    console.error('request error', error);
+    // console.error('request error', error);
     return Promise.reject(error);
   },
 );
 
 Instance.interceptors.response.use(
   (response) => {
-    console.log('response', response);
+    // console.log('response', response);
     return response;
   },
   (error) => {
-    console.error('response error', error);
+    // console.error('response error', error);
     return Promise.reject(error);
   },
 );
