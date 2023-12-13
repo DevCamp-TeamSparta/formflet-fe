@@ -46,6 +46,7 @@
         "checksVoidReturn": false
       }
     ],
-    "@typescript-eslint/no-unsafe-assignment": "off"
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "jsx-a11y/label-has-associated-control": "off"
   }
 }

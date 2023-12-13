@@ -10,7 +10,7 @@ import {
   useSetImageSrc,
   useSetToggle,
 } from '@/hooks/pages/NotionHooks';
-import useFontStore from '@/containers/mypage/store';
+import { useFontStore } from '@/containers/mypage/store';
 
 export default function NotionComponent({
   notionBodyHTML,

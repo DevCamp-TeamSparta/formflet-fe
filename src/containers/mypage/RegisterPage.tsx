@@ -61,7 +61,7 @@ export default function RegisterPage() {
             className="flex w-[677px] h-10 justify-end items-center gap-2.5 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
             key="domain-url"
             id="domain-url"
-            {...register('customDomain')}
+            {...register('domain')}
           />
           <p className="b1 text-gray-normal-normal">.formflet.co/</p>
         </div>
@@ -80,12 +80,12 @@ export default function RegisterPage() {
           key="notion-url"
           id="notion-url"
           placeholder="notion.so/formflet/"
-          {...register('pageUrl')}
+          {...register('url')}
         />
       </div>
-      {(errors.customDomain?.message || errors.pageUrl?.message) && (
+      {(errors.domain?.message || errors.url?.message) && (
         <p className="b2 self-stretch text-semantic-danger-normal">
-          {errors.customDomain?.message || errors.pageUrl?.message}
+          {errors.domain?.message || errors.url?.message}
         </p>
       )}
       {errorMessage && (

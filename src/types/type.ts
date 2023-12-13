@@ -71,11 +71,8 @@ export const joinFormSchema = z
 
 export const pageUrlFormSchema = z.object({
   title: z.string().min(1),
-  customDomain: z.string().min(1, { message: MESSAGE.NOTION_DOMAIN.inVaildDomain }),
-  pageUrl: z
-    .string()
-    .min(1, { message: MESSAGE.NOTION_DOMAIN.inVaildNotion })
-    .regex(REGEX.notionUrl),
+  domain: z.string().min(1, { message: MESSAGE.NOTION_DOMAIN.inVaildDomain }),
+  url: z.string().min(1, { message: MESSAGE.NOTION_DOMAIN.inVaildNotion }).regex(REGEX.notionUrl),
 });
 
 export type LoginFormSchema = z.infer<typeof loginFormSchema>;

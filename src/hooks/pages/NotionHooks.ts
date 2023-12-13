@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import useFontStore from '@/containers/mypage/store';
+import { useFontStore } from '@/containers/mypage/store';
 
 export function useSetToggle(ref: React.RefObject<HTMLElement>) {
   const isClicked = useRef(false);
@@ -37,6 +37,7 @@ export function useSetToggle(ref: React.RefObject<HTMLElement>) {
     });
     if (!isClicked.current) {
       isClicked.current = true;
+      // 승환님 작성 코드 eslint 이슈로 인해 주석 처리
       // toggles.forEach((toggle) => {
       //   toggle.click();
       // });

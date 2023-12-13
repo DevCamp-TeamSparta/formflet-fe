@@ -1,3 +1,7 @@
+interface PageProps {
+  pageId: string;
+}
+
 type PageContent = {
   id: number;
   content: string;
@@ -6,14 +10,14 @@ type PageContent = {
 interface PageList {
   id: string;
   title: string;
-  customDomain: string;
+  domain: string;
 }
 
 type Page = {
-  customDomain: string;
+  domain: string;
   pageContent: PageContent;
   id: number;
-  pageUrl: string;
+  url: string;
   title: string;
   userId: number;
 };

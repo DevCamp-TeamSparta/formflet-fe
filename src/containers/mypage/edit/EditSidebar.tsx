@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { SidebarMenus } from '@/constants/editProps/editPage';
 import DisplaySidebar from '@/containers/mypage/edit/DisplaySidebar';
+import FormSidebar from './FormSidebar';
 
 export default function EditSidebar() {
   const [selected, setSelected] = useState<'display' | 'form'>('display');
@@ -30,7 +31,7 @@ export default function EditSidebar() {
       {
         {
           display: <DisplaySidebar />,
-          form: <div>form</div>,
+          form: <FormSidebar />,
         }[selected]
       }
     </aside>

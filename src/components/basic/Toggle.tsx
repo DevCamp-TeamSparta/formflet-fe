@@ -9,8 +9,7 @@ export default function Toggle() {
   };
 
   return (
-    // <label className="flex cursor-pointer select-none items-center"> 기존 승환님 작성 코드
-    <div className="flex cursor-pointer select-none items-center">
+    <label className="flex cursor-pointer select-none items-center">
       <div className="relative">
         <input
           type="checkbox"
@@ -29,7 +28,6 @@ export default function Toggle() {
           }`}
         />
       </div>
-    </div>
-    // </label>
+    </label>
   );
 }

@@ -8,8 +8,8 @@ export default async function pageRegister(
 ): Promise<AxiosResponse<{ data: Page }>> {
   const response: AxiosResponse = await Instance.post(PATH.API.PAGES.registerPage, {
     title: data.title,
-    customDomain: data.customDomain,
-    pageUrl: data.pageUrl,
+    domain: data.domain,
+    url: data.url,
   });
 
   return response;

@@ -1,32 +1,59 @@
-import { cookies } from 'next/headers';
-import Instance from '@/services/api/Instance';
+'use client';
+
+import { useEffect, useState } from 'react';
 import NotionComponent from '@/components/notion/NotionComponent';
+import pageContent from '@/services/api/pages/pageContent';
+import { useEditPageStore } from '../store';
+import EditForm from './EditForm';
+import EditPreView from './EditPreView';
 
-interface PageProps {
-  pageId: string;
-}
-
-export default async function EditDisplay({ pageId }: PageProps) {
-  const authorization = cookies().get('authorization')?.value;
-  const response = await Instance.get<{
-    statusCode: number;
-    message: string;
-    data: Page;
-  }>(`/api/pages/${pageId}`, {
-    headers: {
-      Authorization: `Bearer ${authorization}`,
-    },
+export default function EditDisplay({ pageId }: PageProps) {
+  const [isloaded, setIsLoaded] = useState(false);
+  const [page, setPage] = useState({
+    id: 0,
+    content: '',
+    url: '',
   });
+  const editPage = useEditPageStore((state) => state.editPage);
+  useEffect(() => {
+    const getPageContent = async () => {
+      const response = await pageContent({ pageId });
 
-  const page = response.data.data;
+      return response.data.data;
+    };
+    const fetchPage = async () => {
+      const pageData = await getPageContent();
+      setPage({
+        id: pageData.id,
+        content: pageData.pageContent.content,
+        url: pageData.url,
+      });
+      setIsLoaded(true);
+      console.log('pageData : ', pageData);
+    };
+    fetchPage()
+      .then((result) => console.log(result))
+      .catch((result) => console.error(result));
+  }, [pageId]);
+
   return (
     <div className="m-[20px_20px_20px_0] grow w-full min-h-full border rounded-[8px] border-gray-light-active overflow-hidden">
-      {page.id && (
-        <NotionComponent
-          notionBodyHTML={page.pageContent.content}
-          domainName={new URL(page.pageUrl).hostname}
-        />
-      )}
+      {
+        {
+          notion: isloaded && (
+            <NotionComponent
+              notionBodyHTML={page.content}
+              domainName={new URL(page.url).hostname}
+            />
+          ),
+          form: (
+            <div className="flex h-[840px] justify-center items-start">
+              <EditForm />
+              <EditPreView />
+            </div>
+          ),
+        }[editPage]
+      }
     </div>
   );
 }

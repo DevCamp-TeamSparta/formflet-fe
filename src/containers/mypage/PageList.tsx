@@ -48,7 +48,7 @@ export default function PageList() {
           >
             <div className="flex w-[336.667px] flex-col  items-center gap-0.5 shrink-0">
               <p className="b1-bold text-gray-dark-active">{item.title}</p>
-              <p className="b2 text-gray-dark-active">{`${item.customDomain}.formflet.co/`}</p>
+              <p className="b2 text-gray-dark-active">{item.domain}</p>
             </div>
           </Link>
         ))}
