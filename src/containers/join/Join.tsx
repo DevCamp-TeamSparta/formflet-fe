@@ -30,8 +30,9 @@ export default function Join() {
   const joinFormSubmit: SubmitHandler<JoinFormSchema> = async (data: JoinFormSchema) => {
     try {
       const response = await userJoin(data);
-      console.log('res', response);
-      route.push(PATH.ROUTE.ROOT);
+      if (response) {
+        route.push(PATH.ROUTE.ROOT);
+      }
     } catch (e) {
       console.error('[ERROR]', e);
     }

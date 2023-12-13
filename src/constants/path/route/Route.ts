@@ -12,7 +12,7 @@ const RULES = '/mypage/rules';
 
 const INFO = '/mypage/info';
 
-const RELEASE = '/release/';
+const EDIT = '/mypage/edit';
 
 const NAV_LIST = [
   { href: MYPAGE, text: '나의 웹페이지' },
@@ -27,7 +27,7 @@ const ROUTE = Object.freeze({
   MYPAGE,
   EDIT_PASSWORD,
   NAV_LIST,
-  RELEASE,
+  EDIT,
 });
 
 export default ROUTE;

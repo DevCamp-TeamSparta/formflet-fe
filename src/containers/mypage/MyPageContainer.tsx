@@ -6,7 +6,7 @@ import RegisterPage from './RegisterPage';
 import Button from '@/components/basic/Button';
 import PlusCircle from '../../../public/svg/PlusCircle';
 
-export default function MyPage() {
+export default function MyPageContainer() {
   const [openRegisterForm, SetOpenRegisterForm] = useState(false);
   const [isVisibled, setIsVisibled] = useState('visible');
 

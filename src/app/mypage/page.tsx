@@ -1,5 +1,5 @@
-import MyPage from '@/containers/mypage/MyPage';
+import MyPageContainer from '@/containers/mypage/MyPageContainer';
 
 export default function MyHomePage() {
-  return <MyPage />;
+  return <MyPageContainer />;
 }
