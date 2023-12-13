@@ -1,11 +1,11 @@
-type EditPage = {
+type PageContent = {
   id: number;
   content: string;
 };
 
 type Page = {
   customDomain: string;
-  editPage: EditPage;
+  pageContent: PageContent;
   id: number;
   pageUrl: string;
   title: string;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { CSSProperties, useRef } from 'react';
 import styles from '../../styles/notion.css';
 import 'prismjs/themes/prism-tomorrow.css';
 import {
@@ -28,7 +28,7 @@ export default function NotionComponent({
 
   const font = useFontStore((state) => state.font);
   return (
-    <div style={{ '--notion-font-family': font }}>
+    <div style={{ '--notion-font-family': font } as CSSProperties}>
       <div
         ref={ref}
         className={`notion-content ${styles.pseudoBefore} ${styles.layout} ${styles.layoutFull}  ${styles.layoutContent}`}
