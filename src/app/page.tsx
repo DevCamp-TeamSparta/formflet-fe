@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import PATH from '@/constants/path/Path';
 import { headers } from 'next/headers';
+import PATH from '@/constants/path/Path';
 import Instance from '@/services/api/Instance';
 import NotionComponent from '@/components/notion/NotionComponent';
 
