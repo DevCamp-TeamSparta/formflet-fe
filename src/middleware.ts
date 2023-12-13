@@ -16,26 +16,35 @@ export const config = {
 
 export default function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
-
-  const accessToken = request.cookies.get('authorization')?.value;
-
-  const rootUrl = new URL(PATH.ROUTE.ROOT, request.url);
-  const loginUrl = new URL(PATH.ROUTE.LOGIN, request.url);
-  const myPageUrl = new URL(PATH.ROUTE.MYPAGE, request.url);
-
-  if (pathName.startsWith(PATH.ROUTE.MYPAGE) && !accessToken) {
-    return NextResponse.redirect(loginUrl);
-  }
+  const subDomain = request.nextUrl.hostname.split('.')[0];
 
   if (
-    (pathName.startsWith(PATH.ROUTE.LOGIN) || pathName.startsWith(PATH.ROUTE.JOIN)) &&
-    accessToken
+    subDomain === 'formflet' ||
+    subDomain === 'www' ||
+    subDomain === 'test' ||
+    subDomain === 'localhost:3000' ||
+    subDomain === '127'
   ) {
-    return NextResponse.redirect(rootUrl);
-  }
+    const accessToken = request.cookies.get('authorization')?.value;
 
-  if (pathName === PATH.ROUTE.ROOT && accessToken) {
-    return NextResponse.redirect(myPageUrl);
+    const rootUrl = new URL(PATH.ROUTE.ROOT, request.url);
+    const loginUrl = new URL(PATH.ROUTE.LOGIN, request.url);
+    const myPageUrl = new URL(PATH.ROUTE.MYPAGE, request.url);
+
+    if (pathName.startsWith(PATH.ROUTE.MYPAGE) && !accessToken) {
+      return NextResponse.redirect(loginUrl);
+    }
+
+    if (
+      (pathName.startsWith(PATH.ROUTE.LOGIN) || pathName.startsWith(PATH.ROUTE.JOIN)) &&
+      accessToken
+    ) {
+      return NextResponse.redirect(rootUrl);
+    }
+
+    if (pathName === PATH.ROUTE.ROOT && accessToken) {
+      return NextResponse.redirect(myPageUrl);
+    }
   }
 
   return NextResponse.next();
