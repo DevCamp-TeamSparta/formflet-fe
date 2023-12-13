@@ -38,9 +38,5 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(myPageUrl);
   }
 
-  if (pathName.includes('/release')) {
-    // console.log(pathName);
-  }
-
   return NextResponse.next();
 }

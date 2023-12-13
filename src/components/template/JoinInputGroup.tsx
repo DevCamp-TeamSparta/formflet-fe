@@ -17,10 +17,9 @@ const JoinInputGroup = React.forwardRef<HTMLInputElement, JoinGroupProps>(
       try {
         const email = getValues('email');
         const response = await userCheckEmail(email);
-        setEmailState({ message: MESSAGE.JOIN_LOGIN.vaildEmail, state: true });
-
-        const { message } = response.data;
-        console.log(message);
+        if (response) {
+          setEmailState({ message: MESSAGE.JOIN_LOGIN.vaildEmail, state: true });
+        }
       } catch (e) {
         setEmailState({ message: MESSAGE.JOIN_LOGIN.inVaildEmail, state: false });
         console.error('[ERROR] : ', e);

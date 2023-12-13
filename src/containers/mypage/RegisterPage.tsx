@@ -36,7 +36,7 @@ export default function RegisterPage() {
         errorMessage = MESSAGE.NOTION_DOMAIN.inVaildDomain;
         break;
       default:
-        route.push(PATH.ROUTE.RELEASE + path);
+        route.push(`${PATH.ROUTE.EDIT}/${path}`);
     }
   };
 
