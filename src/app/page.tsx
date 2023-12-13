@@ -28,8 +28,9 @@ export default async function Home() {
     statusCode: number;
     message: string;
     data: Page;
-  }>(`/api/page/search/${subDomain}`);
+  }>(`/api/pages/search/${subDomain}`);
   const page = response.data.data;
+
   return (
     <NotionComponent
       notionBodyHTML={page.pageContent.content}
