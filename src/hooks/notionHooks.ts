@@ -1,20 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useFontStore } from '@/containers/mypage/store';
 
 export function useSetToggle(ref: React.RefObject<HTMLElement>) {
-  let clicked = false;
+  const isClicked = useRef(false);
   const font = useFontStore((state) => state.font);
   useEffect(() => {
-    if (!ref.current) return;
-
+    if (!ref.current) return undefined;
     const toggles = ref.current.querySelectorAll('div[aria-label="닫기"]');
-
     const addClickEvent = (event: Event) => {
       const toggle = event.currentTarget as HTMLElement;
       const svg = toggle.querySelector('svg');
       const sibling = toggle.parentElement.nextElementSibling;
-      Array.from(sibling.children).forEach((child, index) => {
+      Array.from(sibling.children).forEach((element, index) => {
         if (index === 0) return;
+        const child = element as HTMLElement;
         if (child instanceof HTMLElement) {
           if (child.style.display === 'none') {
             child.style.display = 'flex';
@@ -29,8 +28,8 @@ export function useSetToggle(ref: React.RefObject<HTMLElement>) {
     toggles.forEach((toggle) => {
       toggle.addEventListener('click', addClickEvent);
     });
-    if (!clicked) {
-      clicked = true;
+    if (!isClicked.current) {
+      isClicked.current = true;
       toggles.forEach((toggle: HTMLElement) => {
         toggle.click();
       });
@@ -40,7 +39,7 @@ export function useSetToggle(ref: React.RefObject<HTMLElement>) {
         toggle.removeEventListener('click', addClickEvent);
       });
     };
-  }, [ref.current, font]);
+  }, [ref, font]);
 }
 
 export function useSetFrameWidth(ref: React.RefObject<HTMLElement>) {
@@ -57,7 +56,7 @@ export function useSetFrameWidth(ref: React.RefObject<HTMLElement>) {
     if (cursor instanceof HTMLElement) {
       cursor.style.width = '100%';
     }
-  }, [ref.current, font]);
+  }, [ref, font]);
 }
 
 export function useSetImageSrc(ref: React.RefObject<HTMLElement>, domainName: string) {
