@@ -4,14 +4,16 @@
 }
 
 .notion-content * {
-  font-family: var(--notion-font-family);
+  font-family: var(--notion-font-family) !important;
 }
 .layout {
   --content-width: minmax(auto, 708px);
   --margin-width: minmax(96px, 1fr);
-  grid-template-columns: [full-start] var(--margin-width) [content-start] var(--content-width) [content-end] var(
+  grid-template-columns:
+    [full-start] var(--margin-width) [content-start] var(--content-width) [content-end] var(
       --margin-width
-    ) [full-end];
+    )
+    [full-end];
   display: grid;
   width: 100%;
 }
