@@ -10,6 +10,11 @@ export const useEditPageStore = create<EditPageStore>((set) => ({
   setEditPage: (editPage) => set({ editPage }),
 }));
 
+export const useDisplayStore = create<DisplayStore>((set) => ({
+  display: 'notion',
+  setDisplay: (display) => set({ display }),
+}));
+
 export const useFormStore = create<FormStore>((set) => ({
   form: `[제목] 제목을 입력해주세요.
   [텍스트] 폼 작성을 위한 샘플 양식입니다.
