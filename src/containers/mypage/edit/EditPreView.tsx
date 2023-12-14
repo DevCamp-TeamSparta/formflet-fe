@@ -51,7 +51,7 @@ export default function EditPreView() {
       case '[주관식]':
         return (
           <input
-            className="flex w-[723px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
+            className="flex w-[450px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
             placeholder="입력해주세요"
           />
         );
@@ -69,7 +69,7 @@ export default function EditPreView() {
   };
 
   return (
-    <form className="flex flex-col items-start gap-5 flex-[1_0_0] self-stretch border border-gray-light-active box-shadow-normal p-[30px] rounded-[8px_0px_0px_8px] border-solid">
+    <form className="flex flex-col items-start gap-5 flex-[1_0_0] self-stretch border border-gray-light-active box-shadow-normal p-[30px] rounded-[0px_8px_8px_0px] border-solid">
       {formSplit.map((item, idx) => {
         const content = handleForm(item, idx as unknown as string);
 

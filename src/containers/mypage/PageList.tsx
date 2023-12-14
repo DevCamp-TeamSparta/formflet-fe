@@ -26,7 +26,7 @@ export default function PageList({ setIsVisibled }: StateSetString) {
     const fetchData = async () => {
       const data = await fetchPages();
 
-      if (data.length > 1) {
+      if (data.length >= 1) {
         setIsVisibled('hidden');
       } else {
         setIsVisibled('visible');

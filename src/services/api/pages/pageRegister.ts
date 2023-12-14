@@ -22,6 +22,5 @@ export default async function pageRegister(
       },
     },
   );
-
   return response;
 }

@@ -11,7 +11,6 @@ export default function MyPageContainer() {
   const [isVisibled, setIsVisibled] = useState('visible');
 
   const handleOpenForm = () => {
-    console.log('test');
     SetOpenRegisterForm(!openRegisterForm);
     setIsVisibled('hidden');
   };
