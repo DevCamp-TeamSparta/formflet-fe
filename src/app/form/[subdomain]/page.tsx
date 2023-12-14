@@ -18,7 +18,7 @@ export default async function FormPage({ params }: PageProps) {
     statusCode: number;
     message: string;
     data: Page;
-  }>(`/api/pages/search/${pageDomain}`);
+  }>(`/api/pages/release/${pageDomain}`);
   const page = response.data.data;
 
   return (

@@ -1,5 +1,5 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 
 const Instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_APY_KEY,
@@ -9,12 +9,12 @@ const Instance = axios.create({
 
 Instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const cookie = new Cookies();
-    const accessToken = cookie.get('authorization');
+    // const cookie = new Cookies();
+    // const accessToken = cookie.get('authorization');
 
-    if (accessToken) {
-      Object.assign(config.headers, { Authorization: `Bearer ${accessToken}` });
-    }
+    // if (accessToken) {
+    //   Object.assign(config.headers, { Authorization: `Bearer ${accessToken}` });
+    // }
 
     // console.log('request', config);
     return config;
