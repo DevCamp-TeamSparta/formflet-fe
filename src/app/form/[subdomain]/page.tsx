@@ -10,8 +10,7 @@ interface PageProps {
 export default async function FormPage({ params }: PageProps) {
   const headerList = headers();
   let pageDomain = params.subdomain;
-
-  if (process.env.IS_DEV) {
+  if (process.env.NODE_ENV !== 'development') {
     const host = headerList.get('host');
     pageDomain = host?.split('.')[0] || '';
   }
