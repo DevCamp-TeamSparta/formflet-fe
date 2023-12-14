@@ -28,7 +28,7 @@ function JoinAgree({ setJoinButtonDisabled }: StateSetBoolean) {
   return (
     <Button
       className="flex items-center gap-2.5 self-stretch box-shadow-normal"
-      onClick={handleAgree}
+      onClick={() => handleAgree}
     >
       {agree ? <RectangleCheckOn /> : <RectangleCheckOff />} 전체 개인정보 수집 및 폼플렛 이용약관에
       동의합니다.

@@ -9,29 +9,18 @@ const Instance = axios.create({
 
 Instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // const cookie = new Cookies();
-    // const accessToken = cookie.get('authorization');
-
-    // if (accessToken) {
-    //   Object.assign(config.headers, { Authorization: `Bearer ${accessToken}` });
-    // }
-
-    // console.log('request', config);
     return config;
   },
   (error) => {
-    // console.error('request error', error);
     return Promise.reject(error);
   },
 );
 
 Instance.interceptors.response.use(
   (response) => {
-    // console.log('response', response);
     return response;
   },
   (error) => {
-    // console.error('response error', error);
     return Promise.reject(error);
   },
 );

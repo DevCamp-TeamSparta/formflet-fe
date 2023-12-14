@@ -11,7 +11,7 @@ export default function Header() {
   const navList = PATH.ROUTE.NAV_LIST;
 
   return (
-    <header className="w-[1440px] h-[72px] flex flex-col justify-end items-center gap-[22px] shrink-0 pt-[22px]">
+    <header className="w-full h-[72px] flex flex-col justify-end items-center gap-[22px] shrink-0 pt-[22px]">
       <div className="w-[850px] h-9 flex justify-between shrink-0">
         <Link href={PATH.ROUTE.ROOT}>
           <Logo />
