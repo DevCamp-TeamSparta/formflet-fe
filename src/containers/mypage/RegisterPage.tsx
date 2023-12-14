@@ -27,7 +27,6 @@ export default function RegisterPage() {
   ): Promise<void> => {
     const response = await pageRegister(data);
     const path = response.data.data.id;
-
     switch (response.status) {
       case 404:
         errorMessage = MESSAGE.NOTION_DOMAIN.inVaildNotion;

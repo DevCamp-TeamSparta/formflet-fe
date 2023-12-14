@@ -15,12 +15,19 @@ export default function Logout() {
 
   const handleLogout = async () => {
     if (accessToken) {
-      await authLogout(accessToken);
+      await authLogout(accessToken)
+        .then(() => {
+          cookies.remove('authorization');
+          cookies.remove('refresh-token');
 
-      cookies.remove('authorization');
-      cookies.remove('refresh-token');
+          route.push(PATH.ROUTE.ROOT);
+        })
+        .catch(() => {
+          cookies.remove('authorization');
+          cookies.remove('refresh-token');
 
-      route.push(PATH.ROUTE.ROOT);
+          route.push(PATH.ROUTE.ROOT);
+        });
     }
   };
   return (

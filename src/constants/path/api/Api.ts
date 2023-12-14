@@ -14,6 +14,7 @@ const PAGES = Object.freeze({
   notionList: '/api/pages',
   page: '/api/pages',
   edit: '/api/pages/edit',
+  release: '/api/pages/release',
 });
 
 const FORMS = Object.freeze({

@@ -13,13 +13,11 @@ export default function EditForm() {
   };
 
   return (
-    <div className="flex flex-col items-start gap-5 flex-[1_0_0] self-stretch border border-gray-light-active box-shadow-normal p-[30px] rounded-[8px_0px_0px_8px] border-solid">
-      <textarea
-        className="flex resize-none w-full h-full items-start gap-2.5 flex-[1_0_0] self-stretch border border-gray-normal-normal box-shadow-normal px-[30px] py-5 rounded-lg border-solid"
-        value={form}
-        onChange={(e) => handleForm(e)}
-        ref={contentRef}
-      />
-    </div>
+    <textarea
+      className="flex w-full h-full flex-col resize-none items-start gap-5 flex-[1_0_0] self-stretch border border-gray-light-active box-shadow-normal p-[30px] rounded-lg border-solid"
+      value={form}
+      onChange={(e) => handleForm(e)}
+      ref={contentRef}
+    />
   );
 }
