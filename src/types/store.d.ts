@@ -12,3 +12,8 @@ interface FormStore {
   form: string;
   setForm: (form: string) => void;
 }
+
+interface DisplayStore {
+  display: 'notion' | 'form';
+  setDisplay: (display: 'notion' | 'form') => void;
+}
