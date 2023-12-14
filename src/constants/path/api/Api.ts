@@ -13,6 +13,7 @@ const PAGES = Object.freeze({
   registerPage: '/api/pages/register',
   notionList: '/api/pages',
   page: '/api/pages',
+  edit: '/api/pages/edit',
 });
 
 const FORMS = Object.freeze({

@@ -18,7 +18,7 @@ interface DisplayStore {
   setDisplay: (display: 'notion' | 'form') => void;
 }
 
-interface DomainSotre {
+interface DomainStore {
   domain: string;
   setDomain: (domain: string) => void;
 }

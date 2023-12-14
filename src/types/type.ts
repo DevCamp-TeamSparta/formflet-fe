@@ -17,6 +17,10 @@ export interface StateSetBoolean {
   setJoinButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+export interface StateSetString {
+  setIsVisibled: React.Dispatch<React.SetStateAction<string>>;
+}
+
 export type JoinGroup = {
   label: string;
   id: JoinFormField;
