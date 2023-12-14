@@ -43,7 +43,7 @@ const JoinInputGroup = React.forwardRef<HTMLInputElement, JoinGroupProps>(
                 className="flex w-[156.622px] h-14 items-center px-8 py-4 shrink-0 bg-purple-normal-normal box-shadow-normal rounded-lg gap-1.5"
                 id="btn-checkEmail"
                 type="button"
-                onClick={isVaildEmail}
+                onClick={() => isVaildEmail()}
               >
                 <p className="b1-bold text-white">중복 확인</p>
                 <ArrowRightCircle />

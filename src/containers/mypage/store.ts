@@ -20,7 +20,7 @@ export const useFormStore = create<FormStore>((set) => ({
   setForm: (form: string) => set({ form }),
 }));
 
-export const useDomainStore = create<DomainSotre>((set) => ({
+export const useDomainStore = create<DomainStore>((set) => ({
   domain: '',
   setDomain: (domain) => set({ domain }),
 }));

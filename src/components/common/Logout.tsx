@@ -27,7 +27,7 @@ export default function Logout() {
     <Button
       className="b2 text-gray-darker inline-flex items-center gap-8 px-0 py-2.5 "
       type="button"
-      onClick={() => handleLogout}
+      onClick={() => handleLogout()}
     >
       로그아웃
     </Button>

@@ -46,7 +46,7 @@ export default function NavHeader() {
           <Button className="w-6 h-6 shrink-0">
             <ReloadIcon />
           </Button>
-          <Button className="w-6 h-6 shrink-0" onClick={() => handleSubmit}>
+          <Button className="w-6 h-6 shrink-0" onClick={() => handleSubmit()}>
             <SaveIcon />
           </Button>
         </div>

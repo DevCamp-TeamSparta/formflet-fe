@@ -4,8 +4,9 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import pages from '@/services/api/pages/pages';
 import PATH from '@/constants/path/Path';
+import { StateSetString } from '@/types/type';
 
-export default function PageList() {
+export default function PageList({ setIsVisibled }: StateSetString) {
   const [pageList, setPageList] = useState<PageList[]>([]);
 
   const fetchPages = async (): Promise<PageList[]> => {
@@ -25,11 +26,17 @@ export default function PageList() {
     const fetchData = async () => {
       const data = await fetchPages();
 
+      if (data.length > 1) {
+        setIsVisibled('hidden');
+      } else {
+        setIsVisibled('visible');
+      }
+
       setPageList(data);
     };
 
     fetchData();
-  }, []);
+  }, [setIsVisibled]);
 
   return (
     <div>
