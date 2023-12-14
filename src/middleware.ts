@@ -14,17 +14,12 @@ export const config = {
   ],
 };
 
+const PRODUCTION_DOMAINS = ['www', 'test', 'localhost', '127'];
+
 export default function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   const subDomain = request.nextUrl.hostname.split('.')[0];
-
-  if (
-    subDomain === 'formflet' ||
-    subDomain === 'www' ||
-    subDomain === 'test' ||
-    subDomain === 'localhost:3000' ||
-    subDomain === '127'
-  ) {
+  if (PRODUCTION_DOMAINS.includes(subDomain)) {
     const accessToken = request.cookies.get('authorization')?.value;
 
     const rootUrl = new URL(PATH.ROUTE.ROOT, request.url);
@@ -45,6 +40,8 @@ export default function middleware(request: NextRequest) {
     if (pathName === PATH.ROUTE.ROOT && accessToken) {
       return NextResponse.redirect(myPageUrl);
     }
+  } else {
+    return NextResponse.rewrite(new URL(`/form/${subDomain}`, request.url));
   }
 
   return NextResponse.next();
