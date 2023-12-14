@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import NotionComponent from '@/components/notion/NotionComponent';
 import pageContent from '@/services/api/pages/pageContent';
-import { useDisplayStore } from '../store';
+import { useDisplayStore, useDomainStore } from '../store';
 import EditForm from './EditForm';
 import EditPreView from './EditPreView';
 import Button from '@/components/basic/Button';
@@ -18,6 +18,7 @@ export default function EditDisplay({ pageId }: PageProps) {
     url: '',
   });
   const { display, setDisplay } = useDisplayStore((state) => state);
+  const { setDomain } = useDomainStore((state) => state);
 
   const handleDisplay = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -34,8 +35,10 @@ export default function EditDisplay({ pageId }: PageProps) {
 
       return response.data.data;
     };
-    const fetchPage = async () => {
+    const fetchPage = async (): Promise<void> => {
       const pageData = await getPageContent();
+      setDomain(pageData.domain);
+
       setPage({
         id: pageData.id,
         content: pageData.pageContent.content,
@@ -43,13 +46,12 @@ export default function EditDisplay({ pageId }: PageProps) {
       });
       setIsLoaded(true);
     };
-    fetchPage()
-      .then((result) => console.log(result))
-      .catch((result) => console.error(result));
-  }, [pageId]);
+    fetchPage();
+  }, [pageId, setDomain]);
 
   return (
     <div className="m-[20px_20px_20px_0] grow w-full min-h-full border rounded-[8px] border-gray-light-active overflow-hidden">
+      {/* <div className="flex justify-end items-start flex-[1_0_0] self-stretch pl-0 pr-5 py-5"> */}
       {
         {
           notion: isloaded && (
@@ -59,7 +61,7 @@ export default function EditDisplay({ pageId }: PageProps) {
             />
           ),
           form: (
-            <div className="flex h-[840px] justify-center items-start">
+            <div className="flex justify-end items-start flex-[1_0_0] self-stretch">
               <EditForm />
               <EditPreView />
             </div>

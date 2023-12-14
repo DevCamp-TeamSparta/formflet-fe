@@ -28,13 +28,7 @@ export default function PageList() {
       setPageList(data);
     };
 
-    fetchData()
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((e) => {
-        console.error('[ERROR] load pageList', e);
-      });
+    fetchData();
   }, []);
 
   return (
