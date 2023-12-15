@@ -1,26 +1,13 @@
-import { useEffect } from 'react';
 import Toggle from '@/components/basic/Toggle';
 import FormSquareIcon from '../../../../public/svg/FormSquareIcon';
 import EmptyStar from '../../../../public/svg/EmptyStar';
-import { useCtaStore, useDisplayStore, useFormStore } from '../store';
+import { useCtaStore, useFormStore } from '../store';
 
 export default function FormSidebar() {
   const { formStatus, setFormStatus } = useFormStore((state) => ({
     formStatus: state.formStatus,
     setFormStatus: state.setFormStatus,
   }));
-
-  const { setDisplay } = useDisplayStore((state) => ({
-    setDisplay: state.setDisplay,
-  }));
-
-  useEffect(() => {
-    if (formStatus) {
-      setDisplay('form');
-    } else {
-      setDisplay('notion');
-    }
-  }, [formStatus, setDisplay]);
 
   const { ctaStatus, setCtaStatus, ctaContent, setCtaContent, ctaLink, setCtaLink } = useCtaStore();
 

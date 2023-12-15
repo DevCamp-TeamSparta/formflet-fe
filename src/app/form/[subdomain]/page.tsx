@@ -1,7 +1,7 @@
 import { headers } from 'next/headers';
-import Instance from '@/services/api/Instance';
 import NotionComponent from '@/components/notion/NotionComponent';
 import { useFontStore } from '@/containers/mypage/store';
+import pageRelease from '@/services/api/pages/pageRelease';
 
 interface PageProps {
   params: {
@@ -15,11 +15,7 @@ export default async function FormPage({ params }: PageProps) {
     const host = headerList.get('host');
     pageDomain = host?.split('.')[0] || '';
   }
-  const response = await Instance.get<{
-    statusCode: number;
-    message: string;
-    data: Page;
-  }>(`/api/pages/release/${pageDomain}`);
+  const response = await pageRelease(pageDomain);
   const page = response.data.data;
   const { setFont } = useFontStore((state) => ({ setFont: state.setFont }));
 
