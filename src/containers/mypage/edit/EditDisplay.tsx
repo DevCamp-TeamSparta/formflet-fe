@@ -22,7 +22,6 @@ export default function EditDisplay({ pageId }: PageProps) {
     };
     const fetchPage = async () => {
       const pageData = await getPageContent();
-      console.log(pageData);
       setPage({
         id: pageData.id,
         content: pageData.pageContent.content,
