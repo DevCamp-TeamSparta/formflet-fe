@@ -23,11 +23,10 @@ export default function NavHeader() {
   });
 
   const domain = useDomainStore((state) => state.domain);
-  const { font } = useFontStore((state) => ({ font: state.font, setFont: state.setFont }));
+  const { font } = useFontStore((state) => ({ font: state.font }));
   const { formStatus, form } = useFormStore((state) => ({
     formStatus: state.formStatus,
     form: state.form,
-    resetForm: state.resetForm,
   }));
 
   const handleSave = async (): Promise<void> => {
