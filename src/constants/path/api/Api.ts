@@ -15,6 +15,7 @@ const PAGES = Object.freeze({
   page: '/api/pages',
   edit: '/api/pages/edit',
   release: '/api/pages/release',
+  refresh: '/api/pages/refresh',
 });
 
 const FORMS = Object.freeze({

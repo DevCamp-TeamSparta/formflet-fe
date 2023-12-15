@@ -7,7 +7,6 @@ export default function pageRelease(path: string) {
     message: string;
     data: Page;
   }>(`${PATH.API.PAGES.release}/${path}`);
-  console.log('response', response);
 
   return response;
 }

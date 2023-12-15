@@ -7,7 +7,8 @@ import CopyIcon from '../../../public/svg/CopyIcon';
 import SaveIcon from '../../../public/svg/SaveIcon';
 import ReloadIcon from '../../../public/svg/ReloadIcon';
 import pageSave from '@/services/api/pages/pageSave';
-import { useDomainStore, useFontStore, useFormStore } from '@/containers/mypage/store';
+import { useCtaStore, useDomainStore, useFontStore, useFormStore } from '@/containers/mypage/store';
+import PageRefresh from '@/services/api/pages/pageRefresh';
 
 export default function NavHeader() {
   const pathName = usePathname();
@@ -15,31 +16,47 @@ export default function NavHeader() {
   const navList = PATH.ROUTE.NAV_LIST;
 
   let navItem = '';
-
   navList.forEach((item) => {
     if (item.href === pathName) {
       navItem = item.text;
     }
   });
+
   const domain = useDomainStore((state) => state.domain);
-  const font = useFontStore((state) => state.font);
-  const { formStatus, form } = useFormStore((state) => ({
+  const { font, setFont } = useFontStore((state) => ({ font: state.font, setFont: state.setFont }));
+  const { formStatus, form, resetForm } = useFormStore((state) => ({
     formStatus: state.formStatus,
     form: state.form,
+    resetForm: state.resetForm,
   }));
+  const { resetCta } = useCtaStore((state) => ({ resetCta: state.resetCta }));
 
-  const data = {
-    font: {
-      type: font,
-    },
-    form: {
-      status: formStatus,
-      guide: form,
-    },
+  const handleSave = async (): Promise<void> => {
+    const data = {
+      font: {
+        type: font,
+      },
+      form: {
+        status: formStatus,
+        guide: form,
+      },
+    };
+    await pageSave(data, path);
   };
 
-  const handleSubmit = async (): Promise<void> => {
-    await pageSave(data, path);
+  // TODO: 새로고침 모달창 넣기
+  // const [isOpenModal, setIsOpenModal] = useState(false);
+  // const [isRefreshNotion, setIsRefreshNotion] = useState(false);
+
+  const handleRefresh = async () => {
+    // if (isRefreshNotion) {
+    await PageRefresh(path);
+    // setIsOpenModal(false);
+    setFont('');
+    resetForm();
+    resetCta();
+    window.location.reload();
+    // }
   };
 
   return (
@@ -52,10 +69,10 @@ export default function NavHeader() {
             </p>
             <CopyIcon />
           </Button>
-          <Button className="w-6 h-6 shrink-0">
+          <Button className="w-6 h-6 shrink-0" onClick={() => handleRefresh()}>
             <ReloadIcon />
           </Button>
-          <Button className="w-6 h-6 shrink-0" onClick={() => handleSubmit()}>
+          <Button className="w-6 h-6 shrink-0" onClick={() => handleSave()}>
             <SaveIcon />
           </Button>
         </div>

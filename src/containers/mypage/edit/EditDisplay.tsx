@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import NotionComponent from '@/components/notion/NotionComponent';
 import pageContent from '@/services/api/pages/pageContent';
-import { useDisplayStore, useDomainStore, useFormStore } from '../store';
+import { useDisplayStore, useDomainStore, useFontStore, useFormStore } from '../store';
 import EditForm from './EditForm';
 import EditPreView from './EditPreView';
 import Button from '@/components/basic/Button';
@@ -24,7 +24,12 @@ export default function EditDisplay({ pageId }: PageProps) {
     setDisplay: state.setDisplay,
   }));
   const { setDomain } = useDomainStore((state) => ({ setDomain: state.setDomain }));
-  const { formStatus } = useFormStore((state) => ({ formStatus: state.formStatus }));
+  const { setFont } = useFontStore((state) => ({ setFont: state.setFont }));
+  const { formStatus, setFormStatus, setForm } = useFormStore((state) => ({
+    formStatus: state.formStatus,
+    setFormStatus: state.setFormStatus,
+    setForm: state.setForm,
+  }));
 
   const handleDisplay = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -44,16 +49,18 @@ export default function EditDisplay({ pageId }: PageProps) {
     const fetchPage = async (): Promise<void> => {
       const pageData = await getPageContent();
       setDomain(pageData.domain);
-
       setPage({
         id: pageData.id,
         content: pageData.pageContent.content,
         url: pageData.url,
       });
+      setFont(pageData.pageFont.type);
+      setFormStatus(pageData.form.status);
+      setForm(pageData.form.guide);
       setIsLoaded(true);
     };
     fetchPage();
-  }, [pageId, setDomain]);
+  }, [pageId, setDomain, setFont, setForm, setFormStatus]);
 
   const resizer = useRef<HTMLDivElement>(null);
   const leftSide = useRef<HTMLDivElement>(null);

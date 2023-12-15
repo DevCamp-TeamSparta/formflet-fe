@@ -7,17 +7,28 @@ type PageContent = {
   content: string;
 };
 
+type PageFont = {
+  id: number;
+  type: string;
+};
+
+type PageForm = {
+  status: boolean;
+  guide: string;
+};
+
+type Page = {
+  id: number;
+  title: string;
+  domain: string;
+  url: string;
+  pageContent: PageContent;
+  pageFont: PageFont;
+  form: PageForm;
+};
+
 interface PageList {
   id: string;
   title: string;
   domain: string;
 }
-
-type Page = {
-  domain: string;
-  pageContent: PageContent;
-  id: number;
-  url: string;
-  title: string;
-  userId: number;
-};
