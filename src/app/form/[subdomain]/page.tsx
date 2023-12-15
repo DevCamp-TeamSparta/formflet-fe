@@ -1,6 +1,7 @@
 import { headers } from 'next/headers';
 import Instance from '@/services/api/Instance';
 import NotionComponent from '@/components/notion/NotionComponent';
+import { useFontStore } from '@/containers/mypage/store';
 
 interface PageProps {
   params: {
@@ -20,6 +21,11 @@ export default async function FormPage({ params }: PageProps) {
     data: Page;
   }>(`/api/pages/release/${pageDomain}`);
   const page = response.data.data;
+  const { setFont } = useFontStore((state) => ({ setFont: state.setFont }));
+
+  if (page) {
+    setFont(page.pageFont.type);
+  }
 
   return (
     <>

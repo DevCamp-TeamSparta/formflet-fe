@@ -1,13 +1,26 @@
+import { useEffect } from 'react';
 import Toggle from '@/components/basic/Toggle';
 import FormSquareIcon from '../../../../public/svg/FormSquareIcon';
 import EmptyStar from '../../../../public/svg/EmptyStar';
-import { useCtaStore, useFormStore } from '../store';
+import { useCtaStore, useDisplayStore, useFormStore } from '../store';
 
 export default function FormSidebar() {
-  const { formStatus, setStatus } = useFormStore((state) => ({
+  const { formStatus, setFormStatus } = useFormStore((state) => ({
     formStatus: state.formStatus,
-    setStatus: state.setStatus,
+    setFormStatus: state.setFormStatus,
   }));
+
+  const { setDisplay } = useDisplayStore((state) => ({
+    setDisplay: state.setDisplay,
+  }));
+
+  useEffect(() => {
+    if (formStatus) {
+      setDisplay('form');
+    } else {
+      setDisplay('notion');
+    }
+  }, [formStatus, setDisplay]);
 
   const { ctaStatus, setCtaStatus, ctaContent, setCtaContent, ctaLink, setCtaLink } = useCtaStore();
 
@@ -22,7 +35,7 @@ export default function FormSidebar() {
             </div>
             <p>폼 추가</p>
             <div className="ml-auto">
-              <Toggle isChecked={formStatus} onClick={() => setStatus(!formStatus)} />
+              <Toggle isChecked={formStatus} onClick={() => setFormStatus(!formStatus)} />
             </div>
           </div>
         </div>

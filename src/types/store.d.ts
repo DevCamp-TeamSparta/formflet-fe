@@ -21,8 +21,9 @@ interface DomainStore {
 interface FormStore {
   formStatus: boolean;
   form: string;
-  setStatus: (formStatus: boolean) => void;
+  setFormStatus: (formStatus: boolean) => void;
   setForm: (form: string) => void;
+  resetForm: () => void;
 }
 
 interface CtaStore {
@@ -38,4 +39,5 @@ interface CtaStore {
   setCtaFontSize: (ctaFontSize: numver) => void;
   setCtaFontColor: (ctaFontColor: string) => void;
   setCtaBackColor: (ctaBackColor: string) => void;
+  resetCta: () => void;
 }
