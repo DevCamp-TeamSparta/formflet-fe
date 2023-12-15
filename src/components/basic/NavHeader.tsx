@@ -7,7 +7,7 @@ import CopyIcon from '../../../public/svg/CopyIcon';
 import SaveIcon from '../../../public/svg/SaveIcon';
 import ReloadIcon from '../../../public/svg/ReloadIcon';
 import pageSave from '@/services/api/pages/pageSave';
-import { useCtaStore, useDomainStore, useFontStore, useFormStore } from '@/containers/mypage/store';
+import { useDomainStore, useFontStore, useFormStore } from '@/containers/mypage/store';
 import PageRefresh from '@/services/api/pages/pageRefresh';
 
 export default function NavHeader() {
@@ -23,13 +23,11 @@ export default function NavHeader() {
   });
 
   const domain = useDomainStore((state) => state.domain);
-  const { font, setFont } = useFontStore((state) => ({ font: state.font, setFont: state.setFont }));
-  const { formStatus, form, resetForm } = useFormStore((state) => ({
+  const { font } = useFontStore((state) => ({ font: state.font }));
+  const { formStatus, form } = useFormStore((state) => ({
     formStatus: state.formStatus,
     form: state.form,
-    resetForm: state.resetForm,
   }));
-  const { resetCta } = useCtaStore((state) => ({ resetCta: state.resetCta }));
 
   const handleSave = async (): Promise<void> => {
     const data = {
@@ -52,9 +50,6 @@ export default function NavHeader() {
     // if (isRefreshNotion) {
     await PageRefresh(path);
     // setIsOpenModal(false);
-    setFont('');
-    resetForm();
-    resetCta();
     window.location.reload();
     // }
   };
