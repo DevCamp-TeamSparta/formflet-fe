@@ -1,22 +1,13 @@
-import React, { useState } from 'react';
+interface ToggleProps {
+  isChecked: boolean;
+  onClick: () => void;
+}
 
-// todo: onClickEvent 추가
-export default function Toggle() {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
-
+export default function Toggle({ isChecked, onClick }: ToggleProps) {
   return (
     <label className="flex cursor-pointer select-none items-center">
       <div className="relative">
-        <input
-          type="checkbox"
-          checked={isChecked}
-          onChange={handleCheckboxChange}
-          className="sr-only"
-        />
+        <input type="checkbox" defaultChecked={isChecked} onClick={onClick} className="sr-only" />
         <div
           className={`box block w-[32px] h-[16px] rounded-full ${
             isChecked ? 'bg-purple-normal-normal' : 'bg-gray-normal-normal'

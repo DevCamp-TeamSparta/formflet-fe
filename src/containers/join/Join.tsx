@@ -40,7 +40,7 @@ export default function Join() {
 
   const { JOIN_GROUP_PROPS } = InputGroupArrays();
   return (
-    <main className="flex w-[1440px] h-[1024px] flex-col items-center">
+    <main className="flex flex-col items-center">
       <div className="flex w-[504px] flex-col justify-end items-center">
         <form
           className="flex w-[504px] flex-col items-center gap-10 px-0 py-[60px]"

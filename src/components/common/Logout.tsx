@@ -19,13 +19,11 @@ export default function Logout() {
         .then(() => {
           cookies.remove('authorization');
           cookies.remove('refresh-token');
-
           route.push(PATH.ROUTE.ROOT);
         })
         .catch(() => {
           cookies.remove('authorization');
           cookies.remove('refresh-token');
-
           route.push(PATH.ROUTE.ROOT);
         });
     }
