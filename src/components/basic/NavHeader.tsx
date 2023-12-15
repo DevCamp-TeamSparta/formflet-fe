@@ -7,7 +7,7 @@ import CopyIcon from '../../../public/svg/CopyIcon';
 import SaveIcon from '../../../public/svg/SaveIcon';
 import ReloadIcon from '../../../public/svg/ReloadIcon';
 import pageSave from '@/services/api/pages/pageSave';
-import { useDomainStore, useFontStore } from '@/containers/mypage/store';
+import { useDomainStore, useFontStore, useFormStore } from '@/containers/mypage/store';
 
 export default function NavHeader() {
   const pathName = usePathname();
@@ -23,14 +23,23 @@ export default function NavHeader() {
   });
   const domain = useDomainStore((state) => state.domain);
   const font = useFontStore((state) => state.font);
+  const { formStatus, form } = useFormStore((state) => ({
+    formStatus: state.formStatus,
+    form: state.form,
+  }));
 
   const data = {
-    type: font,
+    font: {
+      type: font,
+    },
+    form: {
+      status: formStatus,
+      guide: form,
+    },
   };
-  const handleSubmit = async () => {
-    const response = await pageSave(data, path);
 
-    console.log(response);
+  const handleSubmit = async (): Promise<void> => {
+    await pageSave(data, path);
   };
 
   return (

@@ -8,11 +8,6 @@ interface EditPageStore {
   setEditPage: (editPage: 'notion' | 'form') => void;
 }
 
-interface FormStore {
-  form: string;
-  setForm: (form: string) => void;
-}
-
 interface DisplayStore {
   display: 'notion' | 'form';
   setDisplay: (display: 'notion' | 'form') => void;
@@ -21,4 +16,26 @@ interface DisplayStore {
 interface DomainStore {
   domain: string;
   setDomain: (domain: string) => void;
+}
+
+interface FormStore {
+  formStatus: boolean;
+  form: string;
+  setStatus: (formStatus: boolean) => void;
+  setForm: (form: string) => void;
+}
+
+interface CtaStore {
+  ctaStatus: boolean;
+  ctaContent: string;
+  ctaLink: string;
+  ctaFontSize: number;
+  ctaFontColor: string;
+  ctaBackColor: string;
+  setCtaStatus: (ctaStatus: boolean) => void;
+  setCtaContent: (ctaContent: string) => void;
+  setCtaLink: (ctaLink: string) => void;
+  setCtaFontSize: (ctaFontSize: numver) => void;
+  setCtaFontColor: (ctaFontColor: string) => void;
+  setCtaBackColor: (ctaBackColor: string) => void;
 }

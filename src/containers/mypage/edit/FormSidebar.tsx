@@ -1,8 +1,16 @@
 import Toggle from '@/components/basic/Toggle';
 import FormSquareIcon from '../../../../public/svg/FormSquareIcon';
 import EmptyStar from '../../../../public/svg/EmptyStar';
+import { useCtaStore, useFormStore } from '../store';
 
 export default function FormSidebar() {
+  const { formStatus, setStatus } = useFormStore((state) => ({
+    formStatus: state.formStatus,
+    setStatus: state.setStatus,
+  }));
+
+  const { ctaStatus, setCtaStatus, ctaContent, setCtaContent, ctaLink, setCtaLink } = useCtaStore();
+
   return (
     <div className="space-y-[20px] p-[20px]">
       <div className="p-[20px] border border-gray-light-active box-shadow-normal rounded-[8px] flex flex-col gap-[20px]">
@@ -14,7 +22,7 @@ export default function FormSidebar() {
             </div>
             <p>폼 추가</p>
             <div className="ml-auto">
-              <Toggle />
+              <Toggle isChecked={formStatus} onClick={() => setStatus(!formStatus)} />
             </div>
           </div>
         </div>
@@ -26,9 +34,9 @@ export default function FormSidebar() {
             <div className="w-[20px] h-[20px] p-[2px] rounded-[8px] flex items-center justify-center bg-gray-light-normal">
               <EmptyStar />
             </div>
-            <p>테마 선택 버튼 표시</p>
+            <p>CTA 버튼 추가</p>
             <div className="ml-auto">
-              <Toggle />
+              <Toggle isChecked={ctaStatus} onClick={() => setCtaStatus(!ctaStatus)} />
             </div>
           </div>
         </div>
@@ -40,6 +48,8 @@ export default function FormSidebar() {
           <input
             className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-[color:var(--Grey-normal-normal,#9FA0A0)] shadow-[0px_2px_4px_0px_rgba(0,0,0,0.10)] px-5 py-4 rounded-lg border-solid"
             type="text"
+            value={ctaContent}
+            onChange={(e) => setCtaContent(e.target.value)}
             placeholder="Click me!"
           />
         </div>
@@ -48,6 +58,8 @@ export default function FormSidebar() {
           <input
             className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-[color:var(--Grey-normal-normal,#9FA0A0)] shadow-[0px_2px_4px_0px_rgba(0,0,0,0.10)] px-5 py-4 rounded-lg border-solid"
             type="text"
+            value={ctaLink}
+            onChange={(e) => setCtaLink(e.target.value)}
             placeholder="폼 페이지로 이동"
           />
         </div>
@@ -55,9 +67,7 @@ export default function FormSidebar() {
         <div className="flex h-[78px] flex-col justify-end items-start gap-4 self-stretch pt-1.5">
           <label className="b2 text-gray-dark-active">글자 크기</label>
           <select className="flex w-[282px] h-10 justify-between items-center shrink-0 border border-[color:var(--Grey-normal-normal,#9FA0A0)] shadow-[0px_2px_4px_0px_rgba(0,0,0,0.10)] px-5 py-4 rounded-lg border-solid">
-            <option>
-              <p className="b2-bold text-gray-dark-hover ">24px</p>
-            </option>
+            <option>24px</option>
           </select>
         </div>
         <div className="flex justify-between items-center self-stretch">

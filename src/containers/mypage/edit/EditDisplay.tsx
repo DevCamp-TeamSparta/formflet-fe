@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import clsx from 'clsx';
 import NotionComponent from '@/components/notion/NotionComponent';
 import pageContent from '@/services/api/pages/pageContent';
-import { useDisplayStore, useDomainStore } from '../store';
+import { useDisplayStore, useDomainStore, useFormStore } from '../store';
 import EditForm from './EditForm';
 import EditPreView from './EditPreView';
 import Button from '@/components/basic/Button';
@@ -18,8 +19,12 @@ export default function EditDisplay({ pageId }: PageProps) {
     content: '',
     url: '',
   });
-  const { display, setDisplay } = useDisplayStore((state) => state);
-  const { setDomain } = useDomainStore((state) => state);
+  const { display, setDisplay } = useDisplayStore((state) => ({
+    display: state.display,
+    setDisplay: state.setDisplay,
+  }));
+  const { setDomain } = useDomainStore((state) => ({ setDomain: state.setDomain }));
+  const { formStatus } = useFormStore((state) => ({ formStatus: state.formStatus }));
 
   const handleDisplay = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -57,17 +62,17 @@ export default function EditDisplay({ pageId }: PageProps) {
 
   useEffect(() => {
     const resizerCurrent = resizer.current;
-    console.log(resizerCurrent);
+
     const mouseMoveHandler = (e: MouseEvent): void => {
       if (!resizerCurrent || !leftSide.current) return;
 
       const dx = e.clientX - resizerCurrent.getBoundingClientRect().left;
-      const parentElement = resizerCurrent.parentNode as HTMLElement; // HTMLElement로 타입 단언
+      const parentElement = resizerCurrent.parentNode as HTMLElement;
 
       if (parentElement) {
         const newLeftWidth =
           ((leftSide.current.getBoundingClientRect().width + dx) * 100) /
-          parentElement.getBoundingClientRect().width; // HTMLElement의 메소드 사용
+          parentElement.getBoundingClientRect().width;
         leftSide.current.style.width = `${newLeftWidth}%`;
       }
     };
@@ -128,7 +133,16 @@ export default function EditDisplay({ pageId }: PageProps) {
           ),
         }[display]
       }
-      <div className="flex z-10 h-10 rotate-90 items-start gap-2 absolute box-shadow-normal bg-purple-normal-normal px-2.5 py-2 rounded-[0px_0px_8px_8px] right-1 top-[191px]">
+
+      <div
+        className={clsx(
+          'flex z-10 h-10 rotate-90 items-start gap-2 absolute box-shadow-normal bg-purple-normal-normal px-2.5 py-2 rounded-[0px_0px_8px_8px] right-0.5 top-[191px]',
+          {
+            visible: formStatus,
+            invisible: !formStatus,
+          },
+        )}
+      >
         <Button onClick={(e) => handleDisplay(e)} disabled={display === 'notion'}>
           <NotionIcon id="display-notion" color={display === 'notion' ? 'white' : '#D8B0FF'} />
         </Button>

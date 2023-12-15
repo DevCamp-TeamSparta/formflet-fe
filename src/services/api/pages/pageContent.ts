@@ -12,6 +12,5 @@ export default async function pageContent({ pageId }: PageProps) {
         Authorization: `Bearer ${authorization}`,
       },
     });
-
   return response;
 }

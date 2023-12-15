@@ -47,7 +47,7 @@ export default function Login() {
   };
 
   return (
-    <main className="flex w-[1440px] h-[1024px] flex-col items-center gap-40">
+    <main className="flex flex-col items-center gap-40">
       <form
         className="flex w-[502px] flex-col items-center gap-10"
         onSubmit={handleSubmit(loginFormSubmit)}
