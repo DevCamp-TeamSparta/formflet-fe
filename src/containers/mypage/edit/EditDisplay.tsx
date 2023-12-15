@@ -18,11 +18,11 @@ export default function EditDisplay({ pageId }: PageProps) {
   useEffect(() => {
     const getPageContent = async () => {
       const response = await pageContent({ pageId });
-
       return response.data.data;
     };
     const fetchPage = async () => {
       const pageData = await getPageContent();
+      console.log(pageData);
       setPage({
         id: pageData.id,
         content: pageData.pageContent.content,
@@ -40,12 +40,7 @@ export default function EditDisplay({ pageId }: PageProps) {
     <div className="m-[20px_20px_20px_0] grow w-full min-h-full border rounded-[8px] border-gray-light-active overflow-hidden">
       {
         {
-          notion: isloaded && (
-            <NotionComponent
-              notionBodyHTML={page.content}
-              domainName={new URL(page.url).hostname}
-            />
-          ),
+          notion: isloaded && <NotionComponent notionBodyHTML={page.content} />,
           form: (
             <div className="flex h-[840px] justify-center items-start">
               <EditForm />

@@ -22,9 +22,9 @@ export default async function FormPage({ params }: PageProps) {
   const page = response.data.data;
 
   return (
-    <NotionComponent
-      notionBodyHTML={page.pageContent.content}
-      domainName={new URL(page.url).hostname}
-    />
+    <>
+      <NotionComponent notionBodyHTML={page.pageContent.content} />
+      <input />
+    </>
   );
 }

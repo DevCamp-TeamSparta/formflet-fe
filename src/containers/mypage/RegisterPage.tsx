@@ -10,6 +10,7 @@ import MESSAGE from '@/constants/Messages';
 import PlusCircle from '../../../public/svg/PlusCircle';
 import Input from '@/components/basic/Input';
 import PATH from '@/constants/path/Path';
+import { useState } from 'react';
 
 export default function RegisterPage() {
   const {
