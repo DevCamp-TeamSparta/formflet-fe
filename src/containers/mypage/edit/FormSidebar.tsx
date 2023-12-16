@@ -49,6 +49,7 @@ export default function FormSidebar() {
             className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-[color:var(--Grey-normal-normal,#9FA0A0)] shadow-[0px_2px_4px_0px_rgba(0,0,0,0.10)] px-5 py-4 rounded-lg border-solid"
             type="text"
             value={ctaContent}
+            disabled={!ctaStatus}
             onChange={(e) => setCtaContent(e.target.value)}
             placeholder="Click me!"
           />
@@ -59,6 +60,7 @@ export default function FormSidebar() {
             className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-[color:var(--Grey-normal-normal,#9FA0A0)] shadow-[0px_2px_4px_0px_rgba(0,0,0,0.10)] px-5 py-4 rounded-lg border-solid"
             type="text"
             value={ctaLink}
+            disabled={!ctaStatus}
             onChange={(e) => setCtaLink(e.target.value)}
             placeholder="폼 페이지로 이동"
           />

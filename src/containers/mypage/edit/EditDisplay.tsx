@@ -51,12 +51,14 @@ export default function EditDisplay({ pageId }: PageProps) {
       setDomain(pageData.domain);
       setPage({
         id: pageData.id,
-        content: pageData.pageContent.content,
+        content: pageData.pageDetail.content,
         url: pageData.url,
       });
       setFont(pageData.pageFont.type);
+      console.log(pageData);
       setFormStatus(pageData.form.status);
       setForm(pageData.form.guide);
+      // TODO: cta도 저장하기
       setIsLoaded(true);
     };
     fetchPage();

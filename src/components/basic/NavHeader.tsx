@@ -7,7 +7,7 @@ import CopyIcon from '../../../public/svg/CopyIcon';
 import SaveIcon from '../../../public/svg/SaveIcon';
 import ReloadIcon from '../../../public/svg/ReloadIcon';
 import pageSave from '@/services/api/pages/pageSave';
-import { useDomainStore, useFontStore, useFormStore } from '@/containers/mypage/store';
+import { useCtaStore, useDomainStore, useFontStore, useFormStore } from '@/containers/mypage/store';
 import PageRefresh from '@/services/api/pages/pageRefresh';
 
 export default function NavHeader() {
@@ -28,6 +28,16 @@ export default function NavHeader() {
     formStatus: state.formStatus,
     form: state.form,
   }));
+  const { ctaStatus, ctaContent, ctaLink, ctaFontSize, ctaFontColor, ctaBackColor } = useCtaStore(
+    (state) => ({
+      ctaStatus: state.ctaStatus,
+      ctaContent: state.ctaContent,
+      ctaLink: state.ctaLink,
+      ctaFontSize: state.ctaFontSize,
+      ctaFontColor: state.ctaFontColor,
+      ctaBackColor: state.ctaBackColor,
+    }),
+  );
 
   const handleSave = async (): Promise<void> => {
     const data = {
@@ -37,6 +47,14 @@ export default function NavHeader() {
       form: {
         status: formStatus,
         guide: form,
+      },
+      cta: {
+        status: ctaStatus,
+        content: ctaContent,
+        link: ctaLink,
+        fontSize: ctaFontSize,
+        fontColor: ctaFontColor,
+        backgroundColor: ctaBackColor,
       },
     };
     await pageSave(data, path);

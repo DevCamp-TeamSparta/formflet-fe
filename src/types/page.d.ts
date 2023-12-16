@@ -22,7 +22,7 @@ type Page = {
   title: string;
   domain: string;
   url: string;
-  pageContent: PageContent;
+  pageDetail: PageContent;
   pageFont: PageFont;
   form: PageForm;
 };

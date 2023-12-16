@@ -1,7 +1,7 @@
 import { headers } from 'next/headers';
 import NotionComponent from '@/components/notion/NotionComponent';
-import { useFontStore } from '@/containers/mypage/store';
 import pageRelease from '@/services/api/pages/pageRelease';
+import ReleaseWrapper from '@/components/ReleaseWrapper';
 
 interface PageProps {
   params: {
@@ -17,16 +17,11 @@ export default async function FormPage({ params }: PageProps) {
   }
   const response = await pageRelease(pageDomain);
   const page = response.data.data;
-  const { setFont } = useFontStore((state) => ({ setFont: state.setFont }));
-
-  if (page) {
-    setFont(page.pageFont.type);
-  }
+  const font = page.pageFont.type;
 
   return (
-    <>
-      <NotionComponent notionBodyHTML={page.pageContent.content} />
-      <input />
-    </>
+    <ReleaseWrapper font={font}>
+      <NotionComponent notionBodyHTML={page.pageDetail.content} />
+    </ReleaseWrapper>
   );
 }
