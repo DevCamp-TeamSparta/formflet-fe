@@ -94,7 +94,6 @@ export default function NavHeader() {
           <p className="b1-bold text-gray-dark-active">{navItem}</p>
         </div>
       )}
-
       <hr className="text-gray-light-active self-stretch" />
     </header>
   );

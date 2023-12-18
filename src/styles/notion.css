@@ -1,29 +1,10 @@
-.pseudoBefore::before {
-  content: var(--pseudoBefore--content);
-  font-family: Arial;
+.notion-frame * {
+  font-family: var(--notion-font) !important;
 }
 
-.notion-content * {
-  font-family: var(--notion-font-family) !important;
+.notion-list{
+  padding-inline-start:0;
 }
-.layout {
-  --content-width: minmax(auto, 708px);
-  --margin-width: minmax(96px, 1fr);
-  grid-template-columns:
-    [full-start] var(--margin-width) [content-start] var(--content-width) [content-end] var(
-      --margin-width
-    )
-    [full-end];
-  display: grid;
-  width: 100%;
-}
-.layout-wide {
-  --content-width: 1fr;
-  --margin-width: 96px;
-}
-.layout-full {
-  grid-column: full;
-}
-.layout-content {
-  grid-column: content;
+.notion-page-icon-hero{
+  left: 50px;
 }
