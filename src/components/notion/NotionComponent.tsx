@@ -1,22 +1,27 @@
 'use client';
 
-import { CSSProperties, useRef } from 'react';
-import styles from '../../styles/notion.css';
-import 'prismjs/themes/prism-tomorrow.css';
-import { useSetToggle } from '@/hooks/pages/NotionHooks';
+import { CSSProperties } from 'react';
+import 'react-notion-x/src/styles.css';
+import 'prismjs/themes/prism.css';
+import { Code } from 'react-notion-x/build/third-party/code';
+import '../../styles/notion.css';
+import { NotionRenderer } from 'react-notion-x';
 import { useFontStore } from '@/containers/mypage/store';
 
-export default function NotionComponent({ notionBodyHTML }: { notionBodyHTML: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useSetToggle(ref);
-
+interface NotionProps {
+  recordMap: string;
+}
+export default function NotionComponent({ recordMap }: NotionProps) {
+  const recordMapJson = JSON.parse(recordMap);
   const font = useFontStore((state) => state.font);
   return (
-    <div style={{ '--notion-font-family': font } as CSSProperties}>
-      <div
-        ref={ref}
-        className={`notion-content ${styles.pseudoBefore} ${styles.layout} ${styles.layoutFull}  ${styles.layoutContent}`}
-        dangerouslySetInnerHTML={{ __html: notionBodyHTML }}
+    <div style={{ '--notion-font': font } as CSSProperties}>
+      <NotionRenderer
+        recordMap={recordMapJson}
+        components={{
+          Code,
+        }}
+        fullPage
       />
     </div>
   );

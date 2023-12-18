@@ -1,3 +1,5 @@
-export default function DataHome() {
-  return <h1>데이터 모아보기</h1>;
+import DataListContainer from '@/containers/mypage/data/DataListContainer';
+
+export default function DataListPage() {
+  return <DataListContainer />;
 }
