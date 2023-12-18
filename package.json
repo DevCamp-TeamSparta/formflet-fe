@@ -21,6 +21,7 @@
     "react-hook-form": "^7.48.2",
     "react-notion-x": "^6.16.0",
     "universal-cookie": "^6.1.1",
+    "xlsx": "^0.18.5",
     "zod": "^3.22.4",
     "zustand": "^4.4.7"
   },
