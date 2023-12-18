@@ -44,7 +44,6 @@ export default function EditDisplay({ pageId }: PageProps) {
     const fetchPage = async (): Promise<void> => {
       const pageData = await getPageContent();
       setDomain(pageData.domain);
-
       setPage({
         id: pageData.id,
         content: pageData.pageContent.content,
@@ -58,7 +57,6 @@ export default function EditDisplay({ pageId }: PageProps) {
   const resizer = useRef<HTMLDivElement>(null);
   const leftSide = useRef<HTMLDivElement>(null);
   const rightSide = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const resizerCurrent = resizer.current;
 
@@ -109,7 +107,7 @@ export default function EditDisplay({ pageId }: PageProps) {
     <div className="m-[20px_20px_20px_0] grow w-full min-h-full border rounded-[8px] border-gray-light-active overflow-hidden">
       {
         {
-          notion: isloaded && <NotionComponent notionBodyHTML={page.content} />,
+          notion: isloaded && <NotionComponent recordMap={page.content} />,
           form: (
             <div className="flex border border-gray-normal-normal w-full h-full">
               <div

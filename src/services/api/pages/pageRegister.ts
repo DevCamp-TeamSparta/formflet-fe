@@ -5,7 +5,7 @@ import Instance from '../Instance';
 import { PageUrlFormSchema } from '@/types/type';
 
 export default async function pageRegister(
-  data: PageUrlFormSchema,
+  data: PageUrlFormSchema & { content: string },
 ): Promise<AxiosResponse<{ data: Page }>> {
   const cookie = new Cookies();
   const authorization = cookie.get('authorization');
@@ -15,6 +15,7 @@ export default async function pageRegister(
       title: data.title,
       domain: data.domain,
       url: data.url,
+      content: data.content,
     },
     {
       headers: {

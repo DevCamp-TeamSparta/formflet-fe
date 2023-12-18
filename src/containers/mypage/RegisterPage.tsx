@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 import Button from '@/components/basic/Button';
 import pageRegister from '@/services/api/pages/pageRegister';
 import { PageUrlFormSchema, pageUrlFormSchema } from '@/types/type';
@@ -25,7 +26,14 @@ export default function RegisterPage() {
   const pageFormSubmit: SubmitHandler<PageUrlFormSchema> = async (
     data: PageUrlFormSchema,
   ): Promise<void> => {
-    const response = await pageRegister(data);
+    const res = await axios.post<{ page: Record<string, object> }>('/api/notion', {
+      url: data.url,
+    });
+    const content = JSON.stringify(res.data.page);
+    const response = await pageRegister({
+      ...data,
+      content,
+    });
     const path = response.data.data.id;
     switch (response.status) {
       case 404:
