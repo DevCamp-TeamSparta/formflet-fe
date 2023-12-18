@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFontStore } from '@/containers/mypage/store';
 
 export default function ReleaseWrapper({
@@ -10,10 +10,12 @@ export default function ReleaseWrapper({
   children: React.ReactNode;
   font: string;
 }) {
+  const [isLoaded, setIsLoaded] = useState(false);
   const { setFont } = useFontStore((state) => ({ setFont: state.setFont }));
 
   useEffect(() => {
     setFont(font);
+    setIsLoaded(true);
   }, [font, setFont]);
-  return <div>{children}</div>;
+  return isLoaded && <div>{children}</div>;
 }

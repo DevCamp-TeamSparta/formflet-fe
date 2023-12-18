@@ -57,7 +57,12 @@ export default function NavHeader() {
         backgroundColor: ctaBackColor,
       },
     };
-    await pageSave(data, path);
+    const response = await pageSave(data, path);
+
+    // TODO: 성공 시 모달창 띄우기
+    if (response.status === 200) {
+      alert('성공!');
+    }
   };
 
   // TODO: 새로고침 모달창 넣기
@@ -76,8 +81,8 @@ export default function NavHeader() {
     <header className="w-full h-[72px] flex flex-col justify-end items-center gap-[22px] shrink-0 pt-[22px]">
       {pathName.startsWith('/mypage/edit') ? (
         <div className="w-[849px] justify-between items-center h-9 flex">
-          <Button className="flex w-[762px] h-9 justify-between items-center shrink-0 border border-[color:var(--Grey-light-active,#E1E2E2)] shadow-[0px_2px_4px_0px_rgba(0,0,0,0.10)] px-5 py-4 rounded-lg border-solid">
-            <p className="text-[color:var(--Grey-dark-active,#484848)] text-base not-italic font-bold leading-7">
+          <Button className="flex w-[762px] h-9 justify-between items-center shrink-0 border border-gray-light-active box-shadow-normal px-5 py-4 rounded-lg border-solid">
+            <p className="text-gray-dark-active text-base not-italic font-bold leading-7">
               {domain}
             </p>
             <CopyIcon />

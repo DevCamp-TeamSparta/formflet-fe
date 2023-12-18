@@ -19,7 +19,7 @@ const PAGES = Object.freeze({
 });
 
 const FORMS = Object.freeze({
-  create: '/api/forms/create',
+  reply: '/api/forms/reply',
 });
 
 const API = Object.freeze({

@@ -9,7 +9,37 @@ export default function FormSidebar() {
     setFormStatus: state.setFormStatus,
   }));
 
-  const { ctaStatus, setCtaStatus, ctaContent, setCtaContent, ctaLink, setCtaLink } = useCtaStore();
+  const {
+    ctaStatus,
+    setCtaStatus,
+    ctaContent,
+    setCtaContent,
+    ctaLink,
+    setCtaLink,
+    ctaFontColor,
+    setCtaFontColor,
+    ctaBackColor,
+    setCtaBackColor,
+  } = useCtaStore();
+
+  const fontColor = ctaFontColor.replace(/'/g, '');
+  const backColor = ctaBackColor.replace(/'/g, '');
+
+  const handleAddForm = () => {
+    if (!formStatus) {
+      if (!ctaStatus) {
+        setCtaStatus(!ctaStatus);
+      }
+    }
+    if (formStatus) {
+      alert('정말로 취소할거야?');
+    }
+    setFormStatus(!formStatus);
+  };
+
+  const handleAddCta = () => {
+    setCtaStatus(!ctaStatus);
+  };
 
   return (
     <div className="space-y-[20px] p-[20px]">
@@ -22,7 +52,7 @@ export default function FormSidebar() {
             </div>
             <p>폼 추가</p>
             <div className="ml-auto">
-              <Toggle isChecked={formStatus} onClick={() => setFormStatus(!formStatus)} />
+              <Toggle isChecked={formStatus} onClick={handleAddForm} />
             </div>
           </div>
         </div>
@@ -36,7 +66,7 @@ export default function FormSidebar() {
             </div>
             <p>CTA 버튼 추가</p>
             <div className="ml-auto">
-              <Toggle isChecked={ctaStatus} onClick={() => setCtaStatus(!ctaStatus)} />
+              <Toggle isChecked={ctaStatus} onClick={handleAddCta} />
             </div>
           </div>
         </div>
@@ -46,7 +76,7 @@ export default function FormSidebar() {
         <div className="flex h-[78px] flex-col justify-end items-start gap-4 self-stretch pt-1.5">
           <label className="b2-bold text-gray-dark-active">버튼 내용</label>
           <input
-            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-[color:var(--Grey-normal-normal,#9FA0A0)] shadow-[0px_2px_4px_0px_rgba(0,0,0,0.10)] px-5 py-4 rounded-lg border-solid"
+            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
             type="text"
             value={ctaContent}
             disabled={!ctaStatus}
@@ -57,7 +87,7 @@ export default function FormSidebar() {
         <div className="flex h-[78px] flex-col justify-end items-start gap-4 self-stretch pt-1.5">
           <label className="b2-bold text-gray-dark-active">링크</label>
           <input
-            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-[color:var(--Grey-normal-normal,#9FA0A0)] shadow-[0px_2px_4px_0px_rgba(0,0,0,0.10)] px-5 py-4 rounded-lg border-solid"
+            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
             type="text"
             value={ctaLink}
             disabled={!ctaStatus}
@@ -68,20 +98,34 @@ export default function FormSidebar() {
         <p className="b2-bold text-gray-dark-active">색상 및 스타일</p>
         <div className="flex h-[78px] flex-col justify-end items-start gap-4 self-stretch pt-1.5">
           <label className="b2 text-gray-dark-active">글자 크기</label>
-          <select className="flex w-[282px] h-10 justify-between items-center shrink-0 border border-[color:var(--Grey-normal-normal,#9FA0A0)] shadow-[0px_2px_4px_0px_rgba(0,0,0,0.10)] px-5 py-4 rounded-lg border-solid">
+          <select className="flex w-[282px] h-10 justify-between items-center shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid">
             <option>24px</option>
           </select>
         </div>
         <div className="flex justify-between items-center self-stretch">
           <p className="b2 text-gray-dark-active">글자색</p>
-          <div className="flex justify-end items-center gap-2.5">
-            <p className="b2 text-gray-dark-active">#FFFFFF</p>
+          <div className="flex justify-end items-center">
+            <input
+              className="b2 text-gray-dark-active"
+              value={ctaFontColor}
+              onChange={(e) => setCtaFontColor(e.target.value)}
+            />
+            <div
+              className={`border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full bg-[${fontColor}]`}
+            />
           </div>
         </div>
         <div className="flex justify-between items-center self-stretch">
           <p className="b2 text-gray-dark-active">배경색</p>
-          <div className="flex justify-end items-center gap-2.5">
-            <p className="b2 text-gray-dark-active">#FFFFFF</p>
+          <div className="flex justify-between items-center">
+            <input
+              className="b2 text-gray-dark-active"
+              value={ctaBackColor}
+              onChange={(e) => setCtaBackColor(e.target.value)}
+            />
+            <div
+              className={`border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full bg-[${backColor}]`}
+            />
           </div>
         </div>
       </div>

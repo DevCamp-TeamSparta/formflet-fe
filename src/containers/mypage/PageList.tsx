@@ -35,7 +35,7 @@ export default function PageList({ setIsVisibled }: StateSetString) {
       setPageList(data);
     };
 
-    fetchData();
+    fetchData().catch((e) => alert(e));
   }, [setIsVisibled]);
 
   return (

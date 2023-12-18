@@ -1,31 +1,34 @@
 'use client';
 
 import Button from '@/components/basic/Button';
-import { useFormStore } from '../store';
+import { useDomainStore, useFormStore } from '../store';
 import PlusCircle from '../../../../public/svg/PlusCircle';
+import formReply from '@/services/api/forms/formReply';
 
-export default function EditPreView() {
+export default function EditFormView() {
+  const domain = useDomainStore((state) => state.domain);
   const form = useFormStore((state) => state.form);
   const formSplit = form.split('\n');
+  let count = 0;
 
-  const handleRadio = (text: string, idx: string) => {
+  const handleRadio = (text: string) => {
     const items = text.split('_');
     const item = items.map((value) => {
       return (
-        <div key={text + idx}>
-          <input id={value} type="radio" name={idx} value={value} />
+        <div key={text + value}>
+          <input type="radio" name={`answer${count}`} value={value} />
           <span>{value}</span>
         </div>
       );
     });
     return item;
   };
-  const handleCheckbox = (text: string, idx: string) => {
+  const handleCheckbox = (text: string) => {
     const items = text.split('_');
     const item = items.map((value) => {
       return (
-        <div key={text + idx}>
-          <input type="checkbox" name={idx} value={value} />
+        <div key={text + value}>
+          <input type="checkbox" name={`answer${count}`} value={value} />
           <span>{value}</span>
         </div>
       );
@@ -33,12 +36,10 @@ export default function EditPreView() {
     return item;
   };
 
-  const handleForm = (text: string, idx: string) => {
+  const handleForm = (text: string) => {
     const space = text.indexOf(' ');
-    let command = text.substring(0, space);
+    const command = text.substring(0, space);
     const content = text.substring(space + 1);
-
-    if (text === '[주관식]') command = '[주관식]';
 
     switch (command) {
       // Question
@@ -49,13 +50,21 @@ export default function EditPreView() {
 
       // Answer
       case '[주관식]':
+        count += 1;
         return (
-          <input className="flex w-[450px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid" />
+          <input
+            type="text"
+            className="flex w-[450px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
+            placeholder={content}
+            name={`answer${count}`}
+          />
         );
       case '[객관식]':
-        return handleRadio(content, idx);
+        count += 1;
+        return handleRadio(content);
       case '[객관식_복수]':
-        return handleCheckbox(content, idx);
+        count += 1;
+        return handleCheckbox(content);
 
       // Text
       case '[텍스트]':
@@ -67,10 +76,22 @@ export default function EditPreView() {
     }
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(event.currentTarget);
+    const response = await formReply(domain, formData);
+
+    if (response.status === 200) {
+      alert('성공!');
+    }
+  };
+
   return (
-    <form className="flex flex-col items-start gap-5 flex-[1_0_0] self-stretch border border-gray-light-active box-shadow-normal p-[30px] rounded-[0px_8px_8px_0px] border-solid">
-      {formSplit.map((item, idx) => {
-        const content = handleForm(item, idx as unknown as string);
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-start gap-5 flex-[1_0_0] self-stretch border border-gray-light-active box-shadow-normal p-[30px] rounded-[0px_8px_8px_0px] border-solid"
+    >
+      {formSplit.map((item) => {
+        const content = handleForm(item);
         return <div key={item}>{content}</div>;
       })}
       <Button
