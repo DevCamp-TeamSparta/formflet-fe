@@ -65,7 +65,7 @@ export default function EditDisplay({ pageId }: PageProps) {
       setIsLoaded(true);
     };
     fetchPage().catch((e) => alert(e));
-  }, [pageId]);
+  }, [ctaStore, pageId, setDomain, setFont, setFormALl]);
 
   const resizer = useRef<HTMLDivElement>(null);
   const leftSide = useRef<HTMLDivElement>(null);

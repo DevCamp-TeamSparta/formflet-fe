@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
@@ -11,7 +12,6 @@ import MESSAGE from '@/constants/Messages';
 import PlusCircle from '../../../public/svg/PlusCircle';
 import Input from '@/components/basic/Input';
 import PATH from '@/constants/path/Path';
-import { useState } from 'react';
 import Spinner from '@/components/common/Spinner';
 
 export default function RegisterPage() {
