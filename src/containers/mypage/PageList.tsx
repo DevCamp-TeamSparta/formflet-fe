@@ -10,16 +10,14 @@ export default function PageList({ setIsVisibled }: StateSetString) {
   const [pageList, setPageList] = useState<PageList[]>([]);
 
   const fetchPages = async (): Promise<PageList[]> => {
-    try {
-      const response = await pages();
-      const { data } = response.data;
+    const response = await pages();
+    const { data } = response.data;
 
+    if (!data) {
       return data;
-    } catch (e) {
-      console.error('Error fetching pages:', e);
-
-      return [];
     }
+
+    return data;
   };
 
   useEffect(() => {
