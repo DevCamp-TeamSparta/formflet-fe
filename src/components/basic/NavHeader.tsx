@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import PATH from '@/constants/path/Path';
 import Button from './Button';
 import CopyIcon from '../../../public/svg/CopyIcon';
@@ -12,7 +12,9 @@ import PageRefresh from '@/services/api/pages/pageRefresh';
 
 export default function NavHeader() {
   const pathName = usePathname();
-  const path = pathName.charAt(pathName.length - 1);
+  // const path = pathName.charAt(pathName.length - 1);
+  const params = useParams();
+  const path = params.pageId as string;
   const navList = PATH.ROUTE.NAV_LIST;
 
   let navItem = '';

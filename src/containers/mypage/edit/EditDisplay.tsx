@@ -55,13 +55,17 @@ export default function EditDisplay({ pageId }: PageProps) {
         url: pageData.url,
       });
       setFont(pageData.pageFont.type);
-      setFormALl(pageData.form);
-      ctaStore.setCtaAll(pageData.cta);
+      if (pageData.form) {
+        setFormALl(pageData.form);
+      }
+      if (pageData.cta) {
+        ctaStore.setCtaAll(pageData.cta);
+      }
 
       setIsLoaded(true);
     };
     fetchPage().catch((e) => alert(e));
-  }, [ctaStore, pageId, setDomain, setFont, setFormALl]);
+  }, [pageId]);
 
   const resizer = useRef<HTMLDivElement>(null);
   const leftSide = useRef<HTMLDivElement>(null);
@@ -134,7 +138,6 @@ export default function EditDisplay({ pageId }: PageProps) {
           ),
         }[display]
       }
-
       <div
         className={clsx(
           'flex z-10 h-10 rotate-90 items-start gap-2 absolute box-shadow-normal bg-purple-normal-normal px-2.5 py-2 rounded-[0px_0px_8px_8px] right-0.5 top-[191px]',

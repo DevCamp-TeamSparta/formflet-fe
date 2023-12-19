@@ -11,6 +11,8 @@ import MESSAGE from '@/constants/Messages';
 import PlusCircle from '../../../public/svg/PlusCircle';
 import Input from '@/components/basic/Input';
 import PATH from '@/constants/path/Path';
+import { useState } from 'react';
+import Spinner from '@/components/common/Spinner';
 
 export default function RegisterPage() {
   const {
@@ -21,30 +23,39 @@ export default function RegisterPage() {
     resolver: zodResolver(pageUrlFormSchema),
   });
   const route = useRouter();
-  let errorMessage = '';
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const pageFormSubmit: SubmitHandler<PageUrlFormSchema> = async (
     data: PageUrlFormSchema,
   ): Promise<void> => {
-    const res = await axios.post<{ page: Record<string, object> }>('/api/notion', {
-      url: data.url,
-    });
-    const content = JSON.stringify(res.data.page);
-    const response = await pageRegister({
-      ...data,
-      content,
-    });
-    const path = response.data.data.id;
-    switch (response.status) {
-      case 404:
-        errorMessage = MESSAGE.NOTION_DOMAIN.inVaildNotion;
-        break;
-      case 409:
-        errorMessage = MESSAGE.NOTION_DOMAIN.inVaildDomain;
-        break;
-      default:
-        route.push(`${PATH.ROUTE.EDIT}/${path}`);
+    if (loading) return;
+
+    setLoading(true);
+    try {
+      const res = await axios.post<{ page: Record<string, object> }>('/api/notion', {
+        url: data.url,
+      });
+      const content = JSON.stringify(res.data.page);
+      const response = await pageRegister({
+        ...data,
+        content,
+      });
+      const path = response.data.data.id;
+      switch (response.status) {
+        case 404:
+          setErrorMessage(MESSAGE.NOTION_DOMAIN.inVaildNotion);
+          break;
+        case 409:
+          setErrorMessage(MESSAGE.NOTION_DOMAIN.inVaildDomain);
+          break;
+        default:
+          route.push(`${PATH.ROUTE.EDIT}/${path}`);
+      }
+    } catch (e) {
+      console.error(e);
     }
+    setLoading(false);
   };
 
   return (
@@ -99,11 +110,17 @@ export default function RegisterPage() {
         <p className="b2 self-stretch text-semantic-danger-normal">{errorMessage}</p>
       )}
       <Button
-        className="flex h-10 items-center gap-2.5 box-shadow-normal bg-purple-normal-normal px-5 py-4 rounded-lg"
+        className="flex w-[133px] justify-center h-10 items-center gap-2.5 box-shadow-normal bg-purple-normal-normal px-5 py-4 rounded-lg"
         type="submit"
       >
-        <p className="b1-bold text-white">추가하기</p>
-        <PlusCircle color="white" />
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <p className="b1-bold text-white">추가하기</p>
+            <PlusCircle color="white" />
+          </>
+        )}
       </Button>
     </form>
   );

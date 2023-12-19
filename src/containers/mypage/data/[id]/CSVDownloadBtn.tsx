@@ -2,11 +2,10 @@
 
 import * as XLSX from 'xlsx';
 
-export default function CSVDownloadBtn({ data }) {
-  function downloadCSV(data) {
-    console.log('clicked');
+export default function CSVDownloadBtn({ data }: { data: Record<string, string>[] }) {
+  function downloadCSV(csvData: Record<string, string>[]) {
     // 배열을 워크시트로 변환
-    const worksheet = XLSX.utils.json_to_sheet(data);
+    const worksheet = XLSX.utils.json_to_sheet(csvData);
     // 새 워크북 생성
     const workbook = XLSX.utils.book_new();
     // 워크북에 새 워크시트 추가

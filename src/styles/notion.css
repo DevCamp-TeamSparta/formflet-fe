@@ -2,9 +2,10 @@
   font-family: var(--notion-font) !important;
 }
 
-.notion-list{
-  padding-inline-start:0;
+.notion-asset-wrapper{
+  margin-left: -28px;
 }
+
 .notion-page-icon-hero{
   left: 50px;
 }

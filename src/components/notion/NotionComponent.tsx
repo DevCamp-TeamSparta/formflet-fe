@@ -4,6 +4,7 @@ import { CSSProperties } from 'react';
 import 'react-notion-x/src/styles.css';
 import 'prismjs/themes/prism.css';
 import { Code } from 'react-notion-x/build/third-party/code';
+
 import '../../styles/notion.css';
 import { NotionRenderer } from 'react-notion-x';
 import { useFontStore } from '@/containers/mypage/store';

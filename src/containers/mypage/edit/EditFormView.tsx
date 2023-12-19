@@ -79,7 +79,6 @@ export default function EditFormView() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(event.currentTarget);
     const response = await formReply(domain, formData);
-
     if (response.status === 200) {
       alert('성공!');
     }
