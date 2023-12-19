@@ -17,6 +17,7 @@ import Button from '@/components/basic/Button';
 import NotionIcon from '../../../../public/svg/NotionIcon';
 import DeskAlt from '../../../../public/svg/DeskAlt';
 import EditFormExample from './EditFormExample';
+import CtaComponent from '@/components/cta/CtaComponent';
 
 export default function EditDisplay({ pageId }: PageProps) {
   const [isloaded, setIsLoaded] = useState(false);
@@ -31,8 +32,9 @@ export default function EditDisplay({ pageId }: PageProps) {
   }));
   const { setDomain } = useDomainStore((state) => ({ setDomain: state.setDomain }));
   const { setFont } = useFontStore((state) => ({ setFont: state.setFont }));
-  const { formStatus, setFormALl } = useFormStore((state) => ({
+  const { formStatus, form, setFormALl } = useFormStore((state) => ({
     formStatus: state.formStatus,
+    form: state.form,
     setFormALl: state.setFormAll,
   }));
   const ctaStore = useCtaStore();
@@ -60,6 +62,7 @@ export default function EditDisplay({ pageId }: PageProps) {
         content: pageData.pageDetail.content,
         url: pageData.url,
       });
+
       setFont(pageData.pageFont.type);
       setFormALl(pageData.form);
       ctaStore.setCtaAll(pageData.cta);
@@ -122,7 +125,20 @@ export default function EditDisplay({ pageId }: PageProps) {
     <div className="m-[20px_20px_20px_0] grow w-full min-h-full border rounded-[8px] border-gray-light-active overflow-hidden">
       {
         {
-          notion: isloaded && <NotionComponent recordMap={page.content} />,
+          notion: isloaded && (
+            <div className="relative">
+              <NotionComponent recordMap={page.content} />
+              <div className="absolute inset-x-0 bottom-10 transform -translate-y-1/2">
+                <div className="flex justify-center items-end h-full">
+                  <CtaComponent
+                    params={{
+                      subdomain: '',
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          ),
           form: (
             <div className="flex border border-gray-normal-normal w-full h-full">
               <div
@@ -134,7 +150,7 @@ export default function EditDisplay({ pageId }: PageProps) {
               </div>
               <div ref={resizer} className="cursor-ew-resize h-full w-2.5 bg-gray-light-active" />
               <div ref={rightSide} className="flex flex-grow items-center">
-                <EditFormView />
+                <EditFormView form={form} />
               </div>
             </div>
           ),

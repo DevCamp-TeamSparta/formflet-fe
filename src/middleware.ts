@@ -19,6 +19,7 @@ const PRODUCTION_DOMAINS = ['www', 'test', 'localhost', '127'];
 export default function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   const subDomain = request.nextUrl.hostname.split('.')[0];
+
   if (PRODUCTION_DOMAINS.includes(subDomain)) {
     const accessToken = request.cookies.get('authorization')?.value;
 
@@ -41,7 +42,12 @@ export default function middleware(request: NextRequest) {
       return NextResponse.redirect(myPageUrl);
     }
   } else {
-    return NextResponse.rewrite(new URL(`/form/${subDomain}`, request.url));
+    if (pathName.startsWith('/page')) {
+      return NextResponse.rewrite(new URL(`/page/${subDomain}`, request.url));
+    }
+    if (pathName.startsWith('/form')) {
+      return NextResponse.rewrite(new URL(`/form/${subDomain}`, request.url));
+    }
   }
 
   return NextResponse.next();

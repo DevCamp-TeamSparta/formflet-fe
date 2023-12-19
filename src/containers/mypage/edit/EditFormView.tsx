@@ -1,13 +1,16 @@
 'use client';
 
 import Button from '@/components/basic/Button';
-import { useDomainStore, useFormStore } from '@/store/store';
+import { useDomainStore } from '@/store/store';
 import PlusCircle from '../../../../public/svg/PlusCircle';
 import formReply from '@/services/api/forms/formReply';
 
-export default function EditFormView() {
+interface FormProps {
+  form: string;
+}
+
+export default function EditFormView({ form }: FormProps) {
   const domain = useDomainStore((state) => state.domain);
-  const form = useFormStore((state) => state.form);
   const formSplit = form.split('\n');
   let count = 0;
 
@@ -77,6 +80,7 @@ export default function EditFormView() {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const response = await formReply(domain, formData);
     if (response.status === 200) {

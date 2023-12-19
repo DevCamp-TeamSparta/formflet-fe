@@ -12,8 +12,6 @@ export default function FormSidebar() {
   }));
   const ctaStore = useCtaStore();
   const setModal = useModalStore((state) => state.setModal);
-  const fontColor = ctaStore.ctaFontColor.replace(/'/g, '');
-  const backColor = ctaStore.ctaBackColor.replace(/'/g, '');
 
   const handleAddForm = () => {
     // TODO: 모달 로직 처리
@@ -100,7 +98,8 @@ export default function FormSidebar() {
               onChange={(e) => ctaStore.setCtaFontColor(e.target.value)}
             />
             <div
-              className={`border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full bg-[${fontColor}]`}
+              className="border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full"
+              style={{ backgroundColor: ctaStore.ctaFontColor }}
             />
           </div>
         </div>
@@ -113,7 +112,8 @@ export default function FormSidebar() {
               onChange={(e) => ctaStore.setCtaBackColor(e.target.value)}
             />
             <div
-              className={`border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full bg-[${backColor}]`}
+              className="border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full"
+              style={{ backgroundColor: ctaStore.ctaBackColor }}
             />
           </div>
         </div>

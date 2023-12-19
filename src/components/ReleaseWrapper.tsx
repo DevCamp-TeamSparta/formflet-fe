@@ -1,21 +1,35 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useFontStore } from '@/store/store';
+import { useCtaStore, useFontStore } from '@/store/store';
 
 export default function ReleaseWrapper({
+  className,
   children,
-  font,
+  page,
 }: {
+  className: string;
   children: React.ReactNode;
-  font: string;
+  page: Page;
 }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const { setFont } = useFontStore((state) => ({ setFont: state.setFont }));
+  const { setCtaContent, setCtaLink, setCtaFontColor, setCtaBackColor } = useCtaStore((state) => ({
+    setCtaContent: state.setCtaContent,
+    setCtaLink: state.setCtaLink,
+    setCtaFontColor: state.setCtaFontColor,
+    setCtaBackColor: state.setCtaBackColor,
+  }));
+
+  const font = page.pageFont.type;
 
   useEffect(() => {
     setFont(font);
+    setCtaContent(page.cta.content);
+    setCtaLink(page.cta.link);
+    setCtaFontColor(page.cta.fontColor);
+    setCtaBackColor(page.cta.backgroundColor);
     setIsLoaded(true);
-  }, [font, setFont]);
-  return isLoaded && <div>{children}</div>;
+  }, []);
+  return isLoaded && <div className={className}>{children}</div>;
 }
