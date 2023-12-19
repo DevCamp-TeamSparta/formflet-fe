@@ -15,7 +15,9 @@ interface DisplayStore {
 
 interface DomainStore {
   domain: string;
+  url: string;
   setDomain: (domain: string) => void;
+  setUrl: (url: string) => void;
 }
 
 interface FormStore {

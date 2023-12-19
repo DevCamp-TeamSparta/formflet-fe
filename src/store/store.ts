@@ -17,7 +17,9 @@ export const useDisplayStore = create<DisplayStore>((set) => ({
 
 export const useDomainStore = create<DomainStore>((set) => ({
   domain: '',
+  url: '',
   setDomain: (domain) => set({ domain }),
+  setUrl: (url) => set({ url }),
 }));
 
 export const useFormStore = create<FormStore>((set) => ({

@@ -13,10 +13,6 @@ export default function PageList({ setIsVisibled }: StateSetString) {
     const response = await pages();
     const { data } = response.data;
 
-    if (!data) {
-      return data;
-    }
-
     return data;
   };
 

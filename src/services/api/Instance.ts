@@ -1,5 +1,4 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
-// import Cookies from 'universal-cookie';
 
 const Instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_APY_KEY,

@@ -1,6 +1,7 @@
 'use client';
 
 import { useParams, usePathname } from 'next/navigation';
+import axios from 'axios';
 import PATH from '@/constants/path/Path';
 import Button from './Button';
 import CopyIcon from '../../../public/svg/CopyIcon';
@@ -12,7 +13,6 @@ import PageRefresh from '@/services/api/pages/pageRefresh';
 
 export default function NavHeader() {
   const pathName = usePathname();
-  // const path = pathName.charAt(pathName.length - 1);
   const params = useParams();
   const path = params.pageId as string;
   const navList = PATH.ROUTE.NAV_LIST;
@@ -70,13 +70,13 @@ export default function NavHeader() {
   // TODO: 새로고침 모달창 넣기
   // const [isOpenModal, setIsOpenModal] = useState(false);
   // const [isRefreshNotion, setIsRefreshNotion] = useState(false);
-
+  const url = useDomainStore((state) => state.url);
   const handleRefresh = async () => {
-    // if (isRefreshNotion) {
-    await PageRefresh(path);
-    // setIsOpenModal(false);
-    window.location.reload();
-    // }
+    const res = await axios.post<{ page: Record<string, object> }>('/api/notion', {
+      url,
+    });
+    const content = JSON.stringify(res.data.page);
+    await PageRefresh(path, content).then(() => window.location.reload());
   };
 
   return (
