@@ -2,12 +2,16 @@ import Toggle from '@/components/basic/Toggle';
 import FormSquareIcon from '../../../../public/svg/FormSquareIcon';
 import EmptyStar from '../../../../public/svg/EmptyStar';
 import { useCtaStore, useFormStore } from '../store';
+import { useModalStore } from '@/store/modalStore';
+import FormCancelModal from '@/containers/mypage/edit/FormCancelModal';
 
 export default function FormSidebar() {
   const { formStatus, setFormStatus } = useFormStore((state) => ({
     formStatus: state.formStatus,
     setFormStatus: state.setFormStatus,
   }));
+
+  const setModal = useModalStore((state) => state.setModal);
 
   const {
     ctaStatus,
@@ -26,15 +30,16 @@ export default function FormSidebar() {
   const backColor = ctaBackColor.replace(/'/g, '');
 
   const handleAddForm = () => {
+    setModal(<FormCancelModal />);
     if (!formStatus) {
       if (!ctaStatus) {
         setCtaStatus(!ctaStatus);
       }
     }
     if (formStatus) {
-      alert('정말로 취소할거야?');
+      // alert('정말로 취소할거야?');
     }
-    setFormStatus(!formStatus);
+    // setFormStatus(!formStatus);
   };
 
   const handleAddCta = () => {
