@@ -1,5 +1,6 @@
 import Instance from '@/services/api/Instance';
 import NotionComponent from '@/components/notion/NotionComponent';
+import ReleaseWrapper from '@/components/ReleaseWrapper';
 
 interface PageProps {
   params: {
@@ -15,11 +16,18 @@ export default async function FormPage({ params }: PageProps) {
     data: Page;
   }>(`/api/pages/release/${pageDomain}`);
   const page = response.data.data;
+  const font = page.pageFont.type;
 
   return (
+<<<<<<< HEAD
     <>
       <NotionComponent recordMap={page.pageContent.content} />
       <input />
     </>
+=======
+    <ReleaseWrapper font={font}>
+      <NotionComponent recordMap={page.pageDetail.content} />
+    </ReleaseWrapper>
+>>>>>>> main
   );
 }

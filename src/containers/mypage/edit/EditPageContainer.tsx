@@ -1,5 +1,3 @@
-'use client';
-
 import EditDisplay from './EditDisplay';
 import EditSidebar from './EditSidebar';
 

@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import NotionComponent from '@/components/notion/NotionComponent';
 import pageContent from '@/services/api/pages/pageContent';
-import { useDisplayStore, useDomainStore, useFormStore } from '../store';
+import { useCtaStore, useDisplayStore, useDomainStore, useFontStore, useFormStore } from '../store';
 import EditForm from './EditForm';
-import EditPreView from './EditPreView';
+import EditFormView from './EditFormView';
 import Button from '@/components/basic/Button';
 import NotionIcon from '../../../../public/svg/NotionIcon';
 import DeskAlt from '../../../../public/svg/DeskAlt';
@@ -24,7 +24,12 @@ export default function EditDisplay({ pageId }: PageProps) {
     setDisplay: state.setDisplay,
   }));
   const { setDomain } = useDomainStore((state) => ({ setDomain: state.setDomain }));
-  const { formStatus } = useFormStore((state) => ({ formStatus: state.formStatus }));
+  const { setFont } = useFontStore((state) => ({ setFont: state.setFont }));
+  const { formStatus, setFormALl } = useFormStore((state) => ({
+    formStatus: state.formStatus,
+    setFormALl: state.setFormAll,
+  }));
+  const ctaStore = useCtaStore();
 
   const handleDisplay = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
@@ -46,13 +51,17 @@ export default function EditDisplay({ pageId }: PageProps) {
       setDomain(pageData.domain);
       setPage({
         id: pageData.id,
-        content: pageData.pageContent.content,
+        content: pageData.pageDetail.content,
         url: pageData.url,
       });
+      setFont(pageData.pageFont.type);
+      setFormALl(pageData.form);
+      ctaStore.setCtaAll(pageData.cta);
+
       setIsLoaded(true);
     };
-    fetchPage();
-  }, [pageId, setDomain]);
+    fetchPage().catch((e) => alert(e));
+  }, [ctaStore, pageId, setDomain, setFont, setFormALl]);
 
   const resizer = useRef<HTMLDivElement>(null);
   const leftSide = useRef<HTMLDivElement>(null);
@@ -119,7 +128,7 @@ export default function EditDisplay({ pageId }: PageProps) {
               </div>
               <div ref={resizer} className="cursor-ew-resize h-full w-2.5 bg-gray-light-active" />
               <div ref={rightSide} className="flex flex-grow items-center">
-                <EditPreView />
+                <EditFormView />
               </div>
             </div>
           ),

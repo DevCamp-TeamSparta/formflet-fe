@@ -21,21 +21,25 @@ interface DomainStore {
 interface FormStore {
   formStatus: boolean;
   form: string;
-  setStatus: (formStatus: boolean) => void;
+  setFormStatus: (formStatus: boolean) => void;
   setForm: (form: string) => void;
+  setFormAll: (data: PageForm) => void;
+  resetForm: () => void;
 }
 
 interface CtaStore {
   ctaStatus: boolean;
   ctaContent: string;
   ctaLink: string;
-  ctaFontSize: number;
+  ctaFontSize: string;
   ctaFontColor: string;
   ctaBackColor: string;
   setCtaStatus: (ctaStatus: boolean) => void;
   setCtaContent: (ctaContent: string) => void;
   setCtaLink: (ctaLink: string) => void;
-  setCtaFontSize: (ctaFontSize: numver) => void;
+  setCtaFontSize: (ctaFontSize: string) => void;
   setCtaFontColor: (ctaFontColor: string) => void;
   setCtaBackColor: (ctaBackColor: string) => void;
+  setCtaAll: (data: PageCta) => void;
+  resetCta: () => void;
 }

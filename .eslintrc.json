@@ -47,7 +47,6 @@
       }
     ],
     "@typescript-eslint/no-unsafe-assignment": "off",
-    "jsx-a11y/label-has-associated-control": "off",
-    "@typescript-eslint/no-floating-promises": "off"
+    "jsx-a11y/label-has-associated-control": "off"
   }
 }

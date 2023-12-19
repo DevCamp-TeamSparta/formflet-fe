@@ -7,13 +7,13 @@ import SelectOptionIcon from '../../../../public/svg/SelectOptionIcon';
 
 export default function EditFormExample() {
   const [isClicked, setIsClicked] = useState(false);
-
+  // TODO: li형태 수정하기
   const formExample = [
     '[제목] : 제목입니다.',
     '[텍스트] : 텍스트입니다. 해당 옵션으로 입력된 텍스트는 질문으로 적용할 수 없습니다.',
     '[질문] : 질문입니다.',
     '[질문_*] : 해당 문항이 필수 응답으로 설정됩니다.',
-    '[주관식] : 주관식 응답 방식의 문항이 생성됩니다.',
+    '[주관식] : 주관식 응답 방식의 문항이 생성됩니다. ‘]’ 뒤에 한 칸 띄우고 예시 응답을 입력할 수 있습니다.',
     '[객관식] : 단일 응답 방식의 객관식 문항이 생성됩니다. ‘]’ 뒤에 한 칸 띄우고 객관식 항목을 입력하며, 항목의 구분은 ‘_’로 합니다.',
     '[객관식_복수] : 복수 응답이 가능한 객관식 문항 생성됩니다. ’]’ 뒤에 한 칸 띄우고 객관식 항목을 입력하며, 항목의 구분은 ‘_’로 합니다.]',
   ];
@@ -45,7 +45,7 @@ export default function EditFormExample() {
             <li className="b2 text-gray-dark-active mb-2">{item}</li>
           ))}
           <p className="b2 text-semantic-danger-normal mb-2">
-            제목은 최상단에 한번만 입력 가능합니다.
+            *제목은 최상단에 한번만 입력 가능합니다.
           </p>
           <p className="b2 text-semantic-danger-normal mb-2">
             *질문 다음에 응답 방식이 설정되지 않으면 해당 질문은 보이지 않습니다.
