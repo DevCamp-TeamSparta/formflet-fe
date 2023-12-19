@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/basic/Button';
-import { useDomainStore, useFormStore } from '../store';
+import { useDomainStore, useFormStore } from '@/store/store';
 import PlusCircle from '../../../../public/svg/PlusCircle';
 import formReply from '@/services/api/forms/formReply';
 

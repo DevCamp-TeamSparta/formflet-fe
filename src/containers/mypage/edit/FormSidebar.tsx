@@ -10,40 +10,24 @@ export default function FormSidebar() {
     formStatus: state.formStatus,
     setFormStatus: state.setFormStatus,
   }));
-
+  const ctaStore = useCtaStore();
   const setModal = useModalStore((state) => state.setModal);
-
-  const {
-    ctaStatus,
-    setCtaStatus,
-    ctaContent,
-    setCtaContent,
-    ctaLink,
-    setCtaLink,
-    ctaFontColor,
-    setCtaFontColor,
-    ctaBackColor,
-    setCtaBackColor,
-  } = useCtaStore();
-
-  const fontColor = ctaFontColor.replace(/'/g, '');
-  const backColor = ctaBackColor.replace(/'/g, '');
+  const fontColor = ctaStore.ctaFontColor.replace(/'/g, '');
+  const backColor = ctaStore.ctaBackColor.replace(/'/g, '');
 
   const handleAddForm = () => {
+    // TODO: 모달 로직 처리
     setModal(<FormCancelModal />);
     if (!formStatus) {
-      if (!ctaStatus) {
-        setCtaStatus(!ctaStatus);
+      if (!ctaStore.ctaStatus) {
+        ctaStore.setCtaStatus(!ctaStore.ctaStatus);
       }
     }
-    if (formStatus) {
-      // alert('정말로 취소할거야?');
-    }
-    // setFormStatus(!formStatus);
+    setFormStatus(!formStatus);
   };
 
   const handleAddCta = () => {
-    setCtaStatus(!ctaStatus);
+    ctaStore.setCtaStatus(!ctaStore.ctaStatus);
   };
 
   return (
@@ -71,7 +55,7 @@ export default function FormSidebar() {
             </div>
             <p>CTA 버튼 추가</p>
             <div className="ml-auto">
-              <Toggle isChecked={ctaStatus} onClick={handleAddCta} />
+              <Toggle isChecked={ctaStore.ctaStatus} onClick={handleAddCta} />
             </div>
           </div>
         </div>
@@ -83,9 +67,9 @@ export default function FormSidebar() {
           <input
             className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
             type="text"
-            value={ctaContent}
-            disabled={!ctaStatus}
-            onChange={(e) => setCtaContent(e.target.value)}
+            value={ctaStore.ctaContent}
+            disabled={!ctaStore.ctaStatus}
+            onChange={(e) => ctaStore.setCtaContent(e.target.value)}
             placeholder="Click me!"
           />
         </div>
@@ -94,9 +78,9 @@ export default function FormSidebar() {
           <input
             className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
             type="text"
-            value={ctaLink}
-            disabled={!ctaStatus}
-            onChange={(e) => setCtaLink(e.target.value)}
+            value={ctaStore.ctaLink}
+            disabled={!ctaStore.ctaStatus}
+            onChange={(e) => ctaStore.setCtaLink(e.target.value)}
             placeholder="폼 페이지로 이동"
           />
         </div>
@@ -112,8 +96,8 @@ export default function FormSidebar() {
           <div className="flex justify-end items-center">
             <input
               className="b2 text-gray-dark-active"
-              value={ctaFontColor}
-              onChange={(e) => setCtaFontColor(e.target.value)}
+              value={ctaStore.ctaFontColor}
+              onChange={(e) => ctaStore.setCtaFontColor(e.target.value)}
             />
             <div
               className={`border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full bg-[${fontColor}]`}
@@ -125,8 +109,8 @@ export default function FormSidebar() {
           <div className="flex justify-between items-center">
             <input
               className="b2 text-gray-dark-active"
-              value={ctaBackColor}
-              onChange={(e) => setCtaBackColor(e.target.value)}
+              value={ctaStore.ctaBackColor}
+              onChange={(e) => ctaStore.setCtaBackColor(e.target.value)}
             />
             <div
               className={`border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full bg-[${backColor}]`}

@@ -7,7 +7,7 @@ import CopyIcon from '../../../public/svg/CopyIcon';
 import SaveIcon from '../../../public/svg/SaveIcon';
 import ReloadIcon from '../../../public/svg/ReloadIcon';
 import pageSave from '@/services/api/pages/pageSave';
-import { useCtaStore, useDomainStore, useFontStore, useFormStore } from '@/containers/mypage/store';
+import { useCtaStore, useDomainStore, useFontStore, useFormStore } from '@/store/store';
 import PageRefresh from '@/services/api/pages/pageRefresh';
 
 export default function NavHeader() {

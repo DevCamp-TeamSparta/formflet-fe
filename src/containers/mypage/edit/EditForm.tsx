@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, useRef } from 'react';
-import { useFormStore } from '../store';
+import { useFormStore } from '@/store/store';
 
 export default function EditForm() {
   const contentRef = useRef<HTMLTextAreaElement>(null);

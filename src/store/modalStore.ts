@@ -6,7 +6,9 @@ interface ModalStore {
   setModal: (modal: ReactNode | null) => void;
 }
 
-export const useModalStore = create<ModalStore>((set) => ({
+const useModalStore = create<ModalStore>((set) => ({
   modal: null,
   setModal: (modal) => set({ modal }),
 }));
+
+export default useModalStore;

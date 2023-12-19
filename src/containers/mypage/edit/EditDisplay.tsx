@@ -4,7 +4,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import NotionComponent from '@/components/notion/NotionComponent';
 import pageContent from '@/services/api/pages/pageContent';
-import { useCtaStore, useDisplayStore, useDomainStore, useFontStore, useFormStore } from '../store';
+import {
+  useCtaStore,
+  useDisplayStore,
+  useDomainStore,
+  useFontStore,
+  useFormStore,
+} from '@/store/store';
 import EditForm from './EditForm';
 import EditFormView from './EditFormView';
 import Button from '@/components/basic/Button';
@@ -55,17 +61,13 @@ export default function EditDisplay({ pageId }: PageProps) {
         url: pageData.url,
       });
       setFont(pageData.pageFont.type);
-      if (pageData.form) {
-        setFormALl(pageData.form);
-      }
-      if (pageData.cta) {
-        ctaStore.setCtaAll(pageData.cta);
-      }
+      setFormALl(pageData.form);
+      ctaStore.setCtaAll(pageData.cta);
 
       setIsLoaded(true);
     };
     fetchPage().catch((e) => alert(e));
-  }, [ctaStore, pageId, setDomain, setFont, setFormALl]);
+  }, [pageId]);
 
   const resizer = useRef<HTMLDivElement>(null);
   const leftSide = useRef<HTMLDivElement>(null);

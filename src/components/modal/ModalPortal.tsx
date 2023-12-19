@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { useModalStore } from '@/store/modalStore';
+import useModalStore from '@/store/modalStore';
 
 export default function ModalPortal() {
   const pathname = usePathname();
