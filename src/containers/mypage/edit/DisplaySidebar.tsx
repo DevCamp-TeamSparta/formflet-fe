@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { FontFamily, Fonts } from '@/constants/editProps/editPage';
-import { useFontStore } from '../store';
+import { useFontStore } from '@/store/store';
 
 export default function DisplaySidebar() {
   const { font, setFont } = useFontStore();

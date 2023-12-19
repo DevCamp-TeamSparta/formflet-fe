@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useFontStore } from '@/containers/mypage/store';
+import { useFontStore } from '@/store/store';
 
 export default function ReleaseWrapper({
   children,

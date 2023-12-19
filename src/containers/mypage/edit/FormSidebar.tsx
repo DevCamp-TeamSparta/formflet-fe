@@ -1,8 +1,8 @@
 import Toggle from '@/components/basic/Toggle';
 import FormSquareIcon from '../../../../public/svg/FormSquareIcon';
 import EmptyStar from '../../../../public/svg/EmptyStar';
-import { useCtaStore, useFormStore } from '../store';
-import { useModalStore } from '@/store/modalStore';
+import { useCtaStore, useFormStore } from '@/store/store';
+import useModalStore from '@/store/modalStore';
 import FormCancelModal from '@/containers/mypage/edit/FormCancelModal';
 
 export default function FormSidebar() {
