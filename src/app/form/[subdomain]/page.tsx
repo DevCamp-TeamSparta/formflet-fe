@@ -19,8 +19,15 @@ export default async function FormPage({ params }: PageProps) {
   const font = page.pageFont.type;
 
   return (
+<<<<<<< HEAD
+    <>
+      <NotionComponent recordMap={page.pageContent.content} />
+      <input />
+    </>
+=======
     <ReleaseWrapper font={font}>
       <NotionComponent recordMap={page.pageDetail.content} />
     </ReleaseWrapper>
+>>>>>>> main
   );
 }
