@@ -89,7 +89,7 @@ export default function EditFormView(props: FormProps) {
         submitData.push(getData);
       }
       const response = await formReply(formId, submitData);
-      if (response.status === 200) {
+      if (response.status === 201) {
         alert('성공!');
       }
     }
