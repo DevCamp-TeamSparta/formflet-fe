@@ -14,8 +14,9 @@ export default function FormSidebar() {
   const setModal = useModalStore((state) => state.setModal);
 
   const handleAddForm = () => {
-    // TODO: 모달 로직 처리
-    setModal(<FormCancelModal />);
+    if (formStatus) {
+      setModal(<FormCancelModal />);
+    }
     if (!formStatus) {
       if (!ctaStore.ctaStatus) {
         ctaStore.setCtaStatus(!ctaStore.ctaStatus);
@@ -79,7 +80,7 @@ export default function FormSidebar() {
             value={ctaStore.ctaLink}
             disabled={!ctaStore.ctaStatus}
             onChange={(e) => ctaStore.setCtaLink(e.target.value)}
-            placeholder="폼 페이지로 이동"
+            placeholder="https://"
           />
         </div>
         <p className="b2-bold text-gray-dark-active">색상 및 스타일</p>

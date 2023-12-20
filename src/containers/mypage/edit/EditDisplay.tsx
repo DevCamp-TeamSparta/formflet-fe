@@ -45,6 +45,7 @@ export default function EditDisplay({ pageId }: PageProps) {
   };
 
   useEffect(() => {
+    setDisplay('notion');
     const getPageContent = async () => {
       const response = await pageContent({ pageId });
       return response.data.data;
