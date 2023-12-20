@@ -7,7 +7,7 @@ import pageContent from '@/services/api/pages/pageContent';
 import {
   useCtaStore,
   useDisplayStore,
-  useDomainStore,
+  usePageStore,
   useFontStore,
   useFormStore,
 } from '@/store/store';
@@ -21,16 +21,11 @@ import CtaComponent from '@/components/cta/CtaComponent';
 
 export default function EditDisplay({ pageId }: PageProps) {
   const [isloaded, setIsLoaded] = useState(false);
-  const [page, setPage] = useState({
-    id: 0,
-    content: '',
-    url: '',
-  });
   const { display, setDisplay } = useDisplayStore((state) => ({
     display: state.display,
     setDisplay: state.setDisplay,
   }));
-  const { setDomain } = useDomainStore((state) => ({ setDomain: state.setDomain }));
+  const pageStore = usePageStore();
   const { setFont } = useFontStore((state) => ({ setFont: state.setFont }));
   const { formStatus, form, setFormALl } = useFormStore((state) => ({
     formStatus: state.formStatus,
@@ -56,12 +51,10 @@ export default function EditDisplay({ pageId }: PageProps) {
     };
     const fetchPage = async (): Promise<void> => {
       const pageData = await getPageContent();
-      setDomain(pageData.domain);
-      setPage({
-        id: pageData.id,
-        content: pageData.pageDetail.content,
-        url: pageData.url,
-      });
+      pageStore.setDomain(pageData.domain);
+      pageStore.setPageId(pageData.id);
+      pageStore.setPageContent(pageData.pageDetail.content);
+      pageStore.setUrl(pageData.url);
 
       setFont(pageData.pageFont.type);
       setFormALl(pageData.form);
@@ -127,7 +120,7 @@ export default function EditDisplay({ pageId }: PageProps) {
         {
           notion: isloaded && (
             <div className="relative">
-              <NotionComponent recordMap={page.content} />
+              <NotionComponent recordMap={pageStore.pageContent} />
               <div className="absolute inset-x-0 bottom-10 transform -translate-y-1/2">
                 <div className="flex justify-center items-end h-full">
                   <CtaComponent
@@ -150,7 +143,7 @@ export default function EditDisplay({ pageId }: PageProps) {
               </div>
               <div ref={resizer} className="cursor-ew-resize h-full w-2.5 bg-gray-light-active" />
               <div ref={rightSide} className="flex flex-grow items-center">
-                <EditFormView form={form} />
+                <EditFormView form={form} formId={0} />
               </div>
             </div>
           ),

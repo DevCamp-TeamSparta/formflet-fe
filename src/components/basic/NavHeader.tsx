@@ -8,8 +8,7 @@ import CopyIcon from '../../../public/svg/CopyIcon';
 import SaveIcon from '../../../public/svg/SaveIcon';
 import ReloadIcon from '../../../public/svg/ReloadIcon';
 import pageSave from '@/services/api/pages/pageSave';
-import { useCtaStore, useDomainStore, useFontStore, useFormStore } from '@/store/store';
-import PageRefresh from '@/services/api/pages/pageRefresh';
+import { useCtaStore, usePageStore, useFontStore, useFormStore } from '@/store/store';
 
 export default function NavHeader() {
   const pathName = usePathname();
@@ -24,7 +23,12 @@ export default function NavHeader() {
     }
   });
 
-  const domain = useDomainStore((state) => state.domain);
+  const { domain, url, pageContent, setPageContent } = usePageStore((state) => ({
+    domain: state.domain,
+    url: state.url,
+    pageContent: state.pageContent,
+    setPageContent: state.setPageContent,
+  }));
   const { font } = useFontStore((state) => ({ font: state.font }));
   const { formStatus, form } = useFormStore((state) => ({
     formStatus: state.formStatus,
@@ -43,6 +47,7 @@ export default function NavHeader() {
 
   const handleSave = async (): Promise<void> => {
     const data = {
+      content: pageContent,
       font: {
         type: font,
       },
@@ -70,13 +75,12 @@ export default function NavHeader() {
   // TODO: 새로고침 모달창 넣기
   // const [isOpenModal, setIsOpenModal] = useState(false);
   // const [isRefreshNotion, setIsRefreshNotion] = useState(false);
-  const url = useDomainStore((state) => state.url);
   const handleRefresh = async () => {
     const res = await axios.post<{ page: Record<string, object> }>('/api/notion', {
       url,
     });
     const content = JSON.stringify(res.data.page);
-    await PageRefresh(path, content).then(() => window.location.reload());
+    setPageContent(content);
   };
 
   return (

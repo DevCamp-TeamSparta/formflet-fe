@@ -3,26 +3,28 @@ interface FontStore {
   setFont: (font: string) => void;
 }
 
-interface EditPageStore {
-  editPage: 'notion' | 'form';
-  setEditPage: (editPage: 'notion' | 'form') => void;
-}
-
 interface DisplayStore {
   display: 'notion' | 'form';
   setDisplay: (display: 'notion' | 'form') => void;
 }
 
-interface DomainStore {
+interface PageStore {
+  pageId: number;
   domain: string;
+  subdomain: string;
   url: string;
+  pageContent: string;
+  setPageId: (pageId: number) => void;
   setDomain: (domain: string) => void;
   setUrl: (url: string) => void;
+  setPageContent: (pageContent: string) => void;
 }
 
 interface FormStore {
+  formId: number;
   formStatus: boolean;
   form: string;
+  setFormId: (formId: number) => void;
   setFormStatus: (formStatus: boolean) => void;
   setForm: (form: string) => void;
   setFormAll: (data: PageForm) => void;

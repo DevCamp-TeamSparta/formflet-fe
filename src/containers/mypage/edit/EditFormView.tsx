@@ -1,16 +1,16 @@
 'use client';
 
 import Button from '@/components/basic/Button';
-import { useDomainStore } from '@/store/store';
 import PlusCircle from '../../../../public/svg/PlusCircle';
 import formReply from '@/services/api/forms/formReply';
 
 interface FormProps {
+  formId: number;
   form: string;
 }
 
-export default function EditFormView({ form }: FormProps) {
-  const domain = useDomainStore((state) => state.domain);
+export default function EditFormView(props: FormProps) {
+  const { form, formId } = props;
   const formSplit = form.split('\n');
   let count = 0;
 
@@ -81,10 +81,17 @@ export default function EditFormView({ form }: FormProps) {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const response = await formReply(domain, formData);
-    if (response.status === 200) {
-      alert('성공!');
+    if (formId) {
+      const formData = new FormData(event.currentTarget);
+      const submitData: Array<FormDataEntryValue[]> = [];
+      for (let i = 1; i <= count; i += 1) {
+        const getData = formData.getAll(`answer${i}`);
+        submitData.push(getData);
+      }
+      const response = await formReply(formId, submitData);
+      if (response.status === 200) {
+        alert('성공!');
+      }
     }
   };
 

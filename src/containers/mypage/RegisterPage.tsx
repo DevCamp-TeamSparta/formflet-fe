@@ -13,7 +13,6 @@ import PlusCircle from '../../../public/svg/PlusCircle';
 import Input from '@/components/basic/Input';
 import PATH from '@/constants/path/Path';
 import Spinner from '@/components/common/Spinner';
-import { useDomainStore } from '@/store/store';
 
 export default function RegisterPage() {
   const {
@@ -26,7 +25,6 @@ export default function RegisterPage() {
   const route = useRouter();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const { setUrl } = useDomainStore((state) => ({ setUrl: state.setUrl }));
 
   const pageFormSubmit: SubmitHandler<PageUrlFormSchema> = async (
     data: PageUrlFormSchema,
@@ -34,7 +32,6 @@ export default function RegisterPage() {
     if (loading) return;
 
     setLoading(true);
-    setUrl(data.url);
     try {
       const res = await axios.post<{ page: Record<string, object> }>('/api/notion', {
         url: data.url,

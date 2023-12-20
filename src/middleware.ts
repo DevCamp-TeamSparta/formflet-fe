@@ -20,8 +20,6 @@ export default function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   const subDomain = request.nextUrl.hostname.split('.')[0];
 
-  console.log('pathName', pathName);
-
   if (PRODUCTION_DOMAINS.includes(subDomain)) {
     const accessToken = request.cookies.get('authorization')?.value;
 

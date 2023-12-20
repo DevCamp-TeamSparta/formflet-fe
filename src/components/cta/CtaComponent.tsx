@@ -13,7 +13,7 @@ interface CtaProps {
 export default function CtaComponent({ params }: CtaProps) {
   const ctaStore = useCtaStore();
   const route = useRouter();
-  const pageDomain = params?.subdomain;
+  const pageDomain = params.subdomain;
 
   const handleRoute = () => {
     if (ctaStore.ctaLink === '' && pageDomain) {

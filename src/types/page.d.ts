@@ -13,6 +13,7 @@ type PageFont = {
 };
 
 type PageForm = {
+  id: number;
   status: boolean;
   guide: string;
 };
