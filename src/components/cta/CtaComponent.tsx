@@ -18,6 +18,8 @@ export default function CtaComponent({ params }: CtaProps) {
   const handleRoute = () => {
     if (ctaStore.ctaLink === '' && pageDomain) {
       route.push(`/form/${pageDomain}`);
+    } else {
+      window.location.assign(`https://${ctaStore.ctaLink}`);
     }
   };
 

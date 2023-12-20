@@ -26,14 +26,25 @@ export const useFormStore = create<FormStore>((set) => ({
   formId: 0,
   formStatus: false,
   form: '[제목] 제목을 입력해주세요.\n[텍스트] 폼 작성을 위한 샘플 양식입니다. 폼 편집 탭에서 자유롭게 수정해주세요.\n[질문_*] 질문을 입력해주세요.\n[주관식] ex) 답변을 입력하세요.\n[질문_*] 두번째 질문을 입력해주세요.\n[객관식] 아시아_유럽\n[질문] 세번째 질문을 입력해주세요.\n[객관식_복수] 태평양_대서양',
+  replyStatus: false,
+  createForm: false,
   setFormId: (formId: number) => set({ formId }),
   setFormStatus: (formStatus: boolean) => set({ formStatus }),
   setForm: (form: string) => set({ form }),
-  setFormAll: (data: PageForm) => set({ formStatus: data.status, form: data.guide }),
+  setReplyStatus: (replyStatus: boolean) => set({ replyStatus }),
+  setCreateForm: (createForm: boolean) => set({ createForm }),
+  setFormAll: (data: PageForm) =>
+    set({
+      formId: data.id,
+      formStatus: data.status,
+      form: data.guide,
+      replyStatus: data.replyStatus,
+    }),
   resetForm: () =>
     set({
       formStatus: false,
       form: '[제목] 제목을 입력해주세요.\n[텍스트] 폼 작성을 위한 샘플 양식입니다. 폼 편집 탭에서 자유롭게 수정해주세요.\n[질문_*] 질문을 입력해주세요.\n[주관식] ex) 답변을 입력하세요.\n[질문_*] 두번째 질문을 입력해주세요.\n[객관식] 아시아_유럽\n[질문] 세번째 질문을 입력해주세요.\n[객관식_복수] 태평양_대서양',
+      createForm: false,
     }),
 }));
 

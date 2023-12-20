@@ -1,8 +1,8 @@
 'use client';
 
 import Button from '@/components/basic/Button';
-import PlusCircle from '../../../../public/svg/PlusCircle';
 import formReply from '@/services/api/forms/formReply';
+import ArrowRightCircle from '../../../../public/svg/ArrowRightCircle';
 
 interface FormProps {
   formId: number;
@@ -109,7 +109,7 @@ export default function EditFormView(props: FormProps) {
         className="flex h-10 items-center gap-2.5 box-shadow-normal bg-gray-darker px-5 py-4 rounded-lg"
       >
         <p className="b1-bold text-white">제출하기</p>
-        <PlusCircle color="white" />
+        <ArrowRightCircle color="white" />
       </Button>
     </form>
   );

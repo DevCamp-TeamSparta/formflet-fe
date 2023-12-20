@@ -24,9 +24,13 @@ interface FormStore {
   formId: number;
   formStatus: boolean;
   form: string;
+  replyStatus: boolean;
+  createForm: boolean;
   setFormId: (formId: number) => void;
   setFormStatus: (formStatus: boolean) => void;
   setForm: (form: string) => void;
+  setReplyStatus: (replyStatus: boolean) => void;
+  setCreateForm: (createForm: boolean) => void;
   setFormAll: (data: PageForm) => void;
   resetForm: () => void;
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SidebarMenus } from '@/constants/editProps/editPage';
 import DisplaySidebar from '@/containers/mypage/edit/DisplaySidebar';
 import FormSidebar from './FormSidebar';
@@ -11,6 +11,10 @@ export default function EditSidebar() {
   function onClickMenu(name: 'display' | 'form') {
     setSelected(name);
   }
+
+  useEffect(() => {
+    setSelected('display');
+  }, []);
   return (
     <aside className="w-[362px] shrink-0">
       <div className="flex [&>button]:grow [&>button]:b1-bold [&>button]:py-[6px]">

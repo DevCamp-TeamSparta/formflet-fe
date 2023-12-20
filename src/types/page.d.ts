@@ -16,6 +16,7 @@ type PageForm = {
   id: number;
   status: boolean;
   guide: string;
+  replyStatus: boolean;
 };
 
 type PageCta = {
