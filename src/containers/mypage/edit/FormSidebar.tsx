@@ -21,8 +21,8 @@ export default function FormSidebar() {
       if (!ctaStore.ctaStatus) {
         ctaStore.setCtaStatus(!ctaStore.ctaStatus);
       }
+      setFormStatus(!formStatus);
     }
-    setFormStatus(!formStatus);
   };
 
   const handleAddCta = () => {

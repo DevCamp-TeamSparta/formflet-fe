@@ -83,17 +83,9 @@ export default function NavHeader() {
     setPageContent(content);
   };
 
-  const handleCopyClipBoard = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleCopyClipBoard = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.preventDefault();
-    const target = event.target as HTMLDivElement;
-    const value = target.childNodes.item(0).textContent as string;
-    try {
-      await navigator.clipboard.writeText(value);
-
-      alert('성공!');
-    } catch (e) {
-      alert(e);
-    }
+    window.open(`https://${domain}`);
   };
 
   return (
