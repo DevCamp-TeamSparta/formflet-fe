@@ -120,16 +120,14 @@ export default function EditDisplay({ pageId }: PageProps) {
       {
         {
           notion: isloaded && (
-            <div className="relative">
+            <div id="page-notion" className="relative">
               <NotionComponent recordMap={pageStore.pageContent} />
-              <div className="absolute inset-x-0 bottom-10 transform -translate-y-1/2">
-                <div className="flex justify-center items-end h-full">
-                  <CtaComponent
-                    params={{
-                      subdomain: '',
-                    }}
-                  />
-                </div>
+              <div className="fixed bottom-10 left-[58%] transform -translate-x-1/2">
+                <CtaComponent
+                  params={{
+                    subdomain: '',
+                  }}
+                />
               </div>
             </div>
           ),

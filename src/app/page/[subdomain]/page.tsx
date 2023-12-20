@@ -21,10 +21,8 @@ export default async function NotionPage({ params }: PageProps) {
   return (
     <ReleaseWrapper className="relative" page={page}>
       <NotionComponent recordMap={page.pageDetail.content} />
-      <div className="absolute inset-x-0 bottom-10 transform -translate-y-1/2">
-        <div className="flex justify-center items-end h-full">
-          <CtaComponent params={params} />
-        </div>
+      <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2">
+        <CtaComponent params={params} />
       </div>
     </ReleaseWrapper>
   );
