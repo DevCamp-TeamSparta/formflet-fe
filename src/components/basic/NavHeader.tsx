@@ -83,14 +83,28 @@ export default function NavHeader() {
     setPageContent(content);
   };
 
+  const handleCopyClipBoard = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.preventDefault();
+    const target = event.target as HTMLDivElement;
+    const value = target.childNodes.item(0).textContent as string;
+    try {
+      await navigator.clipboard.writeText(value);
+
+      alert('성공!');
+    } catch (e) {
+      alert(e);
+    }
+  };
+
   return (
     <header className="w-full h-[72px] flex flex-col justify-end items-center gap-[22px] shrink-0 pt-[22px]">
       {pathName.startsWith('/mypage/edit') ? (
-        <div className="w-[849px] justify-between items-center h-9 flex">
-          <Button className="flex w-[762px] h-9 justify-between items-center shrink-0 border border-gray-light-active box-shadow-normal px-5 py-4 rounded-lg border-solid">
-            <p className="text-gray-dark-active text-base not-italic font-bold leading-7">
-              {domain}
-            </p>
+        <div
+          className="w-[849px] justify-between items-center h-9 flex"
+          onClick={(e) => handleCopyClipBoard(e)}
+        >
+          <Button className="flex w-[762px] h-9 justify-between items-center shrink-0 border border-gray-light-active box-shadow-normal px-5 py-4 rounded-lg border-solid b1-bold text-gray-dark-active">
+            {domain}
             <CopyIcon />
           </Button>
           <Button className="w-6 h-6 shrink-0" onClick={() => handleRefresh()}>
