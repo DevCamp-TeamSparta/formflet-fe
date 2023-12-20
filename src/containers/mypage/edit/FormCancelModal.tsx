@@ -1,15 +1,17 @@
 import Button from '@/components/basic/Button';
 import useModalStore from '@/store/modalStore';
-import { useDisplayStore, useFormStore } from '@/store/store';
+import { useCtaStore, useDisplayStore, useFormStore } from '@/store/store';
 
 export default function FormCancelModal() {
-  const formStore = useFormStore();
+  const { resetForm } = useFormStore((state) => ({ resetForm: state.resetForm }));
+  const { resetCta } = useCtaStore((state) => ({ resetCta: state.resetCta }));
   const { setModal } = useModalStore((state) => ({ setModal: state.setModal }));
   const { setDisplay } = useDisplayStore((state) => ({ setDisplay: state.setDisplay }));
   const handleModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
     if (target.id === 'remove-form') {
-      formStore.resetForm();
+      resetForm();
+      resetCta();
       setDisplay('notion');
     }
     setModal(null);
