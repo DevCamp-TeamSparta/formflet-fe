@@ -20,6 +20,8 @@ export default function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   const subDomain = request.nextUrl.hostname.split('.')[0];
 
+  console.log('pathName', pathName);
+
   if (PRODUCTION_DOMAINS.includes(subDomain)) {
     const accessToken = request.cookies.get('authorization')?.value;
 
@@ -41,13 +43,8 @@ export default function middleware(request: NextRequest) {
     if (pathName === PATH.ROUTE.ROOT && accessToken) {
       return NextResponse.redirect(myPageUrl);
     }
-  } else {
-    if (pathName.startsWith('/page')) {
-      return NextResponse.rewrite(new URL(`/page/${subDomain}`, request.url));
-    }
-    if (pathName.startsWith('/form')) {
-      return NextResponse.rewrite(new URL(`/form/${subDomain}`, request.url));
-    }
+  } else if (pathName === PATH.ROUTE.ROOT) {
+    return NextResponse.rewrite(new URL(`/page/${subDomain}`, request.url));
   }
 
   return NextResponse.next();
