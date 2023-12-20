@@ -90,7 +90,15 @@ export default function RegisterPage() {
           노션에서 공유 버튼을 눌러 &apos;웹에서 공유&apos; 상태로 만들어 주어야 폼플렛이 웹페이지를
           만들 수 있어요!
         </p>
-        <p className="b2-bold text-gray-dark-active">자세히</p>
+        <Button
+          type="button"
+          className="b2-bold text-gray-dark-active items-center"
+          onClick={() =>
+            window.open('https://formflet.notion.site/9215ed5f1eff46f6825622851d0758c5?pvs=4')
+          }
+        >
+          자세히 &#62;
+        </Button>
       </div>
       <div className="self-stretch">
         <Input
