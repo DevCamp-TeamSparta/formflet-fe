@@ -11,7 +11,7 @@ export default function CSVDownloadBtn({ data }: { data: Record<string, string>[
     // 워크북에 새 워크시트 추가
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
     // CSV 파일로 내보내기
-    XLSX.writeFile(workbook, 'Dummies.csv');
+    XLSX.writeFile(workbook, 'ReplyData.csv');
   }
   return (
     <button
