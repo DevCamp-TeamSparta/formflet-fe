@@ -13,7 +13,7 @@ export default function Header() {
   return (
     <header className="w-full h-[72px] flex flex-col justify-end items-center gap-[22px] shrink-0 pt-[22px]">
       <div className="w-[850px] h-9 flex justify-between shrink-0">
-        <Link href={PATH.ROUTE.ROOT}>
+        <Link href={PATH.ROUTE.MYPAGE}>
           <Logo />
         </Link>
         {pathName.includes(PATH.ROUTE.MYPAGE) ? (
