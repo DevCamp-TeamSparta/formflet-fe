@@ -123,11 +123,13 @@ export default function EditDisplay({ pageId }: PageProps) {
             <div id="page-notion" className="relative">
               <NotionComponent recordMap={pageStore.pageContent} />
               <div className="fixed bottom-10 left-[58%] transform -translate-x-1/2">
-                <CtaComponent
-                  params={{
-                    subdomain: '',
-                  }}
-                />
+                {ctaStore.ctaStatus && (
+                  <CtaComponent
+                    params={{
+                      subdomain: '',
+                    }}
+                  />
+                )}
               </div>
             </div>
           ),

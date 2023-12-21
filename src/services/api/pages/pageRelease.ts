@@ -6,7 +6,7 @@ export default function pageRelease(subdomain: string) {
     statusCode: number;
     message: string;
     data: Page;
-  }>(`${PATH.API.PAGES.release}/${subdomain}`);
+  }>(`${PATH.API.PAGES.RELEASE}/${subdomain}`);
 
   return response;
 }

@@ -9,9 +9,9 @@ interface PagelistProps {
 }
 
 export default async function pages() {
-  const cookie = new Cookies();
-  const authorization = cookie.get('authorization');
-  const response = await Instance.get<PagelistProps>(PATH.API.PAGES.notionList, {
+  const cookies = new Cookies();
+  const authorization = cookies.get('authorization');
+  const response = await Instance.get<PagelistProps>(PATH.API.PAGES.NOTION_LIST, {
     headers: {
       Authorization: `Bearer ${authorization}`,
     },

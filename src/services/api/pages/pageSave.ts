@@ -3,9 +3,9 @@ import Instance from '../Instance';
 import PATH from '@/constants/path/Path';
 
 export default async function pageSave(data: object, path: string) {
-  const cookie = new Cookies();
-  const authorization = cookie.get('authorization');
-  const response = await Instance.patch(`${PATH.API.PAGES.edit}/${path}`, data, {
+  const cookies = new Cookies();
+  const authorization = cookies.get('authorization');
+  const response = await Instance.patch(`${PATH.API.PAGES.EDIT}/${path}`, data, {
     headers: {
       Authorization: `Bearer ${authorization}`,
     },

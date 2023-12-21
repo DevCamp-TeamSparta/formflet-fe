@@ -7,10 +7,10 @@ import { PageUrlFormSchema } from '@/types/type';
 export default async function pageRegister(
   data: PageUrlFormSchema & { content: string },
 ): Promise<AxiosResponse<{ data: Page }>> {
-  const cookie = new Cookies();
-  const authorization = cookie.get('authorization');
+  const cookies = new Cookies();
+  const authorization = cookies.get('authorization');
   const response: AxiosResponse = await Instance.post(
-    PATH.API.PAGES.registerPage,
+    PATH.API.PAGES.REGISTER_PAGE,
     {
       title: data.title,
       domain: data.domain,

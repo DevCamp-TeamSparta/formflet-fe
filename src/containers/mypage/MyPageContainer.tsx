@@ -17,10 +17,11 @@ export default function MyPageContainer() {
   return (
     <div className="flex flex-col items-center gap-5 px-[87px] py-10">
       <Button
-        className={`flex w-[850px] h-[108px] justify-center items-center box-shadow-normal bg-gray-light-normal border border-gray-light-active px-8 py-4 rounded-lg border-solid visiblity: ${isVisibled}`}
+        className={`flex w-[850px] h-[108px] justify-center items-center box-shadow-normal bg-gray-light-normal border border-gray-light-active px-8 py-4 rounded-lg border-solid visiblity: ${isVisibled} text-gray-normal-normal`}
         onClick={() => handleOpenForm()}
       >
-        <PlusCircle />
+        웹페이지 추가하기
+        <PlusCircle color="#9FA0A0" />
       </Button>
       {openRegisterForm && <RegisterPage />}
       <PageList setIsVisibled={setIsVisibled} />

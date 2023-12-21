@@ -30,9 +30,10 @@ export default function NavHeader() {
     setPageContent: state.setPageContent,
   }));
   const { font } = useFontStore((state) => ({ font: state.font }));
-  const { formStatus, form } = useFormStore((state) => ({
+  const { formStatus, form, createForm } = useFormStore((state) => ({
     formStatus: state.formStatus,
     form: state.form,
+    createForm: state.createForm,
   }));
   const { ctaStatus, ctaContent, ctaLink, ctaFontSize, ctaFontColor, ctaBackColor } = useCtaStore(
     (state) => ({
@@ -54,6 +55,7 @@ export default function NavHeader() {
       form: {
         status: formStatus,
         guide: form,
+        createForm,
       },
       cta: {
         status: ctaStatus,
@@ -64,6 +66,7 @@ export default function NavHeader() {
         backgroundColor: ctaBackColor,
       },
     };
+    console.log(data);
     const response = await pageSave(data, path);
 
     // TODO: 성공 시 모달창 띄우기

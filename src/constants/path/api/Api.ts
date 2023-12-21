@@ -1,25 +1,25 @@
 const USERS = Object.freeze({
-  join: '/api/users/join',
-  checkemail: '/api/users/check-email',
+  JOIN: '/api/users/join',
+  CHECK_EMAIL: '/api/users/check-email',
 });
 
 const AUTH = Object.freeze({
-  login: '/api/auth/login',
-  logout: '/api/auth/logout',
-  reissue: '/api/auth/reissue',
+  LOGIN: '/api/auth/login',
+  LOGOUT: '/api/auth/logout',
+  REISSUE: '/api/auth/reissue',
 });
 
 const PAGES = Object.freeze({
-  registerPage: '/api/pages/register',
-  notionList: '/api/pages',
-  page: '/api/pages',
-  edit: '/api/pages/edit',
-  release: '/api/pages/release',
-  refresh: '/api/pages/refresh',
+  REGISTER_PAGE: '/api/pages/register',
+  NOTION_LIST: '/api/pages',
+  PAGE: '/api/pages',
+  EDIT: '/api/pages/edit',
+  RELEASE: '/api/pages/release',
 });
 
 const FORMS = Object.freeze({
-  reply: '/api/forms/reply',
+  FORM: '/api/forms',
+  REPLY: '/api/forms/reply',
 });
 
 const API = Object.freeze({
