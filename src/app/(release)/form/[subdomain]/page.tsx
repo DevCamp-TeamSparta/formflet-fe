@@ -1,6 +1,6 @@
 import Instance from '@/services/api/Instance';
 import ReleaseWrapper from '@/components/ReleaseWrapper';
-import EditFormView from '@/containers/mypage/edit/EditFormView';
+import FormComponent from '@/components/form/FormComponent';
 
 interface PageProps {
   params: {
@@ -21,8 +21,8 @@ export default async function FormPage({ params }: PageProps) {
   const formId = page.form[0].id;
 
   return (
-    <ReleaseWrapper className="relative" page={page}>
-      <EditFormView form={form} formId={formId} />
+    <ReleaseWrapper className="relative h-screen flex justify-center" page={page}>
+      <FormComponent form={form} formId={formId} />
     </ReleaseWrapper>
   );
 }

@@ -1,18 +1,20 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import Button from '@/components/basic/Button';
 import formReply from '@/services/api/forms/formReply';
-import ArrowRightCircle from '../../../../public/svg/ArrowRightCircle';
+import ArrowRightCircle from '../../../public/svg/ArrowRightCircle';
 
 interface FormProps {
   formId: number;
   form: string;
 }
 
-export default function EditFormView(props: FormProps) {
+export default function FormComponent(props: FormProps) {
   const { form, formId } = props;
   const formSplit = form.split('\n');
   let count = 0;
+  const route = useRouter();
 
   const handleRadio = (text: string) => {
     const items = text.split('_');
@@ -90,16 +92,13 @@ export default function EditFormView(props: FormProps) {
       }
       const response = await formReply(formId, submitData);
       if (response.status === 201) {
-        alert('성공!');
+        route.push('/submit');
       }
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col items-start gap-5 flex-[1_0_0] self-stretch border border-solid border-gray-light-active box-shadow-normal p-[30px] rounded-[0px_8px_8px_0px]"
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col items-start gap-5 p-[30px]">
       {formSplit.map((item) => {
         const content = handleForm(item);
         return <div key={item}>{content}</div>;
