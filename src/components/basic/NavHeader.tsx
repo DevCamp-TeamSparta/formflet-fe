@@ -66,7 +66,6 @@ export default function NavHeader() {
         backgroundColor: ctaBackColor,
       },
     };
-    console.log(data);
     const response = await pageSave(data, path);
 
     // TODO: 성공 시 모달창 띄우기

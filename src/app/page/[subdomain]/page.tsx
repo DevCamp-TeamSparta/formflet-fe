@@ -17,12 +17,12 @@ export default async function NotionPage({ params }: PageProps) {
     data: Page;
   }>(`/api/pages/release/${pageDomain}`);
   const page = response.data.data;
-
+  const ctaStatus = page.cta.status;
   return (
     <ReleaseWrapper className="relative" page={page}>
       <NotionComponent recordMap={page.pageDetail.content} />
       <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2">
-        <CtaComponent params={params} />
+        {ctaStatus && <CtaComponent params={params} />}
       </div>
     </ReleaseWrapper>
   );

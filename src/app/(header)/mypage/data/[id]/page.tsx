@@ -1,19 +1,30 @@
 import DataDetailContainer from '@/containers/mypage/data/[id]/DataDetailContainer';
+import forms from '@/services/api/forms/forms';
 
-const Dummy = {
-  name: '김르탄',
-  age: 30,
-  gender: '남',
-  phone: '0101234567812341234',
-  job: '개발자',
-  email: 'rtan@gmail.com',
-  career: '3년',
-  email2: 'rtan@gmail.com',
-  email3: 'rtan@gmail.com',
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+const getFormReplyData = (formDetails: FormDetail[]): Record<string, string>[] => {
+  const dataArray: Record<string, string>[] = new Array(formDetails[0].formReplies.length);
+  const questionArray: Array<string> = [];
+  formDetails.map((item) => questionArray.push(item.question));
+  for (let i = 0; i < 10; i += 1) {
+    const answer: { [key: string]: string } = {};
+    for (let j = questionArray.length - 1; j >= 0; j -= 1) {
+      answer[questionArray[j]] = formDetails[j].formReplies[i].answer;
+    }
+    dataArray[i] = answer;
+  }
+  return dataArray;
 };
 
-const Dummies = Array(100).fill(Dummy);
+export default async function DataDetailPage({ params }: PageProps) {
+  const response = await forms(params.id);
+  const { formDetails } = response.data.data[0];
+  const dataArray = getFormReplyData(formDetails);
 
-export default function DataDetailPage() {
-  return <DataDetailContainer data={Dummies} />;
+  return <DataDetailContainer data={dataArray} />;
 }

@@ -17,6 +17,7 @@ export default function CtaComponent({ params }: CtaProps) {
 
   const handleRoute = () => {
     if (ctaStore.ctaLink === '' && pageDomain) {
+      console.log('test');
       route.push(`/form/${pageDomain}`);
     } else {
       // TODO: 편집 화면에서 클릭 시 동작안하도록 하기

@@ -17,8 +17,8 @@ export default async function FormPage({ params }: PageProps) {
     data: Page;
   }>(`/api/pages/release/${pageSubDomain}`);
   const page = response.data.data;
-  const form = page.form.guide;
-  const formId = page.form.id;
+  const form = page.form[0].guide;
+  const formId = page.form[0].id;
 
   return (
     <ReleaseWrapper className="relative" page={page}>

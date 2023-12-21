@@ -35,7 +35,7 @@ type Page = {
   url: string;
   pageDetail: PageContent;
   pageFont: PageFont;
-  form: PageForm;
+  form: PageForm[];
   cta: PageCta;
 };
 
@@ -43,4 +43,22 @@ interface PageList {
   id: string;
   title: string;
   domain: string;
+}
+
+interface FormReplies {
+  id: string;
+  answer: string;
+}
+
+interface FormDetail {
+  question: string;
+  formReplies: Array<FormReplies>;
+}
+
+interface FormList {
+  id: string;
+  status: string;
+  title: string;
+  guide: string;
+  formDetails: FormDetail[];
 }

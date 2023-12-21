@@ -1,26 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import DataItem from '@/containers/mypage/data/DataItem';
 import pages from '@/services/api/pages/pages';
 
-const Dummy = [
-  {
-    id: 1,
-    title: 'Web1',
-    status: 'Exist',
-    num: 200,
-  },
-  {
-    id: 2,
-    title: 'Web2',
-    status: 'None',
-    num: 0,
-  },
-];
-
 export default function DataListContainer() {
-  const replyList: Array<PageList[]> = [];
+  const [pageList, setPageList] = useState<PageList[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       const response = await pages();
@@ -29,15 +14,15 @@ export default function DataListContainer() {
     };
     fetchData()
       .then((result) => {
-        replyList.push(result);
+        setPageList(result);
       })
       .catch((e) => console.log(e));
-    console.log(replyList);
+    console.log(pageList);
   }, []);
   return (
     <div className="py-[40px] w-[850px] space-y-[20px]">
-      {Dummy.map((d) => (
-        <DataItem key={d.title} data={d} />
+      {pageList.map((item) => (
+        <DataItem key={item.id} data={item} />
       ))}
     </div>
   );

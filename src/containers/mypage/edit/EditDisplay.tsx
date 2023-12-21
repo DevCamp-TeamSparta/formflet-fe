@@ -56,9 +56,8 @@ export default function EditDisplay({ pageId }: PageProps) {
       pageStore.setPageId(pageData.id);
       pageStore.setPageContent(pageData.pageDetail.content);
       pageStore.setUrl(pageData.url);
-
       setFont(pageData.pageFont.type);
-      setFormALl(pageData.form);
+      setFormALl(pageData.form[0]);
       ctaStore.setCtaAll(pageData.cta);
 
       setIsLoaded(true);
