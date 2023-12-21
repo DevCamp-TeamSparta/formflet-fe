@@ -8,13 +8,18 @@ interface PageProps {
 }
 
 const getFormReplyData = (formDetails: FormDetail[]): Record<string, string>[] => {
+  if (!formDetails.length) {
+    return [];
+  }
   const dataArray: Record<string, string>[] = new Array(formDetails[0].formReplies.length);
   const questionArray: Array<string> = [];
   formDetails.map((item) => questionArray.push(item.question));
-  for (let i = 0; i < 10; i += 1) {
+  for (let i = 0; i < dataArray.length; i += 1) {
     const answer: { [key: string]: string } = {};
-    for (let j = questionArray.length - 1; j >= 0; j -= 1) {
-      answer[questionArray[j]] = formDetails[j].formReplies[i].answer;
+    for (let j = 0; j < questionArray.length; j += 1) {
+      if (formDetails[j].formReplies[i]) {
+        answer[questionArray[j]] = formDetails[j].formReplies[i].answer;
+      }
     }
     dataArray[i] = answer;
   }

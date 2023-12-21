@@ -66,7 +66,7 @@ export default function NavHeader() {
         backgroundColor: ctaBackColor,
       },
     };
-    const response = await pageSave(data, path);
+    const response = await pageSave(path, data);
 
     // TODO: 성공 시 모달창 띄우기
     if (response.status === 200) {
@@ -74,15 +74,15 @@ export default function NavHeader() {
     }
   };
 
-  // TODO: 새로고침 모달창 넣기
-  // const [isOpenModal, setIsOpenModal] = useState(false);
-  // const [isRefreshNotion, setIsRefreshNotion] = useState(false);
   const handleRefresh = async () => {
-    const res = await axios.post<{ page: Record<string, object> }>('/api/notion', {
-      url,
-    });
-    const content = JSON.stringify(res.data.page);
-    setPageContent(content);
+    await axios
+      .post<{ page: Record<string, object> }>('/api/notion', {
+        url,
+      })
+      .then((response) => {
+        const content = JSON.stringify(response.data.page);
+        setPageContent(content);
+      });
   };
 
   const handleWindowOpen = () => {

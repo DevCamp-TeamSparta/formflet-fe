@@ -99,7 +99,7 @@ export default function FormSidebar() {
               onChange={(e) => ctaStore.setCtaFontColor(e.target.value)}
             />
             <div
-              className="border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full"
+              className="border border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full"
               style={{ backgroundColor: ctaStore.ctaFontColor }}
             />
           </div>
@@ -113,7 +113,7 @@ export default function FormSidebar() {
               onChange={(e) => ctaStore.setCtaBackColor(e.target.value)}
             />
             <div
-              className="border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full"
+              className="border border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full"
               style={{ backgroundColor: ctaStore.ctaBackColor }}
             />
           </div>
