@@ -1,4 +1,4 @@
-import FlexLogo from '../../public/svg/FlexLogo';
+import Logo from '../../public/svg/Logo';
 
 export default function SuccessSubmit() {
   return (
@@ -6,7 +6,7 @@ export default function SuccessSubmit() {
       <p className="h1-bold text-gray-dark-active">응답이 제출되었습니다.</p>
       <p className="b1-bold text-gray-dark-active flex justify-center items-center">
         Made by
-        <FlexLogo />
+        <Logo />
       </p>
     </div>
   );

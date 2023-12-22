@@ -1,20 +1,16 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { CSSProperties } from 'react';
+import { NotionRenderer } from 'react-notion-x';
+import { Code } from 'react-notion-x/build/third-party/code';
+import { Collection } from 'react-notion-x/build/third-party/collection';
+import { Equation } from 'react-notion-x/build/third-party/equation';
+import { Modal } from 'react-notion-x/build/third-party/modal';
+import { useFontStore } from '@/store/store';
+
 import 'react-notion-x/src/styles.css';
 import 'prismjs/themes/prism.css';
 import '../../styles/notion.css';
-import { NotionRenderer } from 'react-notion-x';
-import { useFontStore } from '@/store/store';
-
-const Code = dynamic(() => import('react-notion-x/build/third-party/code').then((m) => m.Code));
-const Collection = dynamic(() =>
-  import('react-notion-x/build/third-party/collection').then((m) => m.Collection),
-);
-const Equation = dynamic(() =>
-  import('react-notion-x/build/third-party/equation').then((m) => m.Equation),
-);
 
 interface NotionProps {
   recordMap: string;
@@ -30,6 +26,7 @@ export default function NotionComponent({ recordMap }: NotionProps) {
           Code,
           Collection,
           Equation,
+          Modal,
         }}
         fullPage
       />

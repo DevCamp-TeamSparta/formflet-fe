@@ -82,7 +82,6 @@ export default function FormSidebar() {
             value={ctaStore.ctaLink}
             disabled={!ctaStore.ctaStatus}
             onChange={(e) => ctaStore.setCtaLink(e.target.value)}
-            placeholder="https://"
           />
         </div>
         <p className="b2-bold text-gray-dark-active">색상 및 스타일</p>
