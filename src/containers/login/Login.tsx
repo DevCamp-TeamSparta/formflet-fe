@@ -74,7 +74,7 @@ export default function Login() {
         >
           <p className="b1-bold text-white">로그인</p>
         </Button>
-        <hr className="flex h-0 justify-center items-center self-stretch" />
+        <hr className="flex h-0 justify-center items-center self-stretch text-gray-light-active " />
         <Link
           className="flex w-[502px] h-14 justify-center items-center border border-purple-normal-normal box-shadow-normal rounded-lg"
           href={PATH.ROUTE.JOIN}
