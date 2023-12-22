@@ -136,7 +136,7 @@ export default function EditDisplay({ pageId }: PageProps) {
             <div className="flex w-full h-full">
               <div
                 ref={leftSide}
-                className="flex w-1/2 flex-col items-start gap-5 box-shadow-normal p-[30px] rounded-[8px_0px_0px_8px] border border-solid border-gray-light-active"
+                className="flex w-1/2 flex-col items-start gap-5 box-shadow-normal p-[30px]"
               >
                 <EditFormExample />
                 <EditForm />

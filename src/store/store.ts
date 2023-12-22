@@ -50,7 +50,7 @@ export const useFormStore = create<FormStore>((set) => ({
 
 export const useCtaStore = create<CtaStore>((set) => ({
   ctaStatus: false,
-  ctaContent: '',
+  ctaContent: 'Click Me!',
   ctaLink: '',
   ctaFontSize: '24px',
   ctaFontColor: '#FFFFFF',
@@ -73,7 +73,7 @@ export const useCtaStore = create<CtaStore>((set) => ({
   resetCta: () =>
     set({
       ctaStatus: false,
-      ctaContent: '',
+      ctaContent: 'Click Me!',
       ctaLink: '',
       ctaFontSize: '24px',
       ctaFontColor: '#FFFFFF',

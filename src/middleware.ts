@@ -14,7 +14,7 @@ export const config = {
   ],
 };
 
-const PRODUCTION_DOMAINS = ['www', 'test', 'localhost', '127'];
+const PRODUCTION_DOMAINS = ['www', 'test', 'localhost', '127', 'app'];
 
 export default function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;

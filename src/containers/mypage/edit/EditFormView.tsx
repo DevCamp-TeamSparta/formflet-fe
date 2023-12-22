@@ -98,7 +98,7 @@ export default function EditFormView(props: FormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-start gap-5 flex-[1_0_0] self-stretch border border-solid border-gray-light-active box-shadow-normal p-[30px] rounded-[0px_8px_8px_0px]"
+      className="flex flex-col items-start gap-5 flex-[1_0_0] self-stretch p-[30px] rounded-[0px_8px_8px_0px]"
     >
       {formSplit.map((item) => {
         const content = handleForm(item);

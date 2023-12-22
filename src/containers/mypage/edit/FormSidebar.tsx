@@ -1,11 +1,12 @@
 import Toggle from '@/components/basic/Toggle';
 import FormSquareIcon from '../../../../public/svg/FormSquareIcon';
 import EmptyStar from '../../../../public/svg/EmptyStar';
-import { useCtaStore, useFormStore } from '@/store/store';
+import { useCtaStore, useDisplayStore, useFormStore } from '@/store/store';
 import useModalStore from '@/store/modalStore';
 import FormCancelModal from '@/containers/mypage/edit/FormCancelModal';
 
 export default function FormSidebar() {
+  const { setDisplay } = useDisplayStore((state) => ({ setDisplay: state.setDisplay }));
   const { formStatus, setFormStatus } = useFormStore((state) => ({
     formStatus: state.formStatus,
     setFormStatus: state.setFormStatus,
@@ -21,6 +22,7 @@ export default function FormSidebar() {
       if (!ctaStore.ctaStatus) {
         ctaStore.setCtaStatus(!ctaStore.ctaStatus);
       }
+      setDisplay('form');
       setFormStatus(!formStatus);
     }
   };
