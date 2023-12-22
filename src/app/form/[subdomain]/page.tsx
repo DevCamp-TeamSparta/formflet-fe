@@ -21,7 +21,7 @@ export default async function FormPage({ params }: PageProps) {
   const formId = page.form[0].id;
 
   return (
-    <ReleaseWrapper className="relative h-screen flex justify-center" page={page}>
+    <ReleaseWrapper className="relative h-screen flex justify-center mt-20" page={page}>
       <FormComponent form={form} formId={formId} />
     </ReleaseWrapper>
   );

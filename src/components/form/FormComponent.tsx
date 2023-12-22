@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import Button from '@/components/basic/Button';
 import formReply from '@/services/api/forms/formReply';
 import ArrowRightCircle from '../../../public/svg/ArrowRightCircle';
@@ -14,7 +13,6 @@ export default function FormComponent(props: FormProps) {
   const { form, formId } = props;
   const formSplit = form.split('\n');
   let count = 0;
-  const route = useRouter();
 
   const handleRadio = (text: string) => {
     const items = text.split('_');
@@ -92,7 +90,7 @@ export default function FormComponent(props: FormProps) {
       }
       const response = await formReply(formId, submitData);
       if (response.status === 201) {
-        route.push('/submit');
+        window.history.back();
       }
     }
   };
