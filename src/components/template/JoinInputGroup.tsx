@@ -31,11 +31,11 @@ const JoinInputGroup = React.forwardRef<HTMLInputElement, JoinGroupProps>(
     return (
       <div className="flex flex-col items-center self-stretch gap-5">
         {id === 'email' ? (
-          <div className="h-[94px] self-stretch items-center gap-2.5">
+          <div className="self-stretch flex flex-col items-start gap-2.5">
             <label className="b1-bold text-purple-normal-normal" htmlFor={id}>
               {label}
             </label>
-            <div className="flex gap-3">
+            <div className="flex self-stretch justify-between gap-3">
               <Input
                 className="flex w-[331px] h-14 items-center px-8 py-4 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal text-gray-dark-hover rounded-lg"
                 id={id}
@@ -43,7 +43,7 @@ const JoinInputGroup = React.forwardRef<HTMLInputElement, JoinGroupProps>(
                 {...rest}
               />
               <Button
-                className="flex w-[157px] h-14 items-center px-8 py-4 shrink-0 bg-purple-normal-normal box-shadow-normal rounded-lg gap-1.5"
+                className="flex h-14 items-center px-8 py-4 shrink-0 bg-purple-normal-normal box-shadow-normal rounded-lg gap-1.5"
                 id="btn-checkEmail"
                 type="button"
                 onClick={() => isVaildEmail()}
@@ -58,7 +58,7 @@ const JoinInputGroup = React.forwardRef<HTMLInputElement, JoinGroupProps>(
                   emailState.state === true
                     ? `text-semantic-success-dark`
                     : `text-semantic-danger-normal`
-                } mt-2.5`}
+                }`}
               >
                 {emailState.message}
               </p>
@@ -66,7 +66,7 @@ const JoinInputGroup = React.forwardRef<HTMLInputElement, JoinGroupProps>(
           </div>
         ) : (
           <div>
-            <div className="flex w-[502px] h-[94px] flex-col justify-center items-start gap-2.5">
+            <div className="flex flex-col justify-center items-start gap-2.5">
               <label className="b1-bold text-purple-normal-normal" htmlFor={id}>
                 {label}
               </label>
