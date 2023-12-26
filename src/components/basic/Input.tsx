@@ -18,7 +18,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ id, onChange, ..
   return (
     <div>
       <input
-        className="flex w-[502px] h-14 items-center gap-2.5 px-8 py-4 border border-gray-normal-normal text-gray-dark-hover placeholder:text-gray-normal-normal box-shadow-normal rounded-lg"
+        className="flex w-[502px] h-14 items-center gap-2.5 px-8 py-4 border border-gray-normal-normal text-gray-dark-hover placeholder:text-gray-light-active box-shadow-normal focus:box-inner-shadow-normal rounded-lg"
         type="text"
         id={id}
         value={value}

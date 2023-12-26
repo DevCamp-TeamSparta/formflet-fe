@@ -90,9 +90,9 @@ export default function NavHeader() {
   };
 
   return (
-    <header className="w-full h-[72px] flex flex-col justify-end items-center gap-[22px] shrink-0 pt-[22px]">
+    <header className="w-full top-[64px] h-[64px] fixed flex flex-col justify-between items-center shrink-0 z-10 bg-white">
       {pathName.startsWith('/mypage/edit') ? (
-        <div className="w-[849px] justify-between items-center h-9 flex">
+        <div className="w-[849px] justify-between items-center flex pt-[12px]">
           <Button
             className="flex w-[762px] h-9 justify-between items-center shrink-0 border border-gray-light-active box-shadow-normal px-5 py-4 rounded-lg border-solid b1-bold text-gray-dark-active"
             onClick={handleWindowOpen}
@@ -108,11 +108,11 @@ export default function NavHeader() {
           </Button>
         </div>
       ) : (
-        <div className="w-[850px] h-9 flex justify-between items-center shrink-0">
+        <div className="w-[850px] h-9 flex justify-between items-center shrink-0 pt-[22px]">
           <p className="b1-bold text-gray-dark-active">{navItem}</p>
         </div>
       )}
-      <hr className="text-gray-light-active self-stretch" />
+      <hr className="self-stretch text-gray-light-active" />
     </header>
   );
 }

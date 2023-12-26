@@ -33,27 +33,32 @@ export default function Login() {
     try {
       const res: AxiosResponse = await authLogin(data);
 
-      const accessToken = await getToken(res, 'authorization');
-      const refreshToken = await getToken(res, 'refresh-token');
+      if (res.status === 201) {
+        const accessToken = await getToken(res, 'authorization');
+        const refreshToken = await getToken(res, 'refresh-token');
 
-      setTokenCookie('authorization', accessToken);
-      setTokenCookie('refresh-token', refreshToken);
+        setTokenCookie('authorization', accessToken);
+        setTokenCookie('refresh-token', refreshToken);
 
-      router.push(PATH.ROUTE.MYPAGE);
-      // res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅
+        router.push(PATH.ROUTE.MYPAGE);
+      }
+
+      // TODO: res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅
     } catch (e) {
       console.error('[ERROR]', e);
     }
   };
 
   return (
-    <main className="flex flex-col items-center gap-40 mt-10">
+    <main className="flex flex-col items-center">
       <form
-        className="flex w-[502px] flex-col items-center gap-10"
+        className="flex w-[502px] flex-col items-center gap-5"
         onSubmit={handleSubmit(loginFormSubmit)}
       >
-        <p className="t1-bold text-purple-normal-normal">폼플렛</p>
-        <p className="h2-bold text-gray-dark-active">1분 만에 만드는 온라인 전단지</p>
+        <div className="flex flex-col items-center gap-2.5">
+          <p className="t1-bold text-purple-normal-normal">폼플렛</p>
+          <p className="h2-bold text-gray-dark-active">노션으로 쉽게 만드는 온라인 전단지</p>
+        </div>
         {LOGIN_GROUP_PROPS.map((field) => (
           <LoginInputGroup
             key={field.id}
@@ -72,9 +77,9 @@ export default function Login() {
           id="btn-login"
           type="submit"
         >
-          <p className="b1-bold text-white">로그인</p>
+          <p className="text-white b1-bold">로그인</p>
         </Button>
-        <hr className="flex h-0 justify-center items-center self-stretch text-gray-light-active " />
+        <hr className="flex items-center self-stretch justify-center h-0 text-gray-light-active " />
         <Link
           className="flex w-[502px] h-14 justify-center items-center border border-purple-normal-normal box-shadow-normal rounded-lg"
           href={PATH.ROUTE.JOIN}

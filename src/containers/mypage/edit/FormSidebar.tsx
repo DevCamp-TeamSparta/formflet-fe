@@ -60,13 +60,13 @@ export default function FormSidebar() {
             </div>
           </div>
         </div>
-        <div className="flex h-0 justify-center items-center self-stretch">
+        <div className="flex items-center self-stretch justify-center h-0">
           <hr className="flex w-[282px] h-0 justify-center items-center text-gray-light-active" />
         </div>
         <div className="flex h-[78px] flex-col justify-end items-start gap-4 self-stretch pt-1.5">
           <label className="b2-bold text-gray-dark-active">버튼 내용</label>
           <input
-            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
+            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
             type="text"
             value={ctaStore.ctaContent}
             disabled={!ctaStore.ctaStatus}
@@ -77,7 +77,7 @@ export default function FormSidebar() {
         <div className="flex h-[78px] flex-col justify-end items-start gap-4 self-stretch pt-1.5">
           <label className="b2-bold text-gray-dark-active">링크</label>
           <input
-            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
+            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
             type="text"
             value={ctaStore.ctaLink}
             disabled={!ctaStore.ctaStatus}
@@ -91,9 +91,9 @@ export default function FormSidebar() {
             <option>24px</option>
           </select>
         </div>
-        <div className="flex justify-between items-center self-stretch">
+        <div className="flex items-center self-stretch justify-between">
           <p className="b2 text-gray-dark-active">글자색</p>
-          <div className="flex justify-end items-center">
+          <div className="flex items-center justify-end">
             <input
               className="b2 text-gray-dark-active"
               value={ctaStore.ctaFontColor}
@@ -105,9 +105,9 @@ export default function FormSidebar() {
             />
           </div>
         </div>
-        <div className="flex justify-between items-center self-stretch">
+        <div className="flex items-center self-stretch justify-between">
           <p className="b2 text-gray-dark-active">배경색</p>
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <input
               className="b2 text-gray-dark-active"
               value={ctaStore.ctaBackColor}

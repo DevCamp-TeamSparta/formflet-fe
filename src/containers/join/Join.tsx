@@ -41,40 +41,40 @@ export default function Join() {
   const { JOIN_GROUP_PROPS } = InputGroupArrays();
   return (
     <main className="flex flex-col items-center">
-      <div className="flex w-[504px] flex-col justify-end items-center">
-        <form
-          className="flex w-[504px] flex-col items-center gap-10 px-0 py-[60px]"
-          onSubmit={handleSubmit(joinFormSubmit)}
-        >
+      <form
+        className="flex w-[504px] flex-col items-center gap-10"
+        onSubmit={handleSubmit(joinFormSubmit)}
+      >
+        <div className="flex flex-col items-center gap-2.5">
           <p className="t1-bold text-purple-normal-normal">폼플렛</p>
           <p className="h2-bold text-gray-dark-active">회원가입</p>
-          <div className="flex flex-col gap-5 self-stretch">
-            {JOIN_GROUP_PROPS.map((field) => (
-              <JoinInputGroup
-                key={field.id}
-                id={field.id}
-                label={field.label}
-                type={field.type}
-                errorMessage={errors[field.id]?.message}
-                errors={errors}
-                getValues={getValues}
-                placeholder={field.placeholder}
-                {...register(field.id)}
-              />
-            ))}
-            <DropDownGroup id="job" items={JOB_LIST} label="직무" {...register('job')} />
-            <JoinAgree setJoinButtonDisabled={setJoinButtonDisabled} />
-            <Button
-              className="flex bg-purple-normal-normal box-shadow-normal w-[502px] h-14 justify-center items-center rounded-lg disabled:bg-gray-normal-normal disabled:text-gray-normal-normal "
-              id="btn-join"
-              type="submit"
-              disabled={joinButtonDisabled}
-            >
-              <p className="b1-bold text-white">회원가입</p>
-            </Button>
-          </div>
-        </form>
-      </div>
+        </div>
+        <div className="flex flex-col self-stretch gap-5">
+          {JOIN_GROUP_PROPS.map((field) => (
+            <JoinInputGroup
+              key={field.id}
+              id={field.id}
+              label={field.label}
+              type={field.type}
+              errorMessage={errors[field.id]?.message}
+              errors={errors}
+              getValues={getValues}
+              placeholder={field.placeholder}
+              {...register(field.id)}
+            />
+          ))}
+          <DropDownGroup id="job" items={JOB_LIST} label="직무" {...register('job')} />
+          <JoinAgree setJoinButtonDisabled={setJoinButtonDisabled} />
+          <Button
+            className="flex bg-purple-normal-normal box-shadow-normal w-[502px] h-14 justify-center items-center rounded-lg disabled:bg-gray-normal-normal disabled:text-gray-normal-normal "
+            id="btn-join"
+            type="submit"
+            disabled={joinButtonDisabled}
+          >
+            <p className="text-white b1-bold">회원가입</p>
+          </Button>
+        </div>
+      </form>
     </main>
   );
 }

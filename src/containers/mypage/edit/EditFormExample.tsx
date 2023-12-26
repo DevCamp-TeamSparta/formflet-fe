@@ -28,26 +28,26 @@ export default function EditFormExample() {
         className="flex justify-between items-center flex-[1_0_0] self-stretch"
         onClick={handleClickChange}
       >
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <ExclaimCircle />
-          <p className="b1-bold text-gray-dark-active ml-1">폼 작성 가이드</p>
+          <p className="ml-1 b1-bold text-gray-dark-active">폼 작성 가이드</p>
         </div>
         <SelectOptionIcon />
       </Button>
       {isClicked && (
         <div>
-          <p className="b2-bold text-gray-dark-active mb-2">문항 작성 방법</p>
-          <p className="b2 text-gray-dark-active mb-2">
+          <p className="mb-2 b2-bold text-gray-dark-active">문항 작성 방법</p>
+          <p className="mb-2 b2 text-gray-dark-active">
             아래 옵션 중 하나를 선택하여 입력한 후, [ ] 이후 스페이스 한 칸을 띄우고 생성될 내용을
             작성해주세요.
           </p>
           {formExample.map((item) => (
-            <li className="b2 text-gray-dark-active mb-2">{item}</li>
+            <li className="mb-2 b2 text-gray-dark-active">{item}</li>
           ))}
-          <p className="b2 text-semantic-danger-normal mb-2">
+          <p className="mb-2 b2 text-semantic-danger-normal">
             *제목은 최상단에 한번만 입력 가능합니다.
           </p>
-          <p className="b2 text-semantic-danger-normal mb-2">
+          <p className="mb-2 b2 text-semantic-danger-normal">
             *질문 다음에 응답 방식이 설정되지 않으면 해당 질문은 보이지 않습니다.
           </p>
         </div>

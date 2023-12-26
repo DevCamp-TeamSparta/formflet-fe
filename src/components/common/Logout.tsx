@@ -14,18 +14,15 @@ export default function Logout() {
   const accessToken: Token = cookies.get('authorization');
 
   const handleLogout = async () => {
-    if (accessToken) {
-      await authLogout(accessToken)
-        .then(() => {
-          cookies.remove('authorization');
-          cookies.remove('refresh-token');
-          route.push(PATH.ROUTE.ROOT);
-        })
-        .catch(() => {
-          cookies.remove('authorization');
-          cookies.remove('refresh-token');
-          route.push(PATH.ROUTE.ROOT);
-        });
+    const response = await authLogout(accessToken);
+    if (response.status === 200) {
+      cookies.remove('authorization');
+      cookies.remove('refresh-token');
+      route.push(PATH.ROUTE.ROOT);
+    } else {
+      cookies.remove('authorization');
+      cookies.remove('refresh-token');
+      route.push(PATH.ROUTE.ROOT);
     }
   };
   return (

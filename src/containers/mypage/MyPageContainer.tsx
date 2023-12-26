@@ -17,7 +17,7 @@ export default function MyPageContainer() {
   return (
     <div className="flex flex-col items-center gap-5 px-[87px] py-10">
       <Button
-        className={`flex w-[850px] h-[108px] justify-center items-center box-shadow-normal bg-white border border-gray-light-active px-8 py-4 rounded-lg border-solid visiblity: ${isVisibled} text-gray-normal-normal`}
+        className={`flex w-[850px] h-[108px] justify-center items-center box-shadow-normal bg-white border border-gray-light-active px-8 py-4 rounded-lg border-solid gap-2 visiblity: ${isVisibled} text-gray-normal-normal`}
         onClick={() => handleOpenForm()}
       >
         웹페이지 추가하기

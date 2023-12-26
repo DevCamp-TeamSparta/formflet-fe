@@ -119,7 +119,7 @@ export default function EditDisplay({ pageId }: PageProps) {
       {
         {
           notion: isloaded && (
-            <div id="page-notion" className="relative">
+            <div id="page-notion" className="relative z-0">
               <NotionComponent recordMap={pageStore.pageContent} />
               <div className="fixed bottom-10 left-[58%] transform -translate-x-1/2">
                 {ctaStore.ctaStatus && (
@@ -141,8 +141,11 @@ export default function EditDisplay({ pageId }: PageProps) {
                 <EditFormExample />
                 <EditForm />
               </div>
-              <div ref={resizer} className="cursor-ew-resize h-full w-2.5 bg-gray-light-active" />
-              <div ref={rightSide} className="flex flex-grow items-center">
+              <div
+                ref={resizer}
+                className="cursor-ew-resize h-full w-2.5 bg-gray-light-active shrink-0"
+              />
+              <div ref={rightSide} className="flex items-center flex-grow">
                 <EditFormView form={form} formId={0} />
               </div>
             </div>

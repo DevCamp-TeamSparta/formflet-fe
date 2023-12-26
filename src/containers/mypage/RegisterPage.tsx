@@ -64,19 +64,19 @@ export default function RegisterPage() {
       onSubmit={handleSubmit(pageFormSubmit)}
     >
       <div className="flex flex-col justify-center items-start gap-2.5 self-stretch">
-        <p className="b1-bold self-stretch text-gray-dark-active">웹페이지 이름</p>
+        <p className="self-stretch b1-bold text-gray-dark-active">웹페이지 이름</p>
         <Input
-          className="flex w-[786px] h-10 justify-end items-center gap-2.5 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
+          className="flex w-[786px] h-10 justify-end items-center gap-2.5 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
           key="title"
           id="title"
           {...register('title')}
         />
       </div>
       <div className="flex flex-col justify-center items-start gap-2.5 self-stretch">
-        <p className="b1-bold self-stretch text-gray-dark-active">웹페이지 주소</p>
+        <p className="self-stretch b1-bold text-gray-dark-active">웹페이지 주소</p>
         <div className="flex items-end gap-2.5">
           <Input
-            className="flex w-[677px] h-10 justify-end items-center gap-2.5 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
+            className="flex w-[677px] h-10 justify-end items-center gap-2.5 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
             key="domain-url"
             id="domain-url"
             {...register('domain')}
@@ -84,7 +84,7 @@ export default function RegisterPage() {
           <p className="b1 text-gray-normal-normal">.formflet.co/</p>
         </div>
       </div>
-      <p className="b1-bold self-stretch text-gray-dark-active">노션 링크</p>
+      <p className="self-stretch b1-bold text-gray-dark-active">노션 링크</p>
       <div className="flex items-start gap-2.5 self-stretch">
         <p className="b2 text-gray-dark-normal">
           노션에서 공유 버튼을 눌러 &apos;웹에서 공유&apos; 상태로 만들어 주어야 폼플렛이 웹페이지를
@@ -92,17 +92,17 @@ export default function RegisterPage() {
         </p>
         <Button
           type="button"
-          className="b2-bold text-gray-dark-active items-center"
+          className="items-center"
           onClick={() =>
             window.open('https://formflet.notion.site/9215ed5f1eff46f6825622851d0758c5?pvs=4')
           }
         >
-          자세히 &#62;
+          <p className="b2-bold text-gray-dark-active">자세히 &#62;</p>
         </Button>
       </div>
       <div className="self-stretch">
         <Input
-          className="flex w-[786px] h-10 justify-end items-center gap-2.5 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
+          className="flex w-[786px] h-10 justify-end items-center gap-2.5 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
           key="notion-url"
           id="notion-url"
           placeholder="notion.so/formflet/"
@@ -110,12 +110,12 @@ export default function RegisterPage() {
         />
       </div>
       {(errors.domain?.message || errors.url?.message) && (
-        <p className="b2 self-stretch text-semantic-danger-normal">
+        <p className="self-stretch b2 text-semantic-danger-normal">
           {errors.domain?.message || errors.url?.message}
         </p>
       )}
       {errorMessage && (
-        <p className="b2 self-stretch text-semantic-danger-normal">{errorMessage}</p>
+        <p className="self-stretch b2 text-semantic-danger-normal">{errorMessage}</p>
       )}
       <Button
         className="flex w-[133px] justify-center h-10 items-center gap-2.5 box-shadow-normal bg-purple-normal-normal px-5 py-4 rounded-lg"
@@ -125,7 +125,7 @@ export default function RegisterPage() {
           <Spinner />
         ) : (
           <>
-            <p className="b1-bold text-white">추가하기</p>
+            <p className="text-white b1-bold">추가하기</p>
             <PlusCircle color="white" />
           </>
         )}
