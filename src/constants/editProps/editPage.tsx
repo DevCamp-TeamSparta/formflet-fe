@@ -1,3 +1,6 @@
+import SquarePencil from '../../../public/svg/SquarePencil';
+import SqaurePlus from '../../../public/svg/SquarePlus';
+
 export const FontFamily: { [key: string]: string } = {
   Pretendard: 'font-Pretendard',
   GmarketSans: 'font-Gmarket Sans',
@@ -72,9 +75,11 @@ export const SidebarMenus = [
   {
     name: 'display',
     text: '화면 편집',
+    svg: <SquarePencil />,
   },
   {
     name: 'form',
     text: '폼/CTA',
+    svg: <SqaurePlus />,
   },
 ] as const;

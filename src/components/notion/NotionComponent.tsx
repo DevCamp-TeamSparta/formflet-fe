@@ -21,6 +21,7 @@ export default function NotionComponent({ recordMap }: NotionProps) {
   return (
     <div style={{ '--notion-font': font } as CSSProperties}>
       <NotionRenderer
+        disableHeader
         recordMap={recordMapJson}
         components={{
           Code,

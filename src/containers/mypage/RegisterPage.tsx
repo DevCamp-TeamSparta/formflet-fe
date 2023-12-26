@@ -8,11 +8,11 @@ import axios from 'axios';
 import Button from '@/components/basic/Button';
 import pageRegister from '@/services/api/pages/pageRegister';
 import { PageUrlFormSchema, pageUrlFormSchema } from '@/types/type';
-import MESSAGE from '@/constants/Messages';
 import PlusCircle from '../../../public/svg/PlusCircle';
 import Input from '@/components/basic/Input';
 import PATH from '@/constants/path/Path';
 import Spinner from '@/components/common/Spinner';
+import Chevron from '../../../public/svg/Chevron';
 
 export default function RegisterPage() {
   const {
@@ -24,7 +24,6 @@ export default function RegisterPage() {
   });
   const route = useRouter();
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const pageFormSubmit: SubmitHandler<PageUrlFormSchema> = async (
     data: PageUrlFormSchema,
@@ -32,29 +31,20 @@ export default function RegisterPage() {
     if (loading) return;
 
     setLoading(true);
-    try {
-      const res = await axios.post<{ page: Record<string, object> }>('/api/notion', {
-        url: data.url,
-      });
-      const content = JSON.stringify(res.data.page);
-      const response = await pageRegister({
-        ...data,
-        content,
-      });
-      const path = response.data.data.id;
-      switch (response.status) {
-        case 404:
-          setErrorMessage(MESSAGE.NOTION_DOMAIN.inVaildNotion);
-          break;
-        case 409:
-          setErrorMessage(MESSAGE.NOTION_DOMAIN.inVaildDomain);
-          break;
-        default:
-          route.push(`${PATH.ROUTE.EDIT}/${path}`);
-      }
-    } catch (e) {
-      console.error(e);
+
+    const res = await axios.post<{ page: Record<string, object> }>('/api/notion', {
+      url: data.url,
+    });
+    const content = JSON.stringify(res.data.page);
+    const response = await pageRegister({
+      ...data,
+      content,
+    });
+    const path = response.data.data.id;
+    if (response.status === 200) {
+      route.push(`${PATH.ROUTE.EDIT}/${path}`);
     }
+
     setLoading(false);
   };
 
@@ -84,28 +74,27 @@ export default function RegisterPage() {
             />
             <p className="b1 text-gray-normal-normal">.formflet.co/</p>
           </div>
-          {(errors.domain?.message || errors.url?.message) && (
-            <p className="b2 text-semantic-danger-normal">
-              {errors.domain?.message || errors.url?.message}
-            </p>
+          {errors.domain?.message && (
+            <p className="b2 text-semantic-danger-normal">{errors.domain?.message}</p>
           )}
         </div>
       </div>
       <div className="flex flex-col items-start gap-2.5 self-stretch">
         <p className="b1-bold text-gray-dark-active">노션 링크</p>
-        <div className="flex gap-2.5">
+        <div className="flex items-center gap-2.5">
           <p className="b2 text-gray-dark-normal">
             노션에서 공유 버튼을 눌러 &apos;웹에서 공유&apos; 상태로 만들어 주어야 폼플렛이
             웹페이지를 만들 수 있어요!
           </p>
           <Button
             type="button"
-            className="items-center"
+            className="flex items-center"
             onClick={() =>
               window.open('https://formflet.notion.site/9215ed5f1eff46f6825622851d0758c5?pvs=4')
             }
           >
-            <p className="b2-bold text-gray-dark-active">자세히 &#62;</p>
+            <p className=" b2-bold tray-gray-dark-active">자세히</p>
+            <Chevron />
           </Button>
         </div>
       </div>
@@ -117,10 +106,8 @@ export default function RegisterPage() {
           placeholder="notion.so/formflet/"
           {...register('url')}
         />
-        {(errors.domain?.message || errors.url?.message) && (
-          <p className="b2 text-semantic-danger-normal">
-            {errors.domain?.message || errors.url?.message}
-          </p>
+        {errors.url?.message && (
+          <p className="b2 text-semantic-danger-normal">{errors.url?.message}</p>
         )}
       </div>
       <Button

@@ -18,17 +18,20 @@ export default function EditSidebar() {
   return (
     <aside className="w-[362px] shrink-0">
       <div className="flex [&>button]:grow [&>button]:b1-bold [&>button]:py-[6px]">
-        {SidebarMenus.map(({ name, text }) => (
+        {SidebarMenus.map(({ name, text, svg }) => (
           <button
             key={`sidebar-menu-${name}`}
             type="button"
-            className={clsx('', {
+            className={clsx({
               'text-purple-normal-normal  border-b-[4px]': selected === name,
               'text-gray-dark-active border-b-[1px] border-gray-light-active': selected !== name,
             })}
             onClick={() => onClickMenu(name)}
           >
-            {text}
+            <div className="flex items-center justify-center gap-2.5">
+              {text}
+              {svg}
+            </div>
           </button>
         ))}
       </div>

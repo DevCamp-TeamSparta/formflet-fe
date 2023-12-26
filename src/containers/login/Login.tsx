@@ -51,10 +51,7 @@ export default function Login() {
 
   return (
     <main className="flex flex-col items-center">
-      <form
-        className="flex w-[502px] flex-col items-center gap-5"
-        onSubmit={handleSubmit(loginFormSubmit)}
-      >
+      <form className="flex flex-col items-center gap-5" onSubmit={handleSubmit(loginFormSubmit)}>
         <div className="flex flex-col items-center gap-2.5">
           <p className="t1-bold text-purple-normal-normal">폼플렛</p>
           <p className="h2-bold text-gray-dark-active">노션으로 쉽게 만드는 온라인 전단지</p>

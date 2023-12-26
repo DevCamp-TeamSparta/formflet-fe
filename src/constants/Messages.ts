@@ -12,7 +12,7 @@ const JOIN_LOGIN = Object.freeze({
 
 const NOTION_DOMAIN = Object.freeze({
   inVaildNotion: '노션 링크를 확인해주세요.',
-  inVaildDomain: '사용 불가능한 주소입니다.',
+  inVaildDomain: '사용 불가능한 웹페이지 주소입니다.',
 });
 
 const MESSAGE = Object.freeze({

@@ -42,7 +42,7 @@ export default function Join() {
   return (
     <main className="flex flex-col items-center">
       <form
-        className="flex w-[504px] flex-col items-center gap-10"
+        className="flex flex-col items-center gap-10 mb-[60px]"
         onSubmit={handleSubmit(joinFormSubmit)}
       >
         <div className="flex flex-col items-center gap-2.5">
@@ -66,7 +66,7 @@ export default function Join() {
           <DropDownGroup id="job" items={JOB_LIST} label="직무" {...register('job')} />
           <JoinAgree setJoinButtonDisabled={setJoinButtonDisabled} />
           <Button
-            className="flex bg-purple-normal-normal box-shadow-normal w-[502px] h-14 justify-center items-center rounded-lg disabled:bg-gray-normal-normal disabled:text-gray-normal-normal "
+            className="flex bg-purple-normal-normal box-shadow-normal w-[502px] h-14 justify-center items-center rounded-lg disabled:bg-gray-normal-normal disabled:text-gray-normal-normal"
             id="btn-join"
             type="submit"
             disabled={joinButtonDisabled}

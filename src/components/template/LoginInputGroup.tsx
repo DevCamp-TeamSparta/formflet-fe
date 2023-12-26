@@ -5,7 +5,7 @@ import Input from '../basic/Input';
 const LoginInputGroup = React.forwardRef<HTMLInputElement, InputGroupProps>(
   ({ id, label, errorMessage, errors, ...rest }, ref) => {
     return (
-      <div className="flex w-[502px] h-[94px] flex-col justify-center items-start gap-2.5">
+      <div className="flex flex-col justify-center items-start gap-2.5">
         <label className="b1-bold text-purple-normal-normal" htmlFor={id}>
           {label}
         </label>
