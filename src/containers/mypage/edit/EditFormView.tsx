@@ -71,7 +71,7 @@ export default function EditFormView(props: FormProps) {
 
       // Text
       case '[텍스트]':
-        return <p className="b1 self-stretch text-gray-dark-active">{content}</p>;
+        return <p className="self-stretch b1 text-gray-dark-active">{content}</p>;
       case '[제목]':
         return <p className="h1-bold text-gray-dark-active">{content}</p>;
       default:
@@ -108,7 +108,7 @@ export default function EditFormView(props: FormProps) {
         type="submit"
         className="flex h-10 items-center gap-2.5 box-shadow-normal bg-gray-darker px-5 py-4 rounded-lg"
       >
-        <p className="b1-bold text-white">제출하기</p>
+        <p className="text-white b1-bold">제출하기</p>
         <ArrowRightCircle color="white" />
       </Button>
     </form>

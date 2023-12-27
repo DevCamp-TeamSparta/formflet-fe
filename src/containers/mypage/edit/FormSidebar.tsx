@@ -66,7 +66,7 @@ export default function FormSidebar() {
         <div className="flex h-[78px] flex-col justify-end items-start gap-4 self-stretch pt-1.5">
           <label className="b2-bold text-gray-dark-active">버튼 내용</label>
           <input
-            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
+            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal disabled:bg-gray-light-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
             type="text"
             value={ctaStore.ctaContent}
             disabled={!ctaStore.ctaStatus}
@@ -77,7 +77,7 @@ export default function FormSidebar() {
         <div className="flex h-[78px] flex-col justify-end items-start gap-4 self-stretch pt-1.5">
           <label className="b2-bold text-gray-dark-active">링크</label>
           <input
-            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
+            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal disabled:bg-gray-light-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
             type="text"
             value={ctaStore.ctaLink}
             disabled={!ctaStore.ctaStatus}

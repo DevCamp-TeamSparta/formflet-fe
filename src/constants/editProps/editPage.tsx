@@ -34,12 +34,12 @@ export const Fonts = [
     text: '에스코어드림',
   },
   {
-    name: 'yg-jalnan',
-    text: '여기어때 잘난체',
+    name: 'NPSfontBold',
+    text: '국민연금체',
   },
   {
-    name: 'Cafe24Ssurround',
-    text: '카페24 써라운드',
+    name: 'TmoneyRoundWindExtraBold',
+    text: '티머니 둥근바람',
   },
   {
     name: 'NanumSquare',
@@ -76,10 +76,12 @@ export const SidebarMenus = [
     name: 'display',
     text: '화면 편집',
     svg: <SquarePencil />,
+    svgSelected: <SquarePencil color="#8000ff" />,
   },
   {
     name: 'form',
     text: '폼/CTA',
     svg: <SqaurePlus />,
+    svgSelected: <SqaurePlus color="#8000ff" />,
   },
 ] as const;

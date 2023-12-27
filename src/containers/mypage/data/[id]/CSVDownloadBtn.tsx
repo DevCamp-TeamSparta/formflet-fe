@@ -1,6 +1,7 @@
 'use client';
 
 import * as XLSX from 'xlsx';
+import DownloadIcon from '../../../../../public/svg/DownloadIcon';
 
 export default function CSVDownloadBtn({ data }: { data: Record<string, string>[] }) {
   function downloadCSV(csvData: Record<string, string>[]) {
@@ -16,10 +17,13 @@ export default function CSVDownloadBtn({ data }: { data: Record<string, string>[
   return (
     <button
       type="button"
-      className="px-[20px] h-[40px] rounded-[8px] bg-purple-normal-normal b1-bold text-white"
+      className="px-[20px] h-[40px] rounded-[8px] bg-purple-normal-normal"
       onClick={() => downloadCSV(data)}
     >
-      CSV로 다운로드
+      <div className="flex flex-row gap-2.5">
+        <p className="text-white  b1-bold">CSV로 다운로드</p>
+        <DownloadIcon />
+      </div>
     </button>
   );
 }

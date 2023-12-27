@@ -119,7 +119,7 @@ export default function EditDisplay({ pageId }: PageProps) {
       {
         {
           notion: isloaded && (
-            <div id="page-notion" className="relative z-0">
+            <div>
               <NotionComponent recordMap={pageStore.pageContent} />
               <div className="fixed bottom-10 left-[58%] transform -translate-x-1/2">
                 {ctaStore.ctaStatus && (
@@ -154,7 +154,7 @@ export default function EditDisplay({ pageId }: PageProps) {
       }
       <div
         className={clsx(
-          'flex z-10 h-10 rotate-90 items-start gap-2 absolute box-shadow-normal bg-purple-normal-normal px-2.5 py-2 rounded-[0px_0px_8px_8px] right-0.5 top-[251px]',
+          'flex z-10 h-10 rotate-90 items-start gap-2 absolute justify-between box-shadow-normal bg-purple-normal-normal px-2.5 py-2 rounded-[0px_0px_8px_8px] right-0.5 top-[251px]',
           {
             visible: formStatus,
             invisible: !formStatus,
