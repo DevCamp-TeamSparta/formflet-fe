@@ -15,14 +15,15 @@ export default function Logout() {
 
   const handleLogout = async () => {
     const response = await authLogout(accessToken);
+
     if (response.status === 200) {
       cookies.remove('authorization');
       cookies.remove('refresh-token');
-      route.push(PATH.ROUTE.ROOT);
+      route.replace(PATH.ROUTE.ROOT);
     } else {
       cookies.remove('authorization');
       cookies.remove('refresh-token');
-      route.push(PATH.ROUTE.ROOT);
+      route.replace(PATH.ROUTE.ROOT);
     }
   };
   return (

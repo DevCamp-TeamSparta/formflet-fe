@@ -7,7 +7,8 @@ const JOB_LIST: JobList[] = [
   { id: 'designer', value: '디자이너' },
   { id: 'planner', value: '사업계획' },
   { id: 'hr', value: '채용 담당' },
-  { id: 'cx', value: '운영' },
+  { id: 'cx', value: 'CX' },
+  { id: 'management', value: '운영' },
   { id: 'etc', value: '기타' },
 ];
 

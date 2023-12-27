@@ -40,7 +40,7 @@ export default function Login() {
         setTokenCookie('authorization', accessToken);
         setTokenCookie('refresh-token', refreshToken);
 
-        router.push(PATH.ROUTE.MYPAGE);
+        router.replace(PATH.ROUTE.MYPAGE);
       }
 
       // TODO: res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅

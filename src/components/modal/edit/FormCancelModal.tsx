@@ -20,7 +20,7 @@ export default function FormCancelModal() {
     <div className="flex w-[330px] flex-col justify-center items-start gap-2.5 border border-gray-light-active box-shadow-normal p-10 rounded-lg border-solid bg-white">
       <p className="h3-bold text-gray-dark-active">폼을 제거하시겠습니까?</p>
       <p className="b1 text-gray-dark-hover">편집 중인 내용이 사라질 수 있습니다.</p>
-      <div className="flex justify-center items-center gap-5 self-stretch">
+      <div className="flex items-center self-stretch justify-center gap-5">
         <Button
           type="button"
           className="flex h-10 justify-center items-center gap-2.5 flex-[1_0_0] border border-purple-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid text-purple-normal-normal"
