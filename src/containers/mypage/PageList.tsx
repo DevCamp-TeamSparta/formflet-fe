@@ -38,7 +38,7 @@ export default function PageList({ setIsVisibled }: StateSetString) {
       {pageList &&
         pageList.map((item) => (
           <Link
-            className="flex w-[848px] h-[108px] justify-between items-center bg-white border border-gray-light-active hover:border-gray-dark-active box-shadow-normal px-[64px] py-[26px] mb-4 rounded-lg border-solid "
+            className="flex w-[848px] h-[108px] justify-between items-center bg-white border border-gray-light-active hover:border-gray-normal-normal box-shadow-normal px-[64px] py-[26px] mb-4 rounded-lg border-solid "
             key={item.id}
             href={`${PATH.ROUTE.EDIT}/${item.id}`}
           >

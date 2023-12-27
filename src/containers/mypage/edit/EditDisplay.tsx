@@ -154,7 +154,7 @@ export default function EditDisplay({ pageId }: PageProps) {
       }
       <div
         className={clsx(
-          'flex z-10 h-10 rotate-90 items-start gap-2 absolute justify-between box-shadow-normal bg-purple-normal-normal px-2.5 py-2 rounded-[0px_0px_8px_8px] right-0.5 top-[251px]',
+          'fixed flex h-10 rotate-90 items-start gap-2 justify-between box-shadow-normal bg-purple-normal-normal px-2.5 py-2 rounded-[0px_0px_8px_8px] right-px top-[191px]',
           {
             visible: formStatus,
             invisible: !formStatus,

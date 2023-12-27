@@ -6,7 +6,7 @@ const LoginInputGroup = React.forwardRef<HTMLInputElement, InputGroupProps>(
   ({ id, label, errorMessage, errors, ...rest }, ref) => {
     return (
       <div className="flex flex-col justify-center items-start gap-2.5">
-        <label className="b1-bold text-purple-normal-normal" htmlFor={id}>
+        <label className="b1-bold text-gray-dark-active" htmlFor={id}>
           {label}
         </label>
         <Input id={id} ref={ref} {...rest} />

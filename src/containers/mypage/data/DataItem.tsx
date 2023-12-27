@@ -8,7 +8,7 @@ export default function DataItem({ data }: { data: PageList }) {
   return (
     <Link
       href={`${PATH.ROUTE.DATA}/${id}`}
-      className="px-[32px] py-[26px] rounded-[8px] border border-gray-light-active hover:border-gray-dark-active flex items-center justify-between"
+      className="px-[32px] py-[26px] rounded-[8px] border border-gray-light-active hover:border-gray-normal-normal flex items-center justify-between"
     >
       <div className="text-gray-dark-active">
         <p className="b1-bold">{title}</p>
