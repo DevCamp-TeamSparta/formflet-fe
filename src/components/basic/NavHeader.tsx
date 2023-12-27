@@ -94,7 +94,7 @@ export default function NavHeader() {
       {pathName.startsWith('/mypage/edit') ? (
         <div className="w-[849px] justify-between items-center flex pt-[12px]">
           <Button
-            className="flex w-[762px] h-9 justify-between items-center shrink-0 border border-gray-light-active hover:border-gray-dark-active box-shadow-normal px-5 py-4 rounded-lg border-solid b1-bold text-gray-dark-active"
+            className="flex w-[762px] h-9 justify-between items-center shrink-0 border border-gray-light-active hover:border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid b1-bold text-gray-dark-active"
             onClick={handleWindowOpen}
           >
             {domain}

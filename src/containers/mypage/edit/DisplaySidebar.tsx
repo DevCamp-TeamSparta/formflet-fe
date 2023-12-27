@@ -18,7 +18,7 @@ export default function DisplaySidebar() {
               key={`font-${name}`}
               type="button"
               className={clsx(
-                `w-full h-[40px] b2-bold flex items-center px-[20px] border hover:border-gray-dark-active rounded-[8px] box-shadow-normal ${FontFamily[name]}`,
+                `w-full h-[40px] b2-bold flex items-center px-[20px] border hover:border-gray-normal-normal rounded-[8px] box-shadow-normal ${FontFamily[name]}`,
                 {
                   'text-purple-normal-normal bg-purple-light-normal border-purple-normal-normal':
                     font === name,
