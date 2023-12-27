@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/basic/Button';
 import formReply from '@/services/api/forms/formReply';
 import ArrowRightCircle from '../../../public/svg/ArrowRightCircle';
+import FormRadio from './FormRadio';
+import FormCheckbox from './FormCheckbox';
 
 interface FormProps {
   formId: number;
@@ -11,34 +13,28 @@ interface FormProps {
 }
 
 export default function FormComponent(props: FormProps) {
+  const route = useRouter();
   const { form, formId } = props;
   const formSplit = form.split('\n');
   let count = 0;
-  const route = useRouter();
+  let isRequired = false;
 
   const handleRadio = (text: string) => {
     const items = text.split('_');
     const item = items.map((value) => {
-      return (
-        <div key={text + value}>
-          <input type="radio" name={`answer${count}`} value={value} />
-          <span>{value}</span>
-        </div>
-      );
+      return <FormRadio key={value} value={value} count={count} isRequired={isRequired} />;
     });
-    return item;
+    isRequired = false;
+    return <div className="flex flex-col gap-2.5">{item}</div>;
   };
+
   const handleCheckbox = (text: string) => {
     const items = text.split('_');
     const item = items.map((value) => {
-      return (
-        <div key={text + value}>
-          <input type="checkbox" name={`answer${count}`} value={value} />
-          <span>{value}</span>
-        </div>
-      );
+      return <FormCheckbox key={value} value={value} count={count} isRequired={isRequired} />;
     });
-    return item;
+    isRequired = false;
+    return <div className="flex flex-col gap-2.5">{item}</div>;
   };
 
   const handleForm = (text: string) => {
@@ -51,18 +47,22 @@ export default function FormComponent(props: FormProps) {
       case '[질문]':
         return <p className="h3-bold text-gray-dark-active">Q. {content}</p>;
       case '[질문_*]':
+        isRequired = true;
         return <p className="h3-bold text-gray-dark-active">Q. {content}*</p>;
 
       // Answer
       case '[주관식]':
         count += 1;
         return (
-          <input
-            type="text"
-            className="flex w-[450px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
-            placeholder={content}
-            name={`answer${count}`}
-          />
+          <label>
+            <input
+              type="text"
+              className="appearance-none flex w-[677px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal px-5 py-4 rounded-lg border-solid"
+              placeholder={content}
+              name={`answer${count}`}
+              required={isRequired}
+            />
+          </label>
         );
       case '[객관식]':
         count += 1;
@@ -73,7 +73,7 @@ export default function FormComponent(props: FormProps) {
 
       // Text
       case '[텍스트]':
-        return <p className="b1 self-stretch text-gray-dark-active">{content}</p>;
+        return <p className="self-stretch b1 text-gray-dark-active">{content}</p>;
       case '[제목]':
         return <p className="h1-bold text-gray-dark-active">{content}</p>;
       default:
@@ -107,7 +107,7 @@ export default function FormComponent(props: FormProps) {
         type="submit"
         className="flex h-10 items-center gap-2.5 box-shadow-normal bg-gray-darker px-5 py-4 rounded-lg"
       >
-        <p className="b1-bold text-white">제출하기</p>
+        <p className="text-white b1-bold">제출하기</p>
         <ArrowRightCircle color="white" />
       </Button>
     </form>

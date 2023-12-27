@@ -3,6 +3,8 @@
 import Button from '@/components/basic/Button';
 import formReply from '@/services/api/forms/formReply';
 import ArrowRightCircle from '../../../../public/svg/ArrowRightCircle';
+import FormRadio from '@/components/form/FormRadio';
+import FormCheckbox from '@/components/form/FormCheckbox';
 
 interface FormProps {
   formId: number;
@@ -13,30 +15,24 @@ export default function EditFormView(props: FormProps) {
   const { form, formId } = props;
   const formSplit = form.split('\n');
   let count = 0;
+  let isRequired = false;
 
   const handleRadio = (text: string) => {
     const items = text.split('_');
     const item = items.map((value) => {
-      return (
-        <div key={text + value}>
-          <input type="radio" name={`answer${count}`} value={value} />
-          <span>{value}</span>
-        </div>
-      );
+      return <FormRadio key={value} value={value} count={count} isRequired={isRequired} />;
     });
-    return item;
+    isRequired = false;
+    return <div className="flex flex-col gap-2.5">{item}</div>;
   };
+
   const handleCheckbox = (text: string) => {
     const items = text.split('_');
     const item = items.map((value) => {
-      return (
-        <div key={text + value}>
-          <input type="checkbox" name={`answer${count}`} value={value} />
-          <span>{value}</span>
-        </div>
-      );
+      return <FormCheckbox key={value} value={value} count={count} isRequired={isRequired} />;
     });
-    return item;
+    isRequired = false;
+    return <div className="flex flex-col gap-2.5">{item}</div>;
   };
 
   const handleForm = (text: string) => {
@@ -57,7 +53,7 @@ export default function EditFormView(props: FormProps) {
         return (
           <input
             type="text"
-            className="flex w-[450px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
+            className="flex w-[677px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
             placeholder={content}
             name={`answer${count}`}
           />

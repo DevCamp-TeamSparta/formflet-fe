@@ -32,7 +32,7 @@ const JoinInputGroup = React.forwardRef<HTMLInputElement, JoinGroupProps>(
       <div className="flex flex-col items-center self-stretch gap-5">
         {id === 'email' ? (
           <div className="self-stretch flex flex-col items-start gap-2.5">
-            <label className="b1-bold text-purple-normal-normal" htmlFor={id}>
+            <label className="b1-bold text-gray-dark-active" htmlFor={id}>
               {label}
             </label>
             <div className="flex self-stretch justify-between gap-3">
@@ -67,7 +67,7 @@ const JoinInputGroup = React.forwardRef<HTMLInputElement, JoinGroupProps>(
         ) : (
           <div>
             <div className="flex flex-col justify-center items-start gap-2.5">
-              <label className="b1-bold text-purple-normal-normal" htmlFor={id}>
+              <label className="b1-bold text-gray-dark-active" htmlFor={id}>
                 {label}
               </label>
               <Input id={id} ref={ref} {...rest} />
