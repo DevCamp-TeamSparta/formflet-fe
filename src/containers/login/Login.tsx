@@ -22,7 +22,7 @@ export default function Login() {
     resolver: zodResolver(loginFormSchema),
   });
 
-  const router = useRouter();
+  const route = useRouter();
   const { LOGIN_GROUP_PROPS } = InputGroupArrays();
   const { getToken, setTokenCookie } = tokenUtils();
 
@@ -31,17 +31,16 @@ export default function Login() {
   ): Promise<void> => {
     // API 구현;
     try {
-      const res: AxiosResponse = await authLogin(data);
-
-      if (res.status === 201) {
+      await authLogin(data).then(async (res) => {
         const accessToken = await getToken(res, 'authorization');
         const refreshToken = await getToken(res, 'refresh-token');
 
         setTokenCookie('authorization', accessToken);
         setTokenCookie('refresh-token', refreshToken);
 
-        router.replace(PATH.ROUTE.MYPAGE);
-      }
+        route.push(PATH.ROUTE.MYPAGE);
+        route.refresh();
+      });
 
       // TODO: res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅
     } catch (e) {
