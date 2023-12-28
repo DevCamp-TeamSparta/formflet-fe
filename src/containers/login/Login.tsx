@@ -3,15 +3,15 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { AxiosResponse } from 'axios';
 import Link from 'next/link';
 import Button from '@/components/basic/Button';
 import { loginFormSchema, LoginFormSchema } from '@/types/type';
 import authLogin from '@/services/api/auth/authLogin';
 import PATH from '@/constants/path/Path';
 import InputGroupArrays from '@/constants/inputProps/InputGroupArrays';
-import tokenUtils from '@/utils/auth/tokenUtils';
 import LoginInputGroup from '@/components/template/LoginInputGroup';
+import { useAuthStore } from '@/store/store';
+import Instance from '@/services/api/Instance';
 
 export default function Login() {
   const {
@@ -24,28 +24,25 @@ export default function Login() {
 
   const route = useRouter();
   const { LOGIN_GROUP_PROPS } = InputGroupArrays();
-  const { getToken, setTokenCookie } = tokenUtils();
+  const { setAccessToken } = useAuthStore((state) => ({ setAccessToken: state.setAccessToken }));
 
   const loginFormSubmit: SubmitHandler<LoginFormSchema> = async (
     data: LoginFormSchema,
   ): Promise<void> => {
     // API 구현;
-    try {
-      await authLogin(data).then(async (res) => {
-        const accessToken = await getToken(res, 'authorization');
-        const refreshToken = await getToken(res, 'refresh-token');
 
-        setTokenCookie('authorization', accessToken);
-        setTokenCookie('refresh-token', refreshToken);
+    await authLogin(data)
+      .then((response) => {
+        const { accessToken } = response.data.data;
+        setAccessToken(accessToken);
 
+        Instance.defaults.headers.common.authorization = `Bearer ${accessToken}`;
+      })
+      .then(() => {
         route.push(PATH.ROUTE.MYPAGE);
-        route.refresh();
       });
 
-      // TODO: res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅
-    } catch (e) {
-      console.error('[ERROR]', e);
-    }
+    // TODO: res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅
   };
 
   return (

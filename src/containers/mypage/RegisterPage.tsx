@@ -41,7 +41,7 @@ export default function RegisterPage() {
       content,
     });
     const path = response.data.data.id;
-    if (response.status === 200 || response.status === 201) {
+    if (response.status === 201) {
       route.push(`${PATH.ROUTE.EDIT}/${path}`);
     }
 

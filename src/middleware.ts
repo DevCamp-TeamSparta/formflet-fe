@@ -19,17 +19,11 @@ const PRODUCTION_DOMAINS = ['www', 'test', 'localhost', '127', 'app'];
 export default function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   const subDomain = request.nextUrl.hostname.split('.')[0];
+  const accessToken = request.headers.get('authorization');
 
   if (PRODUCTION_DOMAINS.includes(subDomain)) {
-    const accessToken = request.cookies.get('authorization')?.value;
-
     const rootUrl = new URL(PATH.ROUTE.ROOT, request.url);
-    const loginUrl = new URL(PATH.ROUTE.LOGIN, request.url);
     const myPageUrl = new URL(PATH.ROUTE.MYPAGE, request.url);
-
-    if (pathName.startsWith(PATH.ROUTE.MYPAGE) && !accessToken) {
-      return NextResponse.redirect(loginUrl);
-    }
 
     if (
       (pathName.startsWith(PATH.ROUTE.LOGIN) || pathName.startsWith(PATH.ROUTE.JOIN)) &&
@@ -37,7 +31,6 @@ export default function middleware(request: NextRequest) {
     ) {
       return NextResponse.redirect(rootUrl);
     }
-
     if (pathName === PATH.ROUTE.ROOT && accessToken) {
       return NextResponse.redirect(myPageUrl);
     }

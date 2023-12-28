@@ -1,8 +1,8 @@
 import PATH from '@/constants/path/Path';
-import Instance from '../Instance';
+import { ReleaseInstance } from '../Instance';
 
 export default function pageRelease(subdomain: string) {
-  const response = Instance.get<{
+  const response = ReleaseInstance.get<{
     statusCode: number;
     message: string;
     data: Page;

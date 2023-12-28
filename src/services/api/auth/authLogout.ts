@@ -1,14 +1,9 @@
 import { AxiosResponse } from 'axios';
 import Instance from '../Instance';
 import PATH from '@/constants/path/Path';
-import { Token } from '@/types/type';
 
-export default async function authLogout(token: Token): Promise<AxiosResponse> {
-  const response: AxiosResponse = await Instance.delete(PATH.API.AUTH.LOGOUT, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export default async function authLogout(): Promise<AxiosResponse> {
+  const response: AxiosResponse = await Instance.delete(PATH.API.AUTH.LOGOUT);
 
   return response;
 }

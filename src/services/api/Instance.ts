@@ -6,6 +6,12 @@ const Instance = axios.create({
   withCredentials: true,
 });
 
+export const ReleaseInstance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_APY_KEY,
+  headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
+});
+
 Instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     return config;

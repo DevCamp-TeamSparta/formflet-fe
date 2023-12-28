@@ -4,26 +4,24 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'universal-cookie';
 import PATH from '@/constants/path/Path';
 import authLogout from '@/services/api/auth/authLogout';
-import { Token } from '@/types/type';
 import Button from '../basic/Button';
+import { useAuthStore } from '@/store/store';
 
 export default function Logout() {
-  const cookies = new Cookies();
   const route = useRouter();
-
-  const accessToken: Token = cookies.get('authorization');
+  const { setAccessToken } = useAuthStore((state) => ({ setAccessToken: state.setAccessToken }));
+  const cookies = new Cookies();
 
   const handleLogout = async () => {
-    await authLogout(accessToken)
+    await authLogout()
       .then(() => {
-        cookies.remove('authorization');
+        setAccessToken('');
         cookies.remove('refresh-token');
+
         route.push(PATH.ROUTE.ROOT);
         route.refresh();
       })
       .catch(() => {
-        cookies.remove('authorization');
-        cookies.remove('refresh-token');
         route.push(PATH.ROUTE.ROOT);
         route.refresh();
       });

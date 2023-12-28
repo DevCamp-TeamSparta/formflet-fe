@@ -1,5 +1,10 @@
 import { create } from 'zustand';
 
+export const useAuthStore = create<AuthStore>((set) => ({
+  accessToken: '',
+  setAccessToken: (accessToken) => set({ accessToken }),
+}));
+
 export const useFontStore = create<FontStore>((set) => ({
   font: '',
   setFont: (font) => set({ font }),

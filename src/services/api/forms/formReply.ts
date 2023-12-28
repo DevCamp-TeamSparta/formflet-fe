@@ -1,8 +1,8 @@
 import PATH from '@/constants/path/Path';
-import Instance from '../Instance';
+import { ReleaseInstance } from '../Instance';
 
 export default async function formReply(formId: number, answer: Array<FormDataEntryValue[]>) {
-  const response = await Instance.post(`${PATH.API.FORMS.REPLY}/${formId}`, { answer });
+  const response = await ReleaseInstance.post(`${PATH.API.FORMS.REPLY}/${formId}`, { answer });
 
   return response;
 }
