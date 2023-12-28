@@ -53,7 +53,7 @@ export default function EditFormView(props: FormProps) {
         return (
           <input
             type="text"
-            className="flex w-[677px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
+            className="flex w-[450px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
             placeholder={content}
             name={`answer${count}`}
           />
