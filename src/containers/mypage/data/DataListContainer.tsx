@@ -16,8 +16,7 @@ export default function DataListContainer() {
       .then((result) => {
         setPageList(result);
       })
-      .catch((e) => console.log(e));
-    console.log(pageList);
+      .catch((e) => console.error(e));
   }, []);
   return (
     <div className="py-[40px] w-[850px] space-y-[20px]">

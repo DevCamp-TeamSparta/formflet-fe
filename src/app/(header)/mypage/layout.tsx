@@ -19,7 +19,6 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
       const response = await authReissue();
 
       const { accessToken: getAccessToken } = response.data.data;
-      console.log(accessToken);
 
       if (!getAccessToken) {
         route.push(PATH.ROUTE.LOGIN);
