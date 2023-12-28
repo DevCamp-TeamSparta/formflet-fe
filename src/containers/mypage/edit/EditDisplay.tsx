@@ -62,7 +62,7 @@ export default function EditDisplay({ pageId }: PageProps) {
 
       setIsLoaded(true);
     };
-    fetchPage().catch((e) => alert(e));
+    fetchPage().catch(() => alert('로그인 정보가 만료되었습니다. 다시 로그인해주세요.'));
   }, [pageId]);
 
   const resizer = useRef<HTMLDivElement>(null);

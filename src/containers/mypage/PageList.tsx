@@ -30,7 +30,7 @@ export default function PageList({ setIsVisibled }: StateSetString) {
       setPageList(data);
     };
 
-    fetchData().catch((e) => alert(e));
+    fetchData().catch(() => alert('로그인 정보가 만료되었습니다. 다시 로그인해주세요'));
   }, [setIsVisibled]);
 
   return (
