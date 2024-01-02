@@ -28,7 +28,6 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
         console.log(e);
       }
     };
-
     checkRefreshToken().catch(() => {});
   }, []);
   return (
