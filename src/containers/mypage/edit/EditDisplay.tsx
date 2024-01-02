@@ -145,7 +145,7 @@ export default function EditDisplay({ pageId }: PageProps) {
                 ref={resizer}
                 className="cursor-ew-resize h-full w-2.5 bg-gray-light-active shrink-0"
               />
-              <div ref={rightSide} className="flex items-center flex-grow">
+              <div ref={rightSide} className="flex items-center overflow-hidden">
                 <EditFormView form={form} formId={0} />
               </div>
             </div>

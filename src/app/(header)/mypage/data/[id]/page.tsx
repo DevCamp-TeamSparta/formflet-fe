@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import CSVDownloadBtn from '@/containers/mypage/data/[id]/CSVDownloadBtn';
 import DataDetailContainer from '@/containers/mypage/data/[id]/DataDetailContainer';
 import forms from '@/services/api/forms/forms';
+import EmptyDataDisplay from '@/containers/mypage/data/EmptyDataDisplay';
 
 const getFormReplyData = (formDetails: FormDetail[]): Record<string, string>[] => {
   if (!formDetails.length) {
@@ -83,8 +84,12 @@ export default function DataDetailPage({ params }: PageProps) {
         </select>
         <CSVDownloadBtn data={selectedData} />
       </div>
-      <DataDetailContainer data={selectedData} />
-      {/* {selectedData.length !== 0 ? <DataDetailContainer data={selectedData} /> : <EmptyData />} */}
+      {/* <DataDetailContainer data={selectedData} /> */}
+      {selectedData.length !== 0 ? (
+        <DataDetailContainer data={selectedData} />
+      ) : (
+        <EmptyDataDisplay />
+      )}
     </div>
   );
 }

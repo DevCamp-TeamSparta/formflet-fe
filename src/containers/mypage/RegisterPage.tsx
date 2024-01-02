@@ -24,10 +24,12 @@ export default function RegisterPage() {
   });
   const route = useRouter();
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const pageFormSubmit: SubmitHandler<PageUrlFormSchema> = async (
     data: PageUrlFormSchema,
   ): Promise<void> => {
+    setErrorMessage('');
     if (loading) return;
 
     setLoading(true);
@@ -36,14 +38,18 @@ export default function RegisterPage() {
       url: data.url,
     });
     const content = JSON.stringify(res.data.page);
-    const response = await pageRegister({
+    await pageRegister({
       ...data,
       content,
-    });
-    const path = response.data.data.id;
-    if (response.status === 201) {
-      route.push(`${PATH.ROUTE.EDIT}/${path}`);
-    }
+    })
+      .then((response) => {
+        const path = response.data.data.id;
+        route.push(`${PATH.ROUTE.EDIT}/${path}`);
+      })
+      .catch(() => {
+        setErrorMessage('이미 사용중인 웹페이지 주소입니다.');
+        setLoading(false);
+      });
 
     setLoading(false);
   };
@@ -74,8 +80,10 @@ export default function RegisterPage() {
             />
             <p className="b1 text-gray-normal-normal">.formflet.co/</p>
           </div>
-          {errors.domain?.message && (
-            <p className="b2 text-semantic-danger-normal">{errors.domain?.message}</p>
+          {(errors.domain?.message || errorMessage) && (
+            <p className="b2 text-semantic-danger-normal">
+              {errors.domain?.message || errorMessage}
+            </p>
           )}
         </div>
       </div>
@@ -118,7 +126,7 @@ export default function RegisterPage() {
           <Spinner />
         ) : (
           <>
-            <p className="text-white b1-bold">추가하기</p>
+            <p className="text-white b1-bold whitespace-nowrap">추가하기</p>
             <PlusCircle color="white" />
           </>
         )}

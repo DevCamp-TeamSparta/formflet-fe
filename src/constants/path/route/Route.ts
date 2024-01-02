@@ -1,3 +1,5 @@
+const RANDING = 'https://www.formflet.site';
+
 const ROOT = '/';
 
 const JOIN = '/join';
@@ -24,6 +26,7 @@ const NAV_LIST = [
 ];
 
 const ROUTE = Object.freeze({
+  RANDING,
   ROOT,
   JOIN,
   DATA,

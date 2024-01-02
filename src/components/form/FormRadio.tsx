@@ -8,7 +8,7 @@ import RadioIcon from '../../../public/svg/RadioIcon';
 interface FormRadioProps {
   count: number;
   value: string;
-  formId: number;
+  userPlatForm: 'pc' | 'mobile';
   selectedRadio?: Map<number, string>;
   onRadioChange?: (cnt: number, value: string) => void;
 }
@@ -16,8 +16,8 @@ interface FormRadioProps {
 export default function FormRadio({
   count,
   value,
-  formId,
   selectedRadio,
+  userPlatForm,
   onRadioChange,
 }: FormRadioProps) {
   const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
@@ -39,7 +39,7 @@ export default function FormRadio({
         <div
           className={clsx(
             'flex h-10 items-center gap-2.5 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid',
-            formId === 0 ? 'w-[320px]' : 'w-[60vw]',
+            userPlatForm === 'pc' ? 'w-[417px]' : 'w-[80vw]',
             { 'bg-gray-light-normal': selectedRadio?.get(count) === value },
           )}
         >

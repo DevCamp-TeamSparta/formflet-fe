@@ -11,7 +11,9 @@ import PATH from '@/constants/path/Path';
 import InputGroupArrays from '@/constants/inputProps/InputGroupArrays';
 import LoginInputGroup from '@/components/template/LoginInputGroup';
 import Instance from '@/services/api/Instance';
+import authReissue from '@/services/api/auth/authReissue';
 
+const JWT_EXPIRY_TIME = 300000;
 export default function Login() {
   const {
     register,
@@ -24,6 +26,22 @@ export default function Login() {
   const route = useRouter();
   const { LOGIN_GROUP_PROPS } = InputGroupArrays();
 
+  function onLoginSuccess(accessToken: string) {
+    Instance.defaults.headers.common.authorization = `Bearer ${accessToken}`;
+    localStorage.setItem('accessToken', accessToken);
+    setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000); // 만료 1분 전에 재발급 함수
+    console.info('login');
+  }
+
+  async function onSilentRefresh() {
+    try {
+      const response = await authReissue();
+      onLoginSuccess(response.data.data.accessToken);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   const loginFormSubmit: SubmitHandler<LoginFormSchema> = async (
     data: LoginFormSchema,
   ): Promise<void> => {
@@ -32,6 +50,8 @@ export default function Login() {
     await authLogin(data)
       .then((response) => {
         const { accessToken } = response.data.data;
+
+        onLoginSuccess(accessToken);
         localStorage.setItem('accessToken', accessToken);
 
         Instance.defaults.headers.common.authorization = `Bearer ${accessToken}`;

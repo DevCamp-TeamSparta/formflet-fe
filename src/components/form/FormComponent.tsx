@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import Button from '@/components/basic/Button';
@@ -10,6 +10,7 @@ import FormInput from './FormInput';
 import FormRadio from './FormRadio';
 import FormCheckbox from './FormCheckbox';
 import MadeLogo from '../MadeLogo';
+import checkPlatform from '@/utils/checkPlatform';
 
 const checkRequired = () => {
   let isChecked = true;
@@ -53,6 +54,7 @@ export default function FormComponent({ formId, form }: FormProps) {
   let count = 0;
   let isRequired = false;
   const [selectedRadio, setSelectedRadio] = useState(new Map<number, string>());
+  const [userPlatForm, setUserPlatForm] = useState<'pc' | 'mobile'>('pc');
 
   const handleRadioChange = (cnt: number, value: string) => {
     setSelectedRadio(new Map(selectedRadio.set(cnt, value)));
@@ -61,7 +63,7 @@ export default function FormComponent({ formId, form }: FormProps) {
   const handleInput = (content: string) => {
     return (
       <div id={clsx(`textarea-${count}`, { '-required': isRequired })}>
-        <FormInput content={content} count={count} formId={formId} />
+        <FormInput content={content} count={count} userPlatForm={userPlatForm} />
       </div>
     );
   };
@@ -77,7 +79,7 @@ export default function FormComponent({ formId, form }: FormProps) {
           count={count}
           selectedRadio={selectedRadio}
           onRadioChange={handleRadioChange}
-          formId={formId}
+          userPlatForm={userPlatForm}
         />
       );
     });
@@ -95,7 +97,7 @@ export default function FormComponent({ formId, form }: FormProps) {
   const handleCheckbox = (content: string) => {
     const items = content.split('_');
     const item = items.map((value) => {
-      return <FormCheckbox key={value} value={value} count={count} formId={formId} />;
+      return <FormCheckbox key={value} value={value} count={count} userPlatForm={userPlatForm} />;
     });
 
     return (
@@ -165,6 +167,10 @@ export default function FormComponent({ formId, form }: FormProps) {
     }
   };
 
+  useEffect(() => {
+    setUserPlatForm(checkPlatform());
+  }, []);
+
   return (
     <form
       id="submit-form"
@@ -174,7 +180,7 @@ export default function FormComponent({ formId, form }: FormProps) {
       {formSplit.map((item) => {
         const content = handleForm(item);
         return (
-          <div key={item} className="flex">
+          <div key={item} className="flex w-full">
             {content}
           </div>
         );
@@ -183,7 +189,7 @@ export default function FormComponent({ formId, form }: FormProps) {
         type="submit"
         className="flex h-10 items-center gap-2.5 box-shadow-normal bg-gray-darker px-5 py-4 rounded-lg"
       >
-        <p className="text-white b1-bold">제출하기</p>
+        <p className="text-white b1-bold whitespace-nowrap">제출하기</p>
         <ArrowRightCircle color="white" />
       </Button>
       <MadeLogo />

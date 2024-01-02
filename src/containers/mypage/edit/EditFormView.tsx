@@ -19,13 +19,13 @@ export default function EditFormView(props: FormProps) {
   let count = 0;
 
   const handleInput = (content: string) => {
-    return <FormInput content={content} count={count} formId={formId} />;
+    return <FormInput content={content} count={count} userPlatForm="pc" />;
   };
 
   const handleRadio = (text: string) => {
     const items = text.split('_');
     const item = items.map((value) => {
-      return <FormRadio key={value} value={value} count={count} formId={formId} />;
+      return <FormRadio key={value} value={value} count={count} userPlatForm="pc" />;
     });
     return <div className="flex flex-col gap-2.5">{item}</div>;
   };
@@ -33,7 +33,7 @@ export default function EditFormView(props: FormProps) {
   const handleCheckbox = (text: string) => {
     const items = text.split('_');
     const item = items.map((value) => {
-      return <FormCheckbox key={value} value={value} count={count} formId={formId} />;
+      return <FormCheckbox key={value} value={value} count={count} userPlatForm="pc" />;
     });
     return <div className="flex flex-col gap-2.5">{item}</div>;
   };
