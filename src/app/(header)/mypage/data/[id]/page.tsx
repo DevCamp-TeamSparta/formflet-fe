@@ -35,6 +35,7 @@ export default function DataDetailPage({ params }: PageProps) {
   const [dataList, setDataList] = useState<FormList[]>([]);
   const [selectedFormDetail, setSelectedFormDetail] = useState<FormDetail[]>([]);
   const [selectedData, setSelectedData] = useState<Record<string, string>[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSelectData = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedForm = dataList.find((item) => item.id === Number(e.currentTarget.value));
@@ -54,10 +55,14 @@ export default function DataDetailPage({ params }: PageProps) {
         });
         const data = getFormReplyData(formDetails);
         setSelectedData(data);
+        setIsLoading(false);
       } catch (e) {
         console.log(e);
+        setIsLoading(false);
       }
     };
+
+    setIsLoading(true);
     getForms().catch(() => {});
     return () => {
       setDataList([]);
@@ -84,8 +89,7 @@ export default function DataDetailPage({ params }: PageProps) {
         </select>
         <CSVDownloadBtn data={selectedData} />
       </div>
-      {/* <DataDetailContainer data={selectedData} /> */}
-      {selectedData.length !== 0 ? (
+      {!isLoading && selectedData.length !== 0 ? (
         <DataDetailContainer data={selectedData} />
       ) : (
         <EmptyDataDisplay />

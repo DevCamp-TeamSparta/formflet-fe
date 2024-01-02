@@ -35,7 +35,7 @@ function onRrefreshed(token: string) {
 
 const getRefreshToken = async () => {
   try {
-    const response = await axios.post<AuthDataProps>(PATH.API.AUTH.REISSUE);
+    const response = await Instance.post<AuthDataProps>(PATH.API.AUTH.REISSUE);
 
     lock = false;
     const { accessToken } = response.data.data;
