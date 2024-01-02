@@ -31,7 +31,7 @@ export default function Join() {
     try {
       const response = await userJoin(data);
       if (response) {
-        route.push(PATH.ROUTE.ROOT);
+        route.push(PATH.ROUTE.LOGIN);
       }
     } catch (e) {
       console.error('[ERROR]', e);
