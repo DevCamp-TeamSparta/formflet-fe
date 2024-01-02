@@ -85,3 +85,18 @@ export const SidebarMenus = [
     svgSelected: <SqaurePlus color="#8000ff" />,
   },
 ] as const;
+
+export const FONT_SIZE = [
+  { id: 10, value: '10px' },
+  { id: 12, value: '12px' },
+  { id: 14, value: '14px' },
+  { id: 16, value: '16px' },
+  { id: 18, value: '18px' },
+  { id: 20, value: '20px' },
+  { id: 24, value: '24px' },
+  { id: 30, value: '30px' },
+  { id: 36, value: '36px' },
+  { id: 40, value: '40px' },
+  { id: 48, value: '48px' },
+  { id: 60, value: '60px' },
+];

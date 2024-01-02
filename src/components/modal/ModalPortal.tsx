@@ -24,8 +24,8 @@ export default function ModalPortal() {
     return null;
   }
   return (
-    <div className="w-screen h-screen fixed left-0 top-0 flex items-center justify-center z-[100] bg-[rgba(27,27,27,0.30)]">
-      <div className="absolute left-0 top-0 w-full h-full" onClick={closeModal} />
+    <div className="w-screen h-screen fixed left-0 top-0 flex items-center justify-center z-[100] bg-[rgba(72,72,72,0.70)] backdrop-blur-[2px]">
+      <div className="absolute top-0 left-0 w-full h-full" onClick={closeModal} />
       <div className="z-10">{modal}</div>
     </div>
   );

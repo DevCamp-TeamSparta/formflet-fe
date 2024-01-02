@@ -1,40 +1,111 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import clsx from 'clsx';
 import Button from '@/components/basic/Button';
 import formReply from '@/services/api/forms/formReply';
 import ArrowRightCircle from '../../../public/svg/ArrowRightCircle';
+import FormInput from './FormInput';
 import FormRadio from './FormRadio';
 import FormCheckbox from './FormCheckbox';
+import MadeLogo from '../MadeLogo';
+
+const checkRequired = () => {
+  let isChecked = true;
+  const submitForm = document.querySelector('#submit-form');
+  if (submitForm) {
+    const requiredGroups = submitForm.querySelectorAll<HTMLFormElement>('div[id$="-required"]');
+
+    requiredGroups.forEach((group) => {
+      const textFieldInputs = group.querySelectorAll<HTMLInputElement>('textarea');
+      const checkFieldInputs = group.querySelectorAll<HTMLInputElement>(
+        'input[type="radio"], input[type="checkbox"]',
+      );
+
+      if (textFieldInputs.length !== 0) {
+        textFieldInputs.forEach((items) => {
+          if (!items.value) {
+            isChecked = false;
+          }
+        });
+      }
+
+      if (checkFieldInputs.length !== 0) {
+        if (!Array.from(checkFieldInputs).some((input) => input.checked)) {
+          isChecked = false;
+        }
+      }
+    });
+  }
+
+  return isChecked;
+};
 
 interface FormProps {
   formId: number;
   form: string;
 }
 
-export default function FormComponent(props: FormProps) {
+export default function FormComponent({ formId, form }: FormProps) {
   const route = useRouter();
-  const { form, formId } = props;
   const formSplit = form.split('\n');
   let count = 0;
   let isRequired = false;
+  const [selectedRadio, setSelectedRadio] = useState(new Map<number, string>());
 
-  const handleRadio = (text: string) => {
-    const items = text.split('_');
-    const item = items.map((value) => {
-      return <FormRadio key={value} value={value} count={count} isRequired={isRequired} />;
-    });
-    isRequired = false;
-    return <div className="flex flex-col gap-2.5">{item}</div>;
+  const handleRadioChange = (cnt: number, value: string) => {
+    setSelectedRadio(new Map(selectedRadio.set(cnt, value)));
   };
 
-  const handleCheckbox = (text: string) => {
-    const items = text.split('_');
+  const handleInput = (content: string) => {
+    return (
+      <div id={clsx(`textarea-${count}`, { '-required': isRequired })}>
+        <FormInput content={content} count={count} formId={formId} />
+      </div>
+    );
+  };
+
+  const handleRadio = (content: string) => {
+    const items = content.split('_');
+
     const item = items.map((value) => {
-      return <FormCheckbox key={value} value={value} count={count} isRequired={isRequired} />;
+      return (
+        <FormRadio
+          key={value}
+          value={value}
+          count={count}
+          selectedRadio={selectedRadio}
+          onRadioChange={handleRadioChange}
+          formId={formId}
+        />
+      );
     });
-    isRequired = false;
-    return <div className="flex flex-col gap-2.5">{item}</div>;
+
+    return (
+      <div
+        id={clsx(`radio-${count}`, { '-required': isRequired })}
+        className="flex flex-col gap-2.5"
+      >
+        {item}
+      </div>
+    );
+  };
+
+  const handleCheckbox = (content: string) => {
+    const items = content.split('_');
+    const item = items.map((value) => {
+      return <FormCheckbox key={value} value={value} count={count} formId={formId} />;
+    });
+
+    return (
+      <div
+        id={clsx(`checkbox-${count}`, { '-required': isRequired })}
+        className="flex flex-col gap-2.5"
+      >
+        {item}
+      </div>
+    );
   };
 
   const handleForm = (text: string) => {
@@ -42,28 +113,21 @@ export default function FormComponent(props: FormProps) {
     const command = text.substring(0, space);
     const content = text.substring(space + 1);
 
+    if (command === '[질문]' || command === '[질문_*]') {
+      isRequired = command === '[질문_*]';
+    }
+
     switch (command) {
       // Question
       case '[질문]':
         return <p className="h3-bold text-gray-dark-active">Q. {content}</p>;
       case '[질문_*]':
-        isRequired = true;
-        return <p className="h3-bold text-gray-dark-active">Q. {content}*</p>;
+        return <p className="h3-bold text-gray-dark-active">Q. {content} *</p>;
 
       // Answer
       case '[주관식]':
         count += 1;
-        return (
-          <label>
-            <input
-              type="text"
-              className="appearance-none flex w-[677px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal px-5 py-4 rounded-lg border-solid"
-              placeholder={content}
-              name={`answer${count}`}
-              required={isRequired}
-            />
-          </label>
-        );
+        return handleInput(content);
       case '[객관식]':
         count += 1;
         return handleRadio(content);
@@ -84,6 +148,10 @@ export default function FormComponent(props: FormProps) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (formId) {
+      if (!checkRequired()) {
+        return;
+      }
+
       const formData = new FormData(event.currentTarget);
       const submitData: Array<FormDataEntryValue[]> = [];
       for (let i = 1; i <= count; i += 1) {
@@ -98,10 +166,18 @@ export default function FormComponent(props: FormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-start gap-5 p-[30px]">
+    <form
+      id="submit-form"
+      onSubmit={handleSubmit}
+      className="relative flex flex-col items-start gap-5"
+    >
       {formSplit.map((item) => {
         const content = handleForm(item);
-        return <div key={item}>{content}</div>;
+        return (
+          <div key={item} className="flex">
+            {content}
+          </div>
+        );
       })}
       <Button
         type="submit"
@@ -110,6 +186,7 @@ export default function FormComponent(props: FormProps) {
         <p className="text-white b1-bold">제출하기</p>
         <ArrowRightCircle color="white" />
       </Button>
+      <MadeLogo />
     </form>
   );
 }

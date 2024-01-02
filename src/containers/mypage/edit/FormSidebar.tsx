@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
 import Toggle from '@/components/basic/Toggle';
 import FormSquareIcon from '../../../../public/svg/FormSquareIcon';
 import EmptyStar from '../../../../public/svg/EmptyStar';
 import { useCtaStore, useDisplayStore, useFormStore } from '@/store/store';
 import useModalStore from '@/store/modalStore';
 import FormCancelModal from '@/components/modal/edit/FormCancelModal';
+import { FONT_SIZE } from '@/constants/editProps/editPage';
 
 export default function FormSidebar() {
   const { setDisplay } = useDisplayStore((state) => ({ setDisplay: state.setDisplay }));
@@ -13,6 +15,8 @@ export default function FormSidebar() {
   }));
   const ctaStore = useCtaStore();
   const setModal = useModalStore((state) => state.setModal);
+  const [selectedFontSize, setSelectedFontSize] = useState(ctaStore.ctaFontSize);
+  const [fontLinkStatus, setFontLinkStatus] = useState(true);
 
   const handleAddForm = () => {
     if (formStatus) {
@@ -28,8 +32,27 @@ export default function FormSidebar() {
   };
 
   const handleAddCta = () => {
+    if (formStatus) {
+      return;
+    }
     ctaStore.setCtaStatus(!ctaStore.ctaStatus);
+    setFontLinkStatus(false);
   };
+
+  const handleFontSize = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.currentTarget;
+    setSelectedFontSize(value);
+    ctaStore.setCtaFontSize(value);
+  };
+
+  useEffect(() => {
+    if (ctaStore.ctaStatus && formStatus) {
+      setFontLinkStatus(false);
+      ctaStore.setCtaLink('');
+    } else if (ctaStore.ctaStatus) {
+      setFontLinkStatus(true);
+    }
+  }, [ctaStore.ctaStatus, formStatus]);
 
   return (
     <div className="space-y-[20px] p-[20px]">
@@ -66,7 +89,7 @@ export default function FormSidebar() {
         <div className="flex h-[78px] flex-col justify-end items-start gap-4 self-stretch pt-1.5">
           <label className="b2-bold text-gray-dark-active">버튼 내용</label>
           <input
-            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal disabled:bg-gray-light-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
+            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-active-shadow-normal disabled:bg-gray-light-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
             type="text"
             value={ctaStore.ctaContent}
             disabled={!ctaStore.ctaStatus}
@@ -77,27 +100,37 @@ export default function FormSidebar() {
         <div className="flex h-[78px] flex-col justify-end items-start gap-4 self-stretch pt-1.5">
           <label className="b2-bold text-gray-dark-active">링크</label>
           <input
-            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal disabled:bg-gray-light-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
+            className="flex w-[282px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-active-shadow-normal disabled:bg-gray-light-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
             type="text"
             value={ctaStore.ctaLink}
-            disabled={!ctaStore.ctaStatus}
+            disabled={!fontLinkStatus}
+            placeholder="폼페이지로 이동"
             onChange={(e) => ctaStore.setCtaLink(e.target.value)}
           />
         </div>
         <p className="b2-bold text-gray-dark-active">색상 및 스타일</p>
         <div className="flex h-[78px] flex-col justify-end items-start gap-4 self-stretch pt-1.5">
           <label className="b2 text-gray-dark-active">글자 크기</label>
-          <select className="flex w-[282px] h-10 justify-between items-center shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid">
-            <option>24px</option>
+          <select
+            className="flex w-[282px] h-10 justify-between items-center shrink-0 border border-gray-normal-normal box-shadow-normal px-5 rounded-lg border-solid"
+            value={selectedFontSize}
+            onChange={(e) => handleFontSize(e)}
+          >
+            {FONT_SIZE.map((item) => (
+              <option key={item.id} value={item.value}>
+                {item.value}
+              </option>
+            ))}
           </select>
         </div>
         <div className="flex items-center self-stretch justify-between">
           <p className="b2 text-gray-dark-active">글자색</p>
           <div className="flex items-center justify-end">
             <input
-              className="b2 text-gray-dark-active"
+              className="w-[62px] b2 text-gray-dark-active"
               value={ctaStore.ctaFontColor}
               onChange={(e) => ctaStore.setCtaFontColor(e.target.value)}
+              maxLength={7}
             />
             <div
               className="border border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full"
@@ -109,9 +142,10 @@ export default function FormSidebar() {
           <p className="b2 text-gray-dark-active">배경색</p>
           <div className="flex items-center justify-between">
             <input
-              className="b2 text-gray-dark-active"
+              className="w-[62px] b2 text-gray-dark-active"
               value={ctaStore.ctaBackColor}
               onChange={(e) => ctaStore.setCtaBackColor(e.target.value)}
+              maxLength={7}
             />
             <div
               className="border border-solid border-gray-normal-normal w-[22px] h-[22px] rounded-full"

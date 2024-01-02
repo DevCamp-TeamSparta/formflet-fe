@@ -5,17 +5,15 @@ import Cookies from 'universal-cookie';
 import PATH from '@/constants/path/Path';
 import authLogout from '@/services/api/auth/authLogout';
 import Button from '../basic/Button';
-import { useAuthStore } from '@/store/store';
 
 export default function Logout() {
   const route = useRouter();
-  const { setAccessToken } = useAuthStore((state) => ({ setAccessToken: state.setAccessToken }));
   const cookies = new Cookies();
 
   const handleLogout = async () => {
     await authLogout()
       .then(() => {
-        setAccessToken('');
+        localStorage.removeItem('accessToken');
         cookies.remove('refresh-token');
 
         route.push(PATH.ROUTE.ROOT);

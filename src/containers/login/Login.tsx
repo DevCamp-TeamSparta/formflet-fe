@@ -10,7 +10,6 @@ import authLogin from '@/services/api/auth/authLogin';
 import PATH from '@/constants/path/Path';
 import InputGroupArrays from '@/constants/inputProps/InputGroupArrays';
 import LoginInputGroup from '@/components/template/LoginInputGroup';
-import { useAuthStore } from '@/store/store';
 import Instance from '@/services/api/Instance';
 
 export default function Login() {
@@ -24,7 +23,6 @@ export default function Login() {
 
   const route = useRouter();
   const { LOGIN_GROUP_PROPS } = InputGroupArrays();
-  const { setAccessToken } = useAuthStore((state) => ({ setAccessToken: state.setAccessToken }));
 
   const loginFormSubmit: SubmitHandler<LoginFormSchema> = async (
     data: LoginFormSchema,
@@ -34,7 +32,7 @@ export default function Login() {
     await authLogin(data)
       .then((response) => {
         const { accessToken } = response.data.data;
-        setAccessToken(accessToken);
+        localStorage.setItem('accessToken', accessToken);
 
         Instance.defaults.headers.common.authorization = `Bearer ${accessToken}`;
       })

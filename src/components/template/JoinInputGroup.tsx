@@ -37,7 +37,7 @@ const JoinInputGroup = React.forwardRef<HTMLInputElement, JoinGroupProps>(
             </label>
             <div className="flex self-stretch justify-between gap-3">
               <Input
-                className="flex w-[331px] h-14 items-center px-8 py-4 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-inner-shadow-normal text-gray-dark-hover rounded-lg"
+                className="flex w-[331px] h-14 items-center px-8 py-4 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-active-shadow-normal text-gray-dark-hover rounded-lg"
                 id={id}
                 ref={ref}
                 {...rest}

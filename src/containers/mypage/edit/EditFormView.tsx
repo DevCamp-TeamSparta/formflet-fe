@@ -5,6 +5,8 @@ import formReply from '@/services/api/forms/formReply';
 import ArrowRightCircle from '../../../../public/svg/ArrowRightCircle';
 import FormRadio from '@/components/form/FormRadio';
 import FormCheckbox from '@/components/form/FormCheckbox';
+import MadeLogo from '@/components/MadeLogo';
+import FormInput from '@/components/form/FormInput';
 
 interface FormProps {
   formId: number;
@@ -15,23 +17,24 @@ export default function EditFormView(props: FormProps) {
   const { form, formId } = props;
   const formSplit = form.split('\n');
   let count = 0;
-  let isRequired = false;
+
+  const handleInput = (content: string) => {
+    return <FormInput content={content} count={count} formId={formId} />;
+  };
 
   const handleRadio = (text: string) => {
     const items = text.split('_');
     const item = items.map((value) => {
-      return <FormRadio key={value} value={value} count={count} isRequired={isRequired} />;
+      return <FormRadio key={value} value={value} count={count} formId={formId} />;
     });
-    isRequired = false;
     return <div className="flex flex-col gap-2.5">{item}</div>;
   };
 
   const handleCheckbox = (text: string) => {
     const items = text.split('_');
     const item = items.map((value) => {
-      return <FormCheckbox key={value} value={value} count={count} isRequired={isRequired} />;
+      return <FormCheckbox key={value} value={value} count={count} formId={formId} />;
     });
-    isRequired = false;
     return <div className="flex flex-col gap-2.5">{item}</div>;
   };
 
@@ -50,14 +53,7 @@ export default function EditFormView(props: FormProps) {
       // Answer
       case '[주관식]':
         count += 1;
-        return (
-          <input
-            type="text"
-            className="flex w-[450px] h-10 items-center gap-2.5 shrink-0 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid"
-            placeholder={content}
-            name={`answer${count}`}
-          />
-        );
+        return handleInput(content);
       case '[객관식]':
         count += 1;
         return handleRadio(content);
@@ -107,6 +103,7 @@ export default function EditFormView(props: FormProps) {
         <p className="text-white b1-bold">제출하기</p>
         <ArrowRightCircle color="white" />
       </Button>
+      <MadeLogo />
     </form>
   );
 }

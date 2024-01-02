@@ -1,20 +1,29 @@
 'use client';
 
-import { useState } from 'react';
 import clsx from 'clsx';
 import RadioCheckIcon from '../../../public/svg/RadioCheckIcon';
 import RadioIcon from '../../../public/svg/RadioIcon';
 
+/* eslint-disable react/require-default-props */
 interface FormRadioProps {
   count: number;
   value: string;
-  isRequired: boolean;
+  formId: number;
+  selectedRadio?: Map<number, string>;
+  onRadioChange?: (cnt: number, value: string) => void;
 }
-// TODO: 한 개만 선택이 되도록 로직 수정
-export default function FormRadio({ count, value, isRequired }: FormRadioProps) {
-  const [isClicked, setIsClicked] = useState(false);
-  const handleClick = () => {
-    setIsClicked(!isClicked);
+
+export default function FormRadio({
+  count,
+  value,
+  formId,
+  selectedRadio,
+  onRadioChange,
+}: FormRadioProps) {
+  const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    if (onRadioChange) {
+      onRadioChange(count, e.currentTarget.value);
+    }
   };
 
   return (
@@ -24,18 +33,24 @@ export default function FormRadio({ count, value, isRequired }: FormRadioProps) 
           className="appearance-none"
           type="radio"
           name={`answer${count}`}
-          onClick={handleClick}
+          onClick={(e) => handleClick(e)}
           value={value}
-          required={isRequired}
         />
         <div
           className={clsx(
-            'flex w-[417px] h-10 items-center gap-2.5 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid',
-            { 'bg-gray-light-normal': isClicked },
+            'flex h-10 items-center gap-2.5 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid',
+            formId === 0 ? 'w-[320px]' : 'w-[60vw]',
+            { 'bg-gray-light-normal': selectedRadio?.get(count) === value },
           )}
         >
-          {isClicked ? <RadioCheckIcon /> : <RadioIcon />}
-          <p className={isClicked ? 'b1-bold text-gray-dark-hover' : 'b1 text-gray-normal-normal'}>
+          {selectedRadio?.get(count) === value ? <RadioCheckIcon /> : <RadioIcon />}
+          <p
+            className={
+              selectedRadio?.get(count) === value
+                ? 'b1-bold text-gray-dark-hover'
+                : 'b1 text-gray-normal-normal'
+            }
+          >
             {value}
           </p>
         </div>

@@ -1,9 +1,6 @@
-import CSVDownloadBtn from '@/containers/mypage/data/[id]/CSVDownloadBtn';
-
 export default function DataDetailContainer({ data }: { data: Record<string, string>[] }) {
   return (
     <div className="my-[18px] max-w-[850px] overflow-x-scroll">
-      <CSVDownloadBtn data={data} />
       {data.length ? (
         <table className="w-[850px] border-spacing-0 rounded-[32px] border-gray-light-active">
           <thead>

@@ -10,28 +10,27 @@ import ArrowRightCircle from '../../../public/svg/ArrowRightCircle';
 export default function PageList({ setIsVisibled }: StateSetString) {
   const [pageList, setPageList] = useState<PageList[]>([]);
 
-  const fetchPages = async (): Promise<PageList[]> => {
-    const response = await pages();
-    const { data } = response.data;
-
-    return data;
-  };
-
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchPages();
+      try {
+        const response = await pages();
 
-      if (data.length >= 4) {
-        setIsVisibled('hidden');
-      } else {
-        setIsVisibled('visible');
+        const { data } = response.data;
+
+        if (data.length >= 4) {
+          setIsVisibled('hidden');
+        } else {
+          setIsVisibled('visible');
+        }
+
+        setPageList(data);
+      } catch (e) {
+        console.log(e);
       }
-
-      setPageList(data);
     };
 
-    fetchData().catch(() => alert('로그인 정보가 만료되었습니다. 다시 로그인해주세요'));
-  }, [setIsVisibled]);
+    fetchData().catch(() => {});
+  }, []);
 
   return (
     <div>

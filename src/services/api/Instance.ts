@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import PATH from '@/constants/path/Path';
-import { useAuthStore } from '@/store/store';
 
 const Instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_APY_KEY,
@@ -23,32 +22,32 @@ Instance.interceptors.request.use(
   },
 );
 
-// let lock = false;
-// let subscribers: ((token: string) => void)[] = [];
+let lock = false;
+let subscribers: ((token: string) => void)[] = [];
 
-// function subscribeTokenRefresh(cb: (token: string) => void) {
-//   subscribers.push(cb);
-// }
+function subscribeTokenRefresh(cb: (token: string) => void) {
+  subscribers.push(cb);
+}
 
-// function onRrefreshed(token: string) {
-//   subscribers.forEach((cb) => cb(token));
-// }
+function onRrefreshed(token: string) {
+  subscribers.forEach((cb) => cb(token));
+}
 
 const getRefreshToken = async () => {
   try {
     const response = await axios.post<AuthDataProps>(PATH.API.AUTH.REISSUE);
 
-    // lock = false;
-
+    lock = false;
     const { accessToken } = response.data.data;
-
-    // onRrefreshed(accessToken);
-    // subscribers = [];
+    onRrefreshed(accessToken);
+    subscribers = [];
+    localStorage.setItem('accessToken', accessToken);
 
     return accessToken;
   } catch (e) {
-    // lock = false;
-    // subscribers = [];
+    lock = false;
+    subscribers = [];
+    localStorage.removeItem('accessToken');
   }
 
   return '';
@@ -64,19 +63,16 @@ Instance.interceptors.response.use(
       response,
     }: { config: AxiosRequestConfig; response: AxiosResponse<ResponseProps> } = error;
 
-    // const originalRequest = config;
+    const originalRequest = config;
 
     if (config.url === PATH.API.AUTH.REISSUE || response.status !== 401)
       return Promise.reject(error);
-    if (response.status === 401) {
+    if (response.data.statusCode === 401) {
       if (response.data.message === 'Expired Token') {
         const accessToken = await getRefreshToken();
-        const { setAccessToken } = useAuthStore((state) => ({
-          setAccessToken: state.setAccessToken,
-        }));
 
         if (accessToken) {
-          setAccessToken(accessToken);
+          localStorage.setItem('accessToken', accessToken);
           if (config.headers) {
             config.headers.Authorization = `Bearer ${accessToken}`;
             return axios(config);
@@ -86,19 +82,19 @@ Instance.interceptors.response.use(
         return Promise.reject(error);
       }
     }
-    // if (lock) {
-    //   return new Promise((resolve) => {
-    //     subscribeTokenRefresh((token: string) => {
-    //       if (originalRequest.headers) {
-    //         originalRequest.headers.Authorization = `Bearer ${token}`;
-    //         resolve(axios(originalRequest));
-    //       }
-    //     });
-    //   });
-    // }
-    // lock = true;
+    if (lock) {
+      return new Promise((resolve) => {
+        subscribeTokenRefresh((token: string) => {
+          if (originalRequest.headers) {
+            originalRequest.headers.Authorization = `Bearer ${token}`;
+            resolve(axios(originalRequest));
+          }
+        });
+      });
+    }
+    lock = true;
 
-    // setAccessToken('');
+    localStorage.removeItem('accessToken');
     return Promise.reject(error);
   },
 );

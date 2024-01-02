@@ -8,10 +8,10 @@ import CheckboxIcon from '../../../public/svg/CheckboxIcon';
 interface FormCheckboxProps {
   count: number;
   value: string;
-  isRequired: boolean;
+  formId: number;
 }
 
-export default function FormCheckbox({ count, value, isRequired }: FormCheckboxProps) {
+export default function FormCheckbox({ count, value, formId }: FormCheckboxProps) {
   const [isClicked, setIsClicked] = useState(false);
   const handleClick = () => {
     setIsClicked(!isClicked);
@@ -26,11 +26,11 @@ export default function FormCheckbox({ count, value, isRequired }: FormCheckboxP
           name={`answer${count}`}
           onClick={handleClick}
           value={value}
-          required={isRequired}
         />
         <div
           className={clsx(
-            'flex w-[417px] h-10 items-center gap-2.5 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid',
+            'flex h-10 items-center gap-2.5 border border-gray-normal-normal box-shadow-normal px-5 py-4 rounded-lg border-solid',
+            formId === 0 ? 'w-[320px]' : 'w-[60vw]',
             { 'bg-gray-light-normal': isClicked },
           )}
         >
