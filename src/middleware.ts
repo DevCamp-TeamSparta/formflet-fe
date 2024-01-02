@@ -34,10 +34,8 @@ export default function middleware(request: NextRequest) {
     if (pathName === PATH.ROUTE.ROOT && accessToken) {
       return NextResponse.redirect(myPageUrl);
     }
-  } else if (pathName === PATH.ROUTE.ROOT && pathName.startsWith('/page')) {
+  } else if (pathName === PATH.ROUTE.ROOT) {
     return NextResponse.rewrite(new URL(`/page/${subDomain}`, request.url));
-  } else if (pathName === PATH.ROUTE.ROOT && pathName.startsWith('/form')) {
-    return NextResponse.rewrite(new URL(`/form/${subDomain}`, request.url));
   }
 
   return NextResponse.next();
