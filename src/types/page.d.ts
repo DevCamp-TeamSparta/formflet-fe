@@ -56,7 +56,7 @@ interface FormDetail {
 }
 
 interface FormList {
-  id: string;
+  id: number;
   status: string;
   title: string;
   guide: string;

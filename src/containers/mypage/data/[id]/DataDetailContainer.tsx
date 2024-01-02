@@ -17,7 +17,7 @@ export default function DataDetailContainer({ data }: { data: Record<string, str
           </thead>
           <tbody>
             {data.map((d) => (
-              <tr key={d.name}>
+              <tr key={d.id}>
                 {Object.keys(d).map((key) => (
                   <td
                     key={key}
