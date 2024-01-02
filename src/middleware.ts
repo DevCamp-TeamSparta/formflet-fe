@@ -36,6 +36,8 @@ export default function middleware(request: NextRequest) {
     }
   } else if (pathName === PATH.ROUTE.ROOT) {
     return NextResponse.rewrite(new URL(`/page/${subDomain}`, request.url));
+  } else if (pathName.startsWith('/form')) {
+    return NextResponse.rewrite(new URL(`/form/${subDomain}`, request.url));
   }
 
   return NextResponse.next();
