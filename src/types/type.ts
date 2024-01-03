@@ -13,12 +13,16 @@ export interface Regex {
   notionUrl: RegExp;
 }
 
-export interface StateSetBoolean {
-  setJoinButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+export interface OnClickProps {
+  onClick: () => Promise<void>;
 }
 
-export interface StateSetString {
-  setIsVisibled: React.Dispatch<React.SetStateAction<string>>;
+export interface SetStateBoolean {
+  setStateBoolean: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface SetStateString {
+  setStateString: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export type JoinGroup = {

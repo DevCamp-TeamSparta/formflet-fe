@@ -3,7 +3,7 @@
 import { ChangeEvent, useRef } from 'react';
 import { useFormStore } from '@/store/store';
 import useModalStore from '@/store/modalStore';
-import FormCreateModal from '@/components/modal/edit/FormCreateModal';
+import FormEditModal from '@/components/modal/edit/FormEditModal';
 
 export default function EditForm() {
   const contentRef = useRef<HTMLTextAreaElement>(null);
@@ -22,7 +22,7 @@ export default function EditForm() {
 
   const handleCreateForm = () => {
     if (replyStatus && !createForm) {
-      setModal(<FormCreateModal />);
+      setModal(<FormEditModal />);
     }
   };
   return (

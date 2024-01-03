@@ -6,7 +6,7 @@ export const useFontStore = create<FontStore>((set) => ({
 }));
 
 export const useDisplayStore = create<DisplayStore>((set) => ({
-  display: 'notion',
+  display: 'display',
   setDisplay: (display) => set({ display }),
 }));
 

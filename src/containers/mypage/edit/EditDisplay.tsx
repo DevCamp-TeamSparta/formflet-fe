@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import clsx from 'clsx';
 import NotionComponent from '@/components/notion/NotionComponent';
 import pageContent from '@/services/api/pages/pageContent';
 import {
@@ -13,39 +12,25 @@ import {
 } from '@/store/store';
 import EditForm from './EditForm';
 import EditFormView from './EditFormView';
-import Button from '@/components/basic/Button';
-import NotionIcon from '../../../../public/svg/NotionIcon';
-import DeskAlt from '../../../../public/svg/DeskAlt';
 import EditFormExample from './EditFormExample';
 import CtaComponent from '@/components/cta/CtaComponent';
 
 export default function EditDisplay({ pageId }: PageProps) {
   const [isloaded, setIsLoaded] = useState(false);
-  const { display, setDisplay } = useDisplayStore((state) => ({
+  const { display } = useDisplayStore((state) => ({
     display: state.display,
     setDisplay: state.setDisplay,
   }));
   const pageStore = usePageStore();
   const { setFont } = useFontStore((state) => ({ setFont: state.setFont }));
-  const { formStatus, form, setFormALl } = useFormStore((state) => ({
+  const { form, setFormALl } = useFormStore((state) => ({
     formStatus: state.formStatus,
     form: state.form,
     setFormALl: state.setFormAll,
   }));
   const ctaStore = useCtaStore();
 
-  const handleDisplay = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLButtonElement;
-    if (target.id === 'display-notion') {
-      setDisplay('notion');
-    }
-    if (target.id === 'display-form') {
-      setDisplay('form');
-    }
-  };
-
   useEffect(() => {
-    setDisplay('notion');
     const getPageContent = async () => {
       const response = await pageContent({ pageId });
       return response.data.data;
@@ -118,7 +103,7 @@ export default function EditDisplay({ pageId }: PageProps) {
     <div className="m-[20px_20px_20px_0] grow w-full min-h-full border rounded-[8px] border-gray-light-active overflow-hidden">
       {
         {
-          notion: isloaded && (
+          display: isloaded && (
             <div>
               <NotionComponent recordMap={pageStore.pageContent} />
               <div className="fixed bottom-10 left-[58%] transform -translate-x-1/2">
@@ -152,22 +137,6 @@ export default function EditDisplay({ pageId }: PageProps) {
           ),
         }[display]
       }
-      <div
-        className={clsx(
-          'fixed flex h-10 rotate-90 items-start gap-2 justify-between box-shadow-normal bg-purple-normal-normal px-2.5 py-2 rounded-[0px_0px_8px_8px] right-px top-[191px]',
-          {
-            visible: formStatus,
-            invisible: !formStatus,
-          },
-        )}
-      >
-        <Button onClick={(e) => handleDisplay(e)} disabled={display === 'notion'}>
-          <NotionIcon id="display-notion" color={display === 'notion' ? 'white' : '#D8B0FF'} />
-        </Button>
-        <Button onClick={(e) => handleDisplay(e)} disabled={display === 'form'}>
-          <DeskAlt id="display-form" color={display === 'form' ? 'white' : '#D8B0FF'} />
-        </Button>
-      </div>
     </div>
   );
 }

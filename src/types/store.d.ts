@@ -4,8 +4,8 @@ interface FontStore {
 }
 
 interface DisplayStore {
-  display: 'notion' | 'form';
-  setDisplay: (display: 'notion' | 'form') => void;
+  display: 'display' | 'form';
+  setDisplay: (display: 'display' | 'form') => void;
 }
 
 interface PageStore {

@@ -74,13 +74,13 @@ export const Fonts = [
 export const SidebarMenus = [
   {
     name: 'display',
-    text: '화면 편집',
+    text: '페이지',
     svg: <SquarePencil />,
     svgSelected: <SquarePencil color="#8000ff" />,
   },
   {
     name: 'form',
-    text: '폼/CTA',
+    text: '폼',
     svg: <SqaurePlus />,
     svgSelected: <SqaurePlus color="#8000ff" />,
   },

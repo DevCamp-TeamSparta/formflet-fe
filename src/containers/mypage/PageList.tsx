@@ -4,10 +4,10 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import pages from '@/services/api/pages/pages';
 import PATH from '@/constants/path/Path';
-import { StateSetString } from '@/types/type';
+import { SetStateString } from '@/types/type';
 import ArrowRightCircle from '../../../public/svg/ArrowRightCircle';
 
-export default function PageList({ setIsVisibled }: StateSetString) {
+export default function PageList({ setStateString }: SetStateString) {
   const [pageList, setPageList] = useState<PageList[]>([]);
 
   useEffect(() => {
@@ -18,9 +18,9 @@ export default function PageList({ setIsVisibled }: StateSetString) {
         const { data } = response.data;
 
         if (data.length >= 4) {
-          setIsVisibled('hidden');
+          setStateString('hidden');
         } else {
-          setIsVisibled('visible');
+          setStateString('visible');
         }
 
         setPageList(data);

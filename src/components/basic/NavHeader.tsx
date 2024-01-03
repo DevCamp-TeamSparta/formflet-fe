@@ -9,6 +9,8 @@ import SaveIcon from '../../../public/svg/SaveIcon';
 import ReloadIcon from '../../../public/svg/ReloadIcon';
 import pageSave from '@/services/api/pages/pageSave';
 import { useCtaStore, usePageStore, useFontStore, useFormStore } from '@/store/store';
+import EditPageRefreshModal from '../modal/edit/EditPageRefreshModal';
+import useModalStore from '@/store/modalStore';
 
 export default function NavHeader() {
   const pathName = usePathname();
@@ -16,6 +18,7 @@ export default function NavHeader() {
   const path = params.pageId as string;
   const navList = PATH.ROUTE.NAV_LIST;
   let currentPath = '';
+  const setModal = useModalStore((state) => state.setModal);
 
   if (pathName.startsWith('/mypage/edit')) {
     currentPath = 'edit';
@@ -55,6 +58,21 @@ export default function NavHeader() {
     }),
   );
 
+  const handleWindowOpen = () => {
+    window.open(`https://${domain}`);
+  };
+
+  const handleRefresh = async (): Promise<void> => {
+    await axios
+      .post<{ page: Record<string, object> }>('/api/notion', {
+        url,
+      })
+      .then((response) => {
+        const content = JSON.stringify(response.data.page);
+        setPageContent(content);
+      });
+  };
+
   const handleSave = async (): Promise<void> => {
     const data = {
       content: pageContent,
@@ -83,21 +101,6 @@ export default function NavHeader() {
     }
   };
 
-  const handleRefresh = async () => {
-    await axios
-      .post<{ page: Record<string, object> }>('/api/notion', {
-        url,
-      })
-      .then((response) => {
-        const content = JSON.stringify(response.data.page);
-        setPageContent(content);
-      });
-  };
-
-  const handleWindowOpen = () => {
-    window.open(`https://${domain}`);
-  };
-
   return (
     <header className="w-full top-[64px] h-[64px] fixed flex flex-col justify-between items-center shrink-0 z-10 bg-white">
       {currentPath === 'edit' && (
@@ -109,7 +112,10 @@ export default function NavHeader() {
             {domain}
             <CopyIcon />
           </Button>
-          <Button className="w-6 h-6 shrink-0" onClick={() => handleRefresh()}>
+          <Button
+            className="w-6 h-6 shrink-0"
+            onClick={() => setModal(<EditPageRefreshModal onClick={handleRefresh} />)}
+          >
             <ReloadIcon />
           </Button>
           <Button className="w-6 h-6 shrink-0" onClick={() => handleSave()}>

@@ -1,3 +1,5 @@
+import RuleContainer from '@/containers/mypage/rule/RuleContainer';
+
 export default function RulesPage() {
-  return <h1>Rules Page</h1>;
+  return <RuleContainer />;
 }

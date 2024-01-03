@@ -24,7 +24,7 @@ export default function MyPageContainer() {
         <PlusCircle color="#9FA0A0" />
       </Button>
       {openRegisterForm && <RegisterPage />}
-      <PageList setIsVisibled={setIsVisibled} />
+      <PageList setStateString={setIsVisibled} />
     </div>
   );
 }

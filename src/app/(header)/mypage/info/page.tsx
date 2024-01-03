@@ -1,3 +1,5 @@
+import InfoContainer from '@/containers/mypage/info/InfoContainer';
+
 export default function InfoPage() {
-  return <h1>Info Page</h1>;
+  return <InfoContainer />;
 }

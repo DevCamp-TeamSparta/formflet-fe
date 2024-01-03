@@ -2,18 +2,19 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Button from '@/components/basic/Button';
 import { loginFormSchema, LoginFormSchema } from '@/types/type';
 import authLogin from '@/services/api/auth/authLogin';
 import PATH from '@/constants/path/Path';
-import InputGroupArrays from '@/constants/inputProps/InputGroupArrays';
-import LoginInputGroup from '@/components/template/LoginInputGroup';
 import Instance from '@/services/api/Instance';
 import authReissue from '@/services/api/auth/authReissue';
+import MESSAGE from '@/constants/Messages';
+import Input from '@/components/basic/Input';
+import JWT_EXPIRY_TIME from '@/constants/consts';
 
-const JWT_EXPIRY_TIME = 300000;
 export default function Login() {
   const {
     register,
@@ -24,13 +25,12 @@ export default function Login() {
   });
 
   const route = useRouter();
-  const { LOGIN_GROUP_PROPS } = InputGroupArrays();
+  const [errorMessage, setErrorMessage] = useState('');
 
   function onLoginSuccess(accessToken: string) {
     Instance.defaults.headers.common.authorization = `Bearer ${accessToken}`;
     localStorage.setItem('accessToken', accessToken);
     setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000); // 만료 1분 전에 재발급 함수
-    console.info('login');
   }
 
   async function onSilentRefresh() {
@@ -38,29 +38,33 @@ export default function Login() {
       const response = await authReissue();
       onLoginSuccess(response.data.data.accessToken);
     } catch (e) {
-      console.log(e);
+      alert('재로그인 실패!');
+      route.push(PATH.ROUTE.LOGIN);
     }
   }
 
+  /**
+   * 로그인 실패시 에러 출력
+   * 성공 시 Access Token은 localStorage, Refresh Token은 쿠키에 저장한다.
+   * 로그인 정보가 필요한 instance의 헤더에 access token을 authorization에 defualt 값으로 저장한다.
+   * Access Token이 만료 시간이 되기 전에 Silent Refresh 로직을 실행하여 사용자의 로그인이 유지되도록 한다.
+   * @param data email, password
+   */
   const loginFormSubmit: SubmitHandler<LoginFormSchema> = async (
     data: LoginFormSchema,
   ): Promise<void> => {
-    // API 구현;
-
     await authLogin(data)
       .then((response) => {
         const { accessToken } = response.data.data;
 
         onLoginSuccess(accessToken);
-        localStorage.setItem('accessToken', accessToken);
-
-        Instance.defaults.headers.common.authorization = `Bearer ${accessToken}`;
       })
       .then(() => {
         route.push(PATH.ROUTE.MYPAGE);
+      })
+      .catch(() => {
+        setErrorMessage(MESSAGE.JOIN_LOGIN.inVaildLogin);
       });
-
-    // TODO: res에 받아온 값에 따라 이메일이랑 비밀번호가 다른지, 이메일이 존재하는지 확인 후 라우팅
   };
 
   return (
@@ -70,18 +74,33 @@ export default function Login() {
           <p className="t1-bold text-purple-normal-normal">폼플렛</p>
           <p className="h2-bold text-gray-dark-active">노션으로 쉽게 만드는 온라인 전단지</p>
         </div>
-        {LOGIN_GROUP_PROPS.map((field) => (
-          <LoginInputGroup
-            key={field.id}
-            id={field.id}
-            label={field.label}
-            type={field.type}
-            errorMessage={errors[field.id]?.message}
-            errors={errors}
-            placeholder={field.placeholder}
-            {...register(field.id)}
+        <div className="flex flex-col justify-center items-start gap-2.5">
+          <label className="b1-bold text-gray-dark-active" htmlFor="email">
+            이메일 아이디
+          </label>
+          <Input
+            id="email"
+            type="text"
+            placeholder={MESSAGE.JOIN_LOGIN.inputEmail}
+            {...register('email')}
           />
-        ))}
+        </div>
+        <div className="flex flex-col justify-center items-start gap-2.5">
+          <label className="b1-bold text-gray-dark-active" htmlFor="password">
+            비밀번호
+          </label>
+          <Input
+            id="password"
+            type="password"
+            placeholder={MESSAGE.JOIN_LOGIN.inputPassword}
+            {...register('password')}
+          />
+          {(errors.email?.message || errorMessage) && (
+            <span className="b2 text-semantic-danger-normal">
+              {errors.email?.message || errorMessage}
+            </span>
+          )}
+        </div>
         {/* <Link href={PATH.ROUTE.EDIT_PASSWORD}>비밀번호 재설정</Link> */}
         <Button
           className="flex bg-purple-normal-normal box-shadow-normal w-[502px] h-14 justify-center items-center rounded-lg"

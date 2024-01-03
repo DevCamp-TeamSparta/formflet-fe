@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react';
 import Button from '@/components/basic/Button';
 import RectangleCheckOn from '../../../public/svg/RectangleCheckOn';
 import RectangleCheckOff from '../../../public/svg/RectangleCheckoff';
-import { StateSetBoolean } from '@/types/type';
+import { SetStateBoolean } from '@/types/type';
 
-function JoinAgree({ setJoinButtonDisabled }: StateSetBoolean) {
+function JoinAgree({ setStateBoolean }: SetStateBoolean) {
   const [agree, setAgree] = useState<boolean>(false);
 
   const handleAgree = () => {
@@ -19,11 +19,11 @@ function JoinAgree({ setJoinButtonDisabled }: StateSetBoolean) {
 
   useEffect(() => {
     if (agree) {
-      setJoinButtonDisabled(false);
+      setStateBoolean(false);
     } else {
-      setJoinButtonDisabled(true);
+      setStateBoolean(true);
     }
-  }, [agree, setJoinButtonDisabled]);
+  }, [agree]);
 
   return (
     <Button className="flex items-center gap-2.5 self-stretch" onClick={() => handleAgree()}>

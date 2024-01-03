@@ -16,11 +16,11 @@ export default function Logout() {
         localStorage.removeItem('accessToken');
         cookies.remove('refresh-token');
 
-        route.push(PATH.ROUTE.ROOT);
+        route.push(PATH.ROUTE.LOGIN);
         route.refresh();
       })
       .catch(() => {
-        route.push(PATH.ROUTE.ROOT);
+        route.push(PATH.ROUTE.LOGIN);
         route.refresh();
       });
   };

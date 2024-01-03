@@ -16,7 +16,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ id, onChange, ..
   };
 
   return (
-    <div>
+    <div className="flex">
       <input
         className="flex w-[502px] h-14 items-center gap-2.5 px-8 py-4 border border-gray-normal-normal text-gray-dark-hover placeholder:text-gray-light-active box-shadow-normal focus:box-active-shadow-normal rounded-lg"
         type="text"
@@ -29,12 +29,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ id, onChange, ..
         ref={ref}
         {...rest}
       />
-
-      {/* {value && (
-          <button type="button" onClick={() => setValue('')}>
-            x
-          </button>
-        )} */}
+      {/* {(id === 'password' || 'checkPassword') && (
+        <button type="button" onClick={() => setValue('')}>
+          x
+        </button>
+      )} */}
     </div>
   );
 });

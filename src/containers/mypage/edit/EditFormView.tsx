@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Button from '@/components/basic/Button';
 import formReply from '@/services/api/forms/formReply';
 import ArrowRightCircle from '../../../../public/svg/ArrowRightCircle';
@@ -17,7 +18,11 @@ export default function EditFormView(props: FormProps) {
   const { form, formId } = props;
   const formSplit = form.split('\n');
   let count = 0;
+  const [selectedRadio, setSelectedRadio] = useState(new Map<number, string>());
 
+  const handleRadioChange = (cnt: number, value: string) => {
+    setSelectedRadio(new Map(selectedRadio.set(cnt, value)));
+  };
   const handleInput = (content: string) => {
     return <FormInput content={content} count={count} userPlatForm="pc" />;
   };
@@ -25,7 +30,16 @@ export default function EditFormView(props: FormProps) {
   const handleRadio = (text: string) => {
     const items = text.split('_');
     const item = items.map((value) => {
-      return <FormRadio key={value} value={value} count={count} userPlatForm="pc" />;
+      return (
+        <FormRadio
+          key={value}
+          value={value}
+          count={count}
+          selectedRadio={selectedRadio}
+          onRadioChange={handleRadioChange}
+          userPlatForm="pc"
+        />
+      );
     });
     return <div className="flex flex-col gap-2.5">{item}</div>;
   };
