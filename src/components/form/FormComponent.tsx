@@ -122,9 +122,17 @@ export default function FormComponent({ formId, form }: FormProps) {
     switch (command) {
       // Question
       case '[질문]':
-        return <p className="h3-bold text-gray-dark-active">Q. {content}</p>;
+        return (
+          <div className={clsx(`{userPlatForm === 'pc' ? 'w-[677px]' : 'w-[90vw]'}`)}>
+            <p className="h3-bold text-gray-dark-active">Q. {content}</p>
+          </div>
+        );
       case '[질문_*]':
-        return <p className="h3-bold text-gray-dark-active">Q. {content} *</p>;
+        return (
+          <div className={clsx(`{userPlatForm === 'pc' ? 'w-[677px]' : 'w-[90vw]'}`)}>
+            <p className="h3-bold text-gray-dark-active">Q. {content} *</p>
+          </div>
+        );
 
       // Answer
       case '[주관식]':
@@ -139,9 +147,18 @@ export default function FormComponent({ formId, form }: FormProps) {
 
       // Text
       case '[텍스트]':
-        return <p className="self-stretch b1 text-gray-dark-active">{content}</p>;
+        return (
+          <div className={clsx(`{userPlatForm === 'pc' ? 'w-[677px]' : 'w-[90vw]'}`)}>
+            <p className="b1 text-gray-dark-active">{content}</p>
+          </div>
+        );
       case '[제목]':
-        return <p className="h1-bold text-gray-dark-active">{content}</p>;
+        return (
+          <div className={clsx(`{userPlatForm === 'pc' ? 'w-[677px]' : 'w-[90vw]'}`)}>
+            <p className="h1-bold text-gray-dark-active">{content}</p>
+          </div>
+        );
+
       default:
         return <p className="b1-bold text-gray-dark-active">{content}</p>;
     }

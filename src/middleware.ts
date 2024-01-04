@@ -24,7 +24,7 @@ export default function middleware(request: NextRequest) {
   if (PRODUCTION_DOMAINS.includes(subDomain)) {
     // const rootUrl = new URL(PATH.ROUTE.ROOT, request.url);
     // const myPageUrl = new URL(PATH.ROUTE.MYPAGE, request.url);
-    if (pathName === PATH.ROUTE.ROOT) {
+    if (pathName === PATH.ROUTE.ROOT && subDomain === 'app') {
       return NextResponse.redirect('https:formflet.site');
     }
     // if (

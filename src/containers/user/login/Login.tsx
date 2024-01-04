@@ -100,7 +100,7 @@ export default function Login() {
             placeholder={MESSAGE.JOIN_LOGIN.inputPassword}
             {...register('password')}
           />
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between w-full">
             {errors.email?.message || errorMessage ? (
               <span className="b2 text-semantic-danger-normal">
                 {errors.email?.message || errorMessage}

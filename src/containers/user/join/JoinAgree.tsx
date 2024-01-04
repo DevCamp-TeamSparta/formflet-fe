@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/basic/Button';
-import RectangleCheckOn from '../../../public/svg/RectangleCheckOn';
-import RectangleCheckOff from '../../../public/svg/RectangleCheckoff';
+import RectangleCheckOn from '../../../../public/svg/RectangleCheckOn';
+import RectangleCheckOff from '../../../../public/svg/RectangleCheckOff';
 import { SetStateBoolean } from '@/types/type';
 
 function JoinAgree({ setStateBoolean }: SetStateBoolean) {
