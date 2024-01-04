@@ -7,28 +7,32 @@ import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import Button from '@/components/basic/Button';
 import { JoinFormSchema, joinFormSchema } from '@/types/type';
-import PATH from '@/constants/path/Path';
 import userJoin from '@/services/api/users/userJoin';
-import DropDownGroup from '@/components/common/dropDownGroup';
-import JOB_LIST from '@/constants/jobs/JobList';
-import JoinAgree from './JoinAgree';
-import userVerifyEmail from '@/services/api/users/userVerifyEmail';
-import MESSAGE from '@/constants/Messages';
-import Input from '@/components/basic/Input';
 import userVerifyCode from '@/services/api/users/userVerifyCode';
+import userJoinVerifyEmail from '@/services/api/users/userJoinVerifyEmail';
+import DropDownGroup from '@/components/common/dropDownGroup';
+import JoinAgree from './JoinAgree';
+import Input from '@/components/basic/Input';
+import Spinner from '@/components/common/Spinner';
+import JOB_LIST from '@/constants/jobs/JobList';
+import MESSAGE from '@/constants/Messages';
+import PATH from '@/constants/path/Path';
+import REGEX from '@/constants/Regexs';
 
 export default function Join() {
   const {
     register,
     handleSubmit,
     getValues,
-    formState: { errors },
+    watch,
+    formState: { errors, touchedFields },
   } = useForm<JoinFormSchema>({
     resolver: zodResolver(joinFormSchema),
   });
   const route = useRouter();
   const [joinButtonState, setJoinButtonState] = useState<boolean>(false);
   const [isMailSent, setIsMailSent] = useState<boolean>(false);
+  const [isLoadingMail, setIsLoadingMail] = useState<boolean>(false);
   const [emailState, setEmailState] = useState({
     message: '',
     state: false,
@@ -50,22 +54,27 @@ export default function Join() {
     if (!email) {
       return;
     }
-    await userVerifyEmail(email)
+    setIsLoadingMail(true);
+    await userJoinVerifyEmail(email)
       .then(() => {
         setIsMailSent(true);
+        setIsLoadingMail(false);
         setTimeout(() => setIsMailSent(false), 300000);
       })
-      .catch(() => setEmailState({ message: MESSAGE.JOIN_LOGIN.inVaildEmail, state: false }));
+      .catch(() => {
+        setIsLoadingMail(false);
+        setEmailState({ message: MESSAGE.JOIN_LOGIN.inVaildEmail, state: false });
+      });
   };
 
   const isVaildCode = async () => {
     const email = getValues('email');
     const code = document.querySelector<HTMLInputElement>('input[id="code"]')?.value;
-
     const data = {
       email,
       code: Number(code),
     };
+
     if (code) {
       await userVerifyCode(data)
         .then(() => {
@@ -108,7 +117,7 @@ export default function Join() {
               disabled={isMailSent}
               onClick={() => isVaildEmail()}
             >
-              <p className="text-white b1-bold">인증 메일 전송</p>
+              {!isLoadingMail ? <p className="text-white b1-bold">인증 메일 전송</p> : <Spinner />}
             </Button>
           </div>
           {isMailSent && (
@@ -120,9 +129,13 @@ export default function Join() {
                 autoComplete="off"
               />
               <Button
-                className="flex w-40 h-14 justify-center items-center px-2 py-4 shrink-0 bg-purple-normal-normal box-shadow-normal rounded-lg gap-1.5"
+                className={clsx(
+                  'flex w-40 h-14 justify-center items-center px-2 py-4 shrink-0 bg-purple-normal-normal box-shadow-normal rounded-lg gap-1.5',
+                  { 'opacity-30': emailState.state },
+                )}
                 id="btn-checkEmail"
                 type="button"
+                disabled={emailState.state}
                 onClick={() => isVaildCode()}
               >
                 <p className="text-white b1-bold">인증 확인</p>
@@ -155,8 +168,14 @@ export default function Join() {
               {...register('password')}
             />
           </div>
-          {errors.password?.message && (
-            <p className="b2 text-semantic-danger-normal">{errors.password?.message}</p>
+          {((touchedFields.password && !REGEX.password.test(watch('password'))) ||
+            errors.password?.message) && (
+            <p className="b2 text-semantic-danger-normal">
+              {
+                (errors.password?.message,
+                '영문, 숫자, 특수문자 포함 8~15자 양식에 맞춰 입력해주세요.')
+              }
+            </p>
           )}
         </div>
         <div className="flex flex-col items-start justify-center gap-3">
@@ -205,10 +224,11 @@ export default function Join() {
           type="submit"
           disabled={
             !emailState.state ||
-            !joinButtonState ||
-            getValues('job') === '' ||
+            getValues('password') === '' ||
             getValues('name') === '' ||
-            getValues('mobile').length !== 13
+            getValues('mobile').length !== 13 ||
+            getValues('job') === '' ||
+            !joinButtonState
           }
         >
           <p className="text-white b1-bold">회원가입</p>

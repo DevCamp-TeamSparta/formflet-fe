@@ -1,54 +1,24 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import NotionComponent from '@/components/notion/NotionComponent';
-import pageContent from '@/services/api/pages/pageContent';
-import {
-  useCtaStore,
-  useDisplayStore,
-  usePageStore,
-  useFontStore,
-  useFormStore,
-} from '@/store/store';
+import { useCtaStore, useDisplayStore, usePageStore, useFormStore } from '@/store/store';
 import EditForm from './EditForm';
 import EditFormView from './EditFormView';
 import EditFormExample from './EditFormExample';
 import CtaComponent from '@/components/cta/CtaComponent';
+import { LoadState } from '@/types/type';
 
-export default function EditDisplay({ pageId }: PageProps) {
-  const [isloaded, setIsLoaded] = useState(false);
+export default function EditDisplay({ isLoaded }: LoadState) {
   const { display } = useDisplayStore((state) => ({
     display: state.display,
     setDisplay: state.setDisplay,
   }));
   const pageStore = usePageStore();
-  const { setFont } = useFontStore((state) => ({ setFont: state.setFont }));
-  const { form, setFormALl } = useFormStore((state) => ({
-    formStatus: state.formStatus,
+  const { form } = useFormStore((state) => ({
     form: state.form,
-    setFormALl: state.setFormAll,
   }));
   const ctaStore = useCtaStore();
-
-  useEffect(() => {
-    const getPageContent = async () => {
-      const response = await pageContent({ pageId });
-      return response.data.data;
-    };
-    const fetchPage = async (): Promise<void> => {
-      const pageData = await getPageContent();
-      pageStore.setDomain(pageData.domain);
-      pageStore.setPageId(pageData.id);
-      pageStore.setPageContent(pageData.pageDetail.content);
-      pageStore.setUrl(pageData.url);
-      setFont(pageData.pageFont.type);
-      setFormALl(pageData.form[0]);
-      ctaStore.setCtaAll(pageData.cta);
-
-      setIsLoaded(true);
-    };
-    fetchPage().catch(() => {});
-  }, [pageId]);
 
   const resizer = useRef<HTMLDivElement>(null);
   const leftSide = useRef<HTMLDivElement>(null);
@@ -103,7 +73,7 @@ export default function EditDisplay({ pageId }: PageProps) {
     <div className="m-[20px_20px_20px_0] grow w-full min-h-full border rounded-[8px] border-gray-light-active overflow-hidden">
       {
         {
-          display: isloaded && (
+          display: isLoaded && (
             <div>
               <NotionComponent recordMap={pageStore.pageContent} />
               <div className="fixed bottom-10 left-[58%] transform -translate-x-1/2">

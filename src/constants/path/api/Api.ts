@@ -1,7 +1,8 @@
 const USERS = Object.freeze({
   JOIN: '/api/users/join',
-  VERIFY_EMAIL: '/api/users/verify-email',
-  VERIFY_CODE: '/api/users/verify-code',
+  JOIN_VERIFY_EMAIL: '/api/users/join/verify-email',
+  PASSWORD_VERIFY_CODE: '/api/users/verify-code',
+  PASSWORD_RESET: '/api/users/password/reset',
 });
 
 const AUTH = Object.freeze({

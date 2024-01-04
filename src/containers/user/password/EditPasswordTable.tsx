@@ -1,11 +1,31 @@
+import { useRouter } from 'next/navigation';
 import Button from '@/components/basic/Button';
 import Input from '@/components/basic/Input';
 import MESSAGE from '@/constants/Messages';
-import { SetStateBoolean } from '@/types/type';
+import PATH from '@/constants/path/Path';
+import userPasswordReset from '@/services/api/users/userPasswordReset';
 
-export default function EditPasswordTable({ setStateBoolean }: SetStateBoolean) {
-  const handleEditPassword = () => {
-    setStateBoolean(false);
+interface EditPasswordProps {
+  email: string;
+  isSuccessVerify: boolean;
+}
+
+export default function EditPasswordTable({ email, isSuccessVerify }: EditPasswordProps) {
+  const route = useRouter();
+  const handleEditPassword = async () => {
+    const currentEmail = document.querySelector<HTMLInputElement>('input[id="email]')?.value;
+    const password = document.querySelector<HTMLInputElement>('input[id="password"]')?.value;
+    if (email === currentEmail && isSuccessVerify) {
+      const data = {
+        email,
+        password,
+      };
+      await userPasswordReset(data).then(() => {
+        route.push(PATH.ROUTE.LOGIN);
+      });
+    } else {
+      alert('이메일을 다시 확인해주세요.');
+    }
   };
   return (
     <div className="flex flex-col justify-center gap-5">

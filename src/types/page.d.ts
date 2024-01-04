@@ -1,4 +1,4 @@
-interface PageProps {
+interface PageIdProps {
   pageId: string;
 }
 

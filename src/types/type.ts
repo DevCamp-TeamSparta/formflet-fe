@@ -17,6 +17,10 @@ export interface OnClickProps {
   onClick: () => Promise<void>;
 }
 
+export interface LoadState {
+  isLoaded: boolean;
+}
+
 export interface SetStateBoolean {
   setStateBoolean: React.Dispatch<React.SetStateAction<boolean>>;
 }

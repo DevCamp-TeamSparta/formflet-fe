@@ -61,6 +61,7 @@ export default function RegisterPage() {
     >
       <div className="flex flex-col justify-center items-start gap-2.5 self-stretch">
         <p className="b1-bold text-gray-dark-active">웹페이지 이름</p>
+        <p className="b2 text-gray-dark-normal">웹페이지를 식별할 수 있는 이름을 지어주세요!</p>
         <Input
           className="flex w-[786px] h-10 justify-end items-center gap-2.5 border border-gray-normal-normal box-shadow-normal focus:box-active-shadow-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
           key="title"
@@ -70,12 +71,16 @@ export default function RegisterPage() {
       </div>
       <div className="flex flex-col justify-center items-start gap-2.5 self-stretch">
         <p className="b1-bold text-gray-dark-active">웹페이지 주소</p>
+        <p className="b2 text-gray-dark-normal">
+          나만의 웹페이지의 주소를 입력해주세요! 이 주소는 한번 설정하면 바꿀 수 없어요.
+        </p>
         <div className="flex flex-col items-start gap-2.5">
           <div className="flex items-end gap-2.5">
             <Input
-              className="flex w-[677px] h-10 justify-end items-center gap-2.5 border border-gray-normal-normal box-shadow-normal focus:box-active-shadow-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
+              className="flex w-[677px] h-10 justify-end items-center gap-2.5 border border-gray-normal-normal box-shadow-normal focus:box-active-shadow-normal text-gray-dark-hover placeholder:text-gray-light-active px-5 py-4 rounded-lg border-solid"
               key="domain-url"
               id="domain-url"
+              placeholder="영문, 숫자, 하이픈만 사용 가능"
               {...register('domain')}
             />
             <p className="b1 text-gray-normal-normal">.formflet.co/</p>
@@ -108,7 +113,7 @@ export default function RegisterPage() {
       </div>
       <div className="flex flex-col gap-2.5">
         <Input
-          className="flex w-[786px] h-10 justify-end items-center border border-gray-normal-normal box-shadow-normal focus:box-active-shadow-normal text-gray-dark-hover px-5 py-4 rounded-lg border-solid"
+          className="flex w-[786px] h-10 justify-end items-center border border-gray-normal-normal box-shadow-normal focus:box-active-shadow-normal text-gray-dark-hover placeholder:text-gray-light-active px-5 py-4 rounded-lg border-solid"
           key="notion-url"
           id="notion-url"
           placeholder="notion.so/formflet/"
