@@ -79,6 +79,7 @@ export default function Join() {
                 className="flex w-[331px] h-14 items-center px-8 py-4 shrink-0 border border-gray-normal-normal box-shadow-normal focus:box-active-shadow-normal placeholder:text-gray-light-active text-gray-dark-hover rounded-lg"
                 id="email"
                 type="text"
+                autoComplete="off"
                 placeholder={MESSAGE.JOIN_LOGIN.inputEmail}
                 {...register('email')}
               />
@@ -113,6 +114,7 @@ export default function Join() {
                 className="flex w-[502px] h-14 items-center gap-2.5 px-8 py-4 border border-gray-normal-normal text-gray-dark-hover placeholder:text-gray-light-active box-shadow-normal focus:box-active-shadow-normal rounded-lg"
                 id="password"
                 type="password"
+                autoComplete="off"
                 placeholder={MESSAGE.JOIN_LOGIN.inputPassword}
                 {...register('password')}
               />
