@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useCtaStore } from '@/store/store';
+import { useCtaStore, useFormStore } from '@/store/store';
 import Button from '../basic/Button';
 
 interface CtaProps {
@@ -11,12 +11,13 @@ interface CtaProps {
 }
 
 export default function CtaComponent({ params }: CtaProps) {
-  const ctaStore = useCtaStore();
   const route = useRouter();
+  const ctaStore = useCtaStore();
+  const formStatus = useFormStore((state) => state.formStatus);
   const pageDomain = params.subdomain;
 
   const handleRoute = () => {
-    if (ctaStore.ctaLink === '' && pageDomain) {
+    if (!formStatus && pageDomain) {
       route.push(`/form/${pageDomain}`);
     } else {
       // TODO: 편집 화면에서 클릭 시 동작안하도록 하기

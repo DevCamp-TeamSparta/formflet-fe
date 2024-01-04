@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 import PATH from '@/constants/path/Path';
 import Logo from '../../../public/svg/Logo';
 import Logout from '../common/Logout';
-import ArrowRightCircle from '../../../public/svg/ArrowRightCircle';
 
 export default function Header() {
   const pathName = usePathname();
@@ -34,15 +33,6 @@ export default function Header() {
             ))}
             <Logout />
           </nav>
-        )}
-        {pathName === PATH.ROUTE.ROOT && (
-          <Link
-            className="flex h-9 bg-purple-normal-normal items-center box-shadow-normal gap-2.5 px-5 py-4 rounded-lg"
-            href={PATH.ROUTE.LOGIN}
-          >
-            <p className="b1-bold text-white">로그인</p>
-            <ArrowRightCircle />
-          </Link>
         )}
       </div>
       <hr className="self-stretch text-gray-light-active" />
