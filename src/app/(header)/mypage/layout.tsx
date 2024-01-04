@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import NavHeader from '@/components/basic/NavHeader';
 import PATH from '@/constants/path/Path';
 import authReissue from '@/services/api/auth/authReissue';
@@ -9,7 +9,6 @@ import Instance from '@/services/api/Instance';
 
 export default function MyPageLayout({ children }: { children: React.ReactNode }) {
   const route = useRouter();
-  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     const checkRefreshToken = async () => {
@@ -23,7 +22,6 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
         }
         localStorage.setItem('accessToken', getAccessToken);
         Instance.defaults.headers.common.Authorization = `Bearer ${getAccessToken}`;
-        setIsReady(true);
       } catch (e) {
         console.log(e);
       }
@@ -34,7 +32,7 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
   return (
     <div>
       <NavHeader />
-      {isReady && children}
+      {children}
     </div>
   );
 }
