@@ -19,9 +19,9 @@ function JoinAgree({ setStateBoolean }: SetStateBoolean) {
 
   useEffect(() => {
     if (agree) {
-      setStateBoolean(false);
-    } else {
       setStateBoolean(true);
+    } else {
+      setStateBoolean(false);
     }
   }, [agree]);
 

@@ -26,9 +26,8 @@ export default function Join() {
   } = useForm<JoinFormSchema>({
     resolver: zodResolver(joinFormSchema),
   });
-
   const route = useRouter();
-  const [joinButtonDisabled, setJoinButtonDisabled] = useState<boolean>(false);
+  const [joinButtonState, setJoinButtonState] = useState<boolean>(false);
   const [isMailSent, setIsMailSent] = useState<boolean>(false);
   const [emailState, setEmailState] = useState({
     message: '',
@@ -42,7 +41,7 @@ export default function Join() {
         route.push(PATH.ROUTE.LOGIN);
       }
     } catch (e) {
-      console.error('[ERROR]', e);
+      console.error('[ERROR] 회원가입에 실패하셨습니다!', e);
     }
   };
 
@@ -199,12 +198,18 @@ export default function Join() {
           />
         </div>
         <DropDownGroup id="job" items={JOB_LIST} label="직무" {...register('job')} />
-        <JoinAgree setStateBoolean={setJoinButtonDisabled} />
+        <JoinAgree setStateBoolean={setJoinButtonState} />
         <Button
           className="flex bg-purple-normal-normal box-shadow-normal w-[502px] h-14 justify-center items-center rounded-lg disabled:bg-gray-normal-normal disabled:text-gray-normal-normal"
           id="btn-join"
           type="submit"
-          disabled={joinButtonDisabled}
+          disabled={
+            !emailState.state ||
+            !joinButtonState ||
+            getValues('job') === '' ||
+            getValues('name') === '' ||
+            getValues('mobile').length !== 13
+          }
         >
           <p className="text-white b1-bold">회원가입</p>
         </Button>
