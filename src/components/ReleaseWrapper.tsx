@@ -26,6 +26,7 @@ export default function ReleaseWrapper({
 
   const font = page.pageFont.type;
   const formStatus = page.form[0].status;
+  console.log(page);
 
   useEffect(() => {
     setFont(font);

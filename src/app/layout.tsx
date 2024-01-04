@@ -1,4 +1,3 @@
-import Header from '@/components/basic/Header';
 import './globals.css';
 import ModalPortal from '@/components/modal/ModalPortal';
 
@@ -16,7 +15,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta property="og:type" content="website" />
       </head>
       <body>
-        <Header />
         {children}
         <ModalPortal />
       </body>

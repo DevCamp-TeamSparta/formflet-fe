@@ -17,7 +17,7 @@ export default function CtaComponent({ params }: CtaProps) {
   const pageDomain = params.subdomain;
 
   const handleRoute = () => {
-    if (!formStatus && pageDomain) {
+    if (formStatus && pageDomain) {
       route.push(`/form/${pageDomain}`);
     } else {
       // TODO: 편집 화면에서 클릭 시 동작안하도록 하기
