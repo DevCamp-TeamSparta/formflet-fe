@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Cookies from 'universal-cookie';
 import Link from 'next/link';
 import Button from '@/components/basic/Button';
 import { loginFormSchema, LoginFormSchema } from '@/types/type';
@@ -34,12 +35,16 @@ export default function Login() {
   }
 
   async function onSilentRefresh() {
-    try {
-      const response = await authReissue();
-      onLoginSuccess(response.data.data.accessToken);
-    } catch (e) {
-      alert('재로그인 실패!');
-      route.push(PATH.ROUTE.LOGIN);
+    const cookies = new Cookies();
+    const refreshToken = cookies.get('refresh-token');
+    if (refreshToken) {
+      try {
+        const response = await authReissue();
+        onLoginSuccess(response.data.data.accessToken);
+      } catch (e) {
+        alert('재로그인 실패!');
+        route.push(PATH.ROUTE.LOGIN);
+      }
     }
   }
 
@@ -47,7 +52,7 @@ export default function Login() {
    * 로그인 실패시 에러 출력
    * 성공 시 Access Token은 localStorage, Refresh Token은 쿠키에 저장한다.
    * 로그인 정보가 필요한 instance의 헤더에 access token을 authorization에 defualt 값으로 저장한다.
-   * Access Token이 만료 시간이 되기 전에 Silent Refresh 로직을 실행하여 사용자의 로그인이 유지되도록 한다.
+   * Access Token이 만료 시간이 되기 전에 refresh token이 있을 경우 Silent Refresh 로직을 실행하여 사용자의 로그인이 유지되도록 한다.
    * @param data email, password
    */
   const loginFormSubmit: SubmitHandler<LoginFormSchema> = async (
@@ -95,13 +100,19 @@ export default function Login() {
             placeholder={MESSAGE.JOIN_LOGIN.inputPassword}
             {...register('password')}
           />
-          {(errors.email?.message || errorMessage) && (
-            <span className="b2 text-semantic-danger-normal">
-              {errors.email?.message || errorMessage}
-            </span>
-          )}
+          <div className="flex flex-row justify-between">
+            {errors.email?.message || errorMessage ? (
+              <span className="b2 text-semantic-danger-normal">
+                {errors.email?.message || errorMessage}
+              </span>
+            ) : (
+              <span />
+            )}
+            <Link className="underline b2 text-gray-normal-normal" href={PATH.ROUTE.PASSWORD}>
+              비밀번호 재설정
+            </Link>
+          </div>
         </div>
-        {/* <Link href={PATH.ROUTE.EDIT_PASSWORD}>비밀번호 재설정</Link> */}
         <Button
           className="flex bg-purple-normal-normal box-shadow-normal w-[502px] h-14 justify-center items-center rounded-lg"
           id="btn-login"

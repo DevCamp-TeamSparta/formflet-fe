@@ -6,7 +6,7 @@ const JOIN = '/join';
 
 const LOGIN = '/login';
 
-const EDIT_PASSWORD = '/editpasswod';
+const PASSWORD = '/password';
 
 const MYPAGE = '/mypage';
 
@@ -32,7 +32,7 @@ const ROUTE = Object.freeze({
   DATA,
   LOGIN,
   MYPAGE,
-  EDIT_PASSWORD,
+  PASSWORD,
   NAV_LIST,
   EDIT,
 });
