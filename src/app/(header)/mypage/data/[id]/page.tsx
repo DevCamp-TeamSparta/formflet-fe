@@ -42,7 +42,6 @@ export default function DataDetailPage({ params }: PageProps) {
     if (selectedForm) {
       setSelectedFormDetail(selectedForm.formDetails);
     }
-    console.log(selectedFormDetail);
   };
 
   useEffect(() => {
