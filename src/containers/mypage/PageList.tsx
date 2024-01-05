@@ -17,7 +17,7 @@ export default function PageList({ setStateString }: SetStateString) {
 
         const { data } = response.data;
 
-        if (data.length >= 4) {
+        if (data.length >= 3) {
           setStateString('hidden');
         } else {
           setStateString('visible');
