@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from '@/components/basic/Button';
 import ArrowRightCircle from '../../../../public/svg/ArrowRightCircle';
 import FormRadio from '@/components/form/FormRadio';
@@ -11,15 +11,9 @@ import { useFormStore } from '@/store/store';
 
 export default function EditFormView() {
   const form = useFormStore((state) => state.form);
-  const [formSplit, setFormSplit] = useState(new Array<string>());
+  const formSplit = form.split('\n');
   let count = 0;
   const [selectedRadio, setSelectedRadio] = useState(new Map<number, string>());
-
-  useEffect(() => {
-    if (form) {
-      setFormSplit(form.split('\n'));
-    }
-  }, [form]);
 
   const handleRadioChange = (cnt: number, value: string) => {
     setSelectedRadio(new Map(selectedRadio.set(cnt, value)));
