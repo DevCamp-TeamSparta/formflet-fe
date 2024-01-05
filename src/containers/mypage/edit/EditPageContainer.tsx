@@ -5,6 +5,8 @@ import EditDisplay from './EditDisplay';
 import EditSidebar from './EditSidebar';
 import pageContent from '@/services/api/pages/pageContent';
 import { useCtaStore, useFontStore, useFormStore, usePageStore } from '@/store/store';
+import useModalStore from '@/store/modalStore';
+import RouteBackModal from '@/components/modal/RouteBackModal';
 
 export default function EditPageContainer({ pageId }: PageIdProps) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -14,6 +16,29 @@ export default function EditPageContainer({ pageId }: PageIdProps) {
   const { setFormALl } = useFormStore((state) => ({
     setFormALl: state.setFormAll,
   }));
+  const setModal = useModalStore((state) => state.setModal);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = '';
+    };
+    const browserPreventEvent = (e: (modal: React.ReactNode) => void) => {
+      window.history.pushState(null, '', window.location.href);
+      e(<RouteBackModal />);
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('popstate', () => {
+      browserPreventEvent(setModal);
+    });
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('popstate', () => {
+        browserPreventEvent(setModal);
+      });
+    };
+  }, []);
 
   useEffect(() => {
     const getPageContent = async () => {

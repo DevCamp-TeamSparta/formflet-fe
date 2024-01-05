@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import ImacImage from '../../public/svg/ImacImage';
 import PATH from '@/constants/path/Path';
