@@ -21,9 +21,9 @@ export default function middleware(request: NextRequest) {
   const subDomain = request.nextUrl.hostname.split('.')[0];
 
   if (PRODUCTION_DOMAINS.includes(subDomain)) {
-    // if (pathName === PATH.ROUTE.ROOT && subDomain === ('app' || 'www')) {
-    //   return NextResponse.redirect(new URL('https://www.formflet.site', request.url));
-    // }
+    if (pathName === PATH.ROUTE.ROOT && (subDomain === 'app' || subDomain === 'www')) {
+      return NextResponse.redirect('https://www.formflet.site');
+    }
   } else if (pathName === PATH.ROUTE.ROOT) {
     return NextResponse.rewrite(new URL(`/page/${subDomain}`, request.url));
   }
