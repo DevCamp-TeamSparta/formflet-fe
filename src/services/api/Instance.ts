@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } 
 import PATH from '@/constants/path/Path';
 
 const Instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_APY_KEY,
+  baseURL: process.env.NEXT_PUBLIC_API_KEY,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 });
