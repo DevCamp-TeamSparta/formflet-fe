@@ -1,4 +1,4 @@
-import Instance from '@/services/api/Instance';
+import { ReleaseInstance } from '@/services/api/Instance';
 import NotionComponent from '@/components/notion/NotionComponent';
 import ReleaseWrapper from '@/components/ReleaseWrapper';
 import CtaComponent from '@/components/cta/CtaComponent';
@@ -11,7 +11,7 @@ interface PageProps {
 export default async function NotionPage({ params }: PageProps) {
   const pageDomain = params.subdomain;
 
-  const response = await Instance.get<{
+  const response = await ReleaseInstance.get<{
     statusCode: number;
     message: string;
     data: Page;
