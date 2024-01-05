@@ -15,6 +15,12 @@ export const ReleaseInstance = axios.create({
 
 Instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    if (
+      config.headers.Authorization !== localStorage.getItem('accessToken') &&
+      !localStorage.getItem('accessToken')
+    ) {
+      config.headers.setAuthorization(`Bearer ${localStorage.getItem('accessToken')}`);
+    }
     return config;
   },
   (error) => {

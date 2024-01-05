@@ -1,4 +1,4 @@
-import Instance from '@/services/api/Instance';
+import { ReleaseInstance } from '@/services/api/Instance';
 import ReleaseWrapper from '@/components/ReleaseWrapper';
 import FormComponent from '@/components/form/FormComponent';
 
@@ -11,7 +11,7 @@ interface PageProps {
 export default async function FormPage({ params }: PageProps) {
   const pageSubDomain = params.subdomain;
 
-  const response = await Instance.get<{
+  const response = await ReleaseInstance.get<{
     statusCode: number;
     message: string;
     data: Page;

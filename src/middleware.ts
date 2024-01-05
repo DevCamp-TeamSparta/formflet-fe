@@ -22,7 +22,7 @@ export default function middleware(request: NextRequest) {
 
   if (PRODUCTION_DOMAINS.includes(subDomain)) {
     if (pathName === PATH.ROUTE.ROOT && subDomain === ('app' || 'www')) {
-      return NextResponse.redirect(new URL('https://formflet.site', request.url));
+      return NextResponse.redirect(new URL('https://www.formflet.site', request.url));
     }
   } else if (pathName === PATH.ROUTE.ROOT) {
     return NextResponse.rewrite(new URL(`/page/${subDomain}`, request.url));
