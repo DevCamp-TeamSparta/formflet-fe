@@ -15,6 +15,9 @@ export const ReleaseInstance = axios.create({
 
 Instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    if (config.headers.Authorization !== localStorage.getItem('accessToken')) {
+      config.headers.setAuthorization(`Bearer ${localStorage.getItem('accessToken')}`);
+    }
     return config;
   },
   (error) => {
@@ -78,7 +81,7 @@ Instance.interceptors.response.use(
             return axios(config);
           }
         }
-      } else if (response.data.message === 'Invaild') {
+      } else if (response.data.message === 'Invaild Signature') {
         return Promise.reject(error);
       }
     }

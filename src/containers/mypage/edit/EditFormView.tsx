@@ -1,24 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@/components/basic/Button';
-import formReply from '@/services/api/forms/formReply';
 import ArrowRightCircle from '../../../../public/svg/ArrowRightCircle';
 import FormRadio from '@/components/form/FormRadio';
 import FormCheckbox from '@/components/form/FormCheckbox';
 import MadeLogo from '@/components/MadeLogo';
 import FormInput from '@/components/form/FormInput';
+import { useFormStore } from '@/store/store';
 
-interface FormProps {
-  formId: number;
-  form: string;
-}
-
-export default function EditFormView(props: FormProps) {
-  const { form, formId } = props;
-  const formSplit = form.split('\n');
+export default function EditFormView() {
+  const form = useFormStore((state) => state.form);
+  const [formSplit, setFormSplit] = useState(new Array<string>());
   let count = 0;
   const [selectedRadio, setSelectedRadio] = useState(new Map<number, string>());
+
+  useEffect(() => {
+    if (form) {
+      setFormSplit(form.split('\n'));
+    }
+  }, [form]);
 
   const handleRadioChange = (cnt: number, value: string) => {
     setSelectedRadio(new Map(selectedRadio.set(cnt, value)));
@@ -97,31 +98,12 @@ export default function EditFormView(props: FormProps) {
           </div>
         );
       default:
-        return <p className="b1-bold text-gray-dark-active">{content}</p>;
-    }
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (formId) {
-      const formData = new FormData(event.currentTarget);
-      const submitData: Array<FormDataEntryValue[]> = [];
-      for (let i = 1; i <= count; i += 1) {
-        const getData = formData.getAll(`answer${i}`);
-        submitData.push(getData);
-      }
-      const response = await formReply(formId, submitData);
-      if (response.status === 201) {
-        alert('성공!');
-      }
+        return null;
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col items-start gap-5 flex-[1_0_0] self-stretch p-[30px] rounded-[0px_8px_8px_0px]"
-    >
+    <form className="flex flex-col items-start gap-5 flex-[1_0_0] self-stretch p-[30px] rounded-[0px_8px_8px_0px]">
       {formSplit.map((item) => {
         const content = handleForm(item);
         return <div key={item}>{content}</div>;

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import NotionComponent from '@/components/notion/NotionComponent';
-import { useCtaStore, useDisplayStore, usePageStore, useFormStore } from '@/store/store';
+import { useCtaStore, useDisplayStore, usePageStore } from '@/store/store';
 import EditForm from './EditForm';
 import EditFormView from './EditFormView';
 import EditFormExample from './EditFormExample';
@@ -15,9 +15,7 @@ export default function EditDisplay({ isLoaded }: LoadState) {
     setDisplay: state.setDisplay,
   }));
   const pageStore = usePageStore();
-  const { form } = useFormStore((state) => ({
-    form: state.form,
-  }));
+
   const ctaStore = useCtaStore();
 
   const resizer = useRef<HTMLDivElement>(null);
@@ -101,7 +99,7 @@ export default function EditDisplay({ isLoaded }: LoadState) {
                 className="cursor-ew-resize h-full w-2.5 bg-gray-light-active shrink-0"
               />
               <div ref={rightSide} className="flex items-center overflow-hidden">
-                <EditFormView form={form} formId={0} />
+                <EditFormView />
               </div>
             </div>
           ),
