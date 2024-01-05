@@ -19,23 +19,11 @@ const PRODUCTION_DOMAINS = ['www', 'test', 'localhost', '127', 'app'];
 export default function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   const subDomain = request.nextUrl.hostname.split('.')[0];
-  // const accessToken = request.headers.get('authorization');
 
   if (PRODUCTION_DOMAINS.includes(subDomain)) {
-    // const rootUrl = new URL(PATH.ROUTE.ROOT, request.url);
-    // const myPageUrl = new URL(PATH.ROUTE.MYPAGE, request.url);
-    // if (pathName === PATH.ROUTE.ROOT && subDomain === ('app' || 'www')) {
-    //   return NextResponse.redirect('https://formflet.site');
-    // }
-    // if (
-    //   (pathName.startsWith(PATH.ROUTE.LOGIN) || pathName.startsWith(PATH.ROUTE.JOIN)) &&
-    //   accessToken
-    // ) {
-    //   return NextResponse.redirect(rootUrl);
-    // }
-    // if (pathName === PATH.ROUTE.ROOT && accessToken) {
-    //   return NextResponse.redirect(myPageUrl);
-    // }
+    if (pathName === PATH.ROUTE.ROOT && subDomain === ('app' || 'www')) {
+      return NextResponse.redirect('https://formflet.site');
+    }
   } else if (pathName === PATH.ROUTE.ROOT) {
     return NextResponse.rewrite(new URL(`/page/${subDomain}`, request.url));
   }

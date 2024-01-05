@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { AxiosResponse } from 'axios';
 import clsx from 'clsx';
 import Button from '@/components/basic/Button';
 import { JoinFormSchema, joinFormSchema } from '@/types/type';
@@ -61,9 +62,13 @@ export default function Join() {
         setIsLoadingMail(false);
         setTimeout(() => setIsMailSent(false), 300000);
       })
-      .catch(() => {
+      .catch((response: AxiosResponse) => {
         setIsLoadingMail(false);
-        setEmailState({ message: MESSAGE.JOIN_LOGIN.inVaildEmail, state: false });
+        if (response.status === 409) {
+          setEmailState({ message: MESSAGE.JOIN_LOGIN.alreadyUsedEmail, state: false });
+        } else {
+          setEmailState({ message: MESSAGE.JOIN_LOGIN.inVaildEmail, state: false });
+        }
       });
   };
 
