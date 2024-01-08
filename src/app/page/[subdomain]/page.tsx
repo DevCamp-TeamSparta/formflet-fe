@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+// import { Metadata } from 'next';
 import { ReleaseInstance } from '@/services/api/Instance';
 import NotionComponent from '@/components/notion/NotionComponent';
 import ReleaseWrapper from '@/components/ReleaseWrapper';
@@ -10,31 +10,31 @@ interface PageProps {
   };
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const pageDomain = params.subdomain;
+// export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+//   const pageDomain = params.subdomain;
 
-  const response = await ReleaseInstance.get<{
-    statusCode: number;
-    message: string;
-    data: Page;
-  }>(`/api/pages/release/${pageDomain}`);
+//   const response = await ReleaseInstance.get<{
+//     statusCode: number;
+//     message: string;
+//     data: Page;
+//   }>(`/api/pages/release/${pageDomain}`);
 
-  return {
-    title: response.data.data.domain,
-    openGraph: {
-      type: 'website',
-      url: 'https://example.com',
-      title: 'My Website',
-      description: 'My Website Description',
-      siteName: 'My Website',
-      images: [
-        {
-          url: '',
-        },
-      ],
-    },
-  };
-}
+//   return {
+//     title: response.data.data.domain,
+//     openGraph: {
+//       type: 'website',
+//       url: 'https://example.com',
+//       title: 'My Website',
+//       description: 'My Website Description',
+//       siteName: 'My Website',
+//       images: [
+//         {
+//           url: '',
+//         },
+//       ],
+//     },
+//   };
+// }
 
 export default async function NotionPage({ params }: PageProps) {
   const pageDomain = params.subdomain;
