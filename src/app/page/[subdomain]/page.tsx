@@ -10,12 +10,17 @@ interface PageProps {
   };
 }
 
-export function generateMetadata(): Metadata {
-  // const id = params.subdomain;
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const pageDomain = params.subdomain;
 
-  // const metaData = await ReleaseInstance.get;
+  const response = await ReleaseInstance.get<{
+    statusCode: number;
+    message: string;
+    data: Page;
+  }>(`/api/pages/release/${pageDomain}`);
+
   return {
-    title: 'Formflet',
+    title: response.data.data.domain,
     openGraph: {
       type: 'website',
       url: 'https://example.com',
