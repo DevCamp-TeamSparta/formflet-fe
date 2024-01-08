@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { ReleaseInstance } from '@/services/api/Instance';
 import NotionComponent from '@/components/notion/NotionComponent';
 import ReleaseWrapper from '@/components/ReleaseWrapper';
@@ -8,6 +9,28 @@ interface PageProps {
     subdomain: string;
   };
 }
+
+export function generateMetadata(): Metadata {
+  // const id = params.subdomain;
+
+  // const metaData = await ReleaseInstance.get;
+  return {
+    title: 'Formflet',
+    openGraph: {
+      type: 'website',
+      url: 'https://example.com',
+      title: 'My Website',
+      description: 'My Website Description',
+      siteName: 'My Website',
+      images: [
+        {
+          url: '',
+        },
+      ],
+    },
+  };
+}
+
 export default async function NotionPage({ params }: PageProps) {
   const pageDomain = params.subdomain;
 
