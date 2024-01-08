@@ -2,6 +2,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+```bash
+git clone https://github.com/DevCamp-TeamSparta/formflet-fe.git
+cd formflet-fe
+npm install
+```
+
 First, run the development server:
 
 ```bash
